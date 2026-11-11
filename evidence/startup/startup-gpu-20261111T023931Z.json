@@ -1,0 +1,108 @@
+{
+  "run_id": "startup-gpu-20261111T023931Z",
+  "created_utc": "2026-11-11T02:39:31.946Z",
+  "commit": "unknown",
+  "profile": "gpu",
+  "note": "weights are cached on disk and mounted read-only; the service never downloads",
+  "results": [
+    {
+      "kind": "cold_start",
+      "trial": 1,
+      "seconds": 4.559655508026481,
+      "target_s": 120.0,
+      "met": true,
+      "start_rc": 0,
+      "startup_s_reported": 4.108437591698021,
+      "validation": {
+        "passed": true,
+        "reason": "",
+        "n": 16,
+        "backend": "cuda",
+        "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+        "seconds": 0.0502116410061717
+      }
+    },
+    {
+      "kind": "cached_restart",
+      "trial": 1,
+      "seconds": 4.483697790186852,
+      "target_s": 60.0,
+      "met": true,
+      "startup_s_reported": 4.022438003215939,
+      "validation": {
+        "passed": true,
+        "reason": "",
+        "n": 16,
+        "backend": "cuda",
+        "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+        "seconds": 0.04612114792689681
+      }
+    },
+    {
+      "kind": "cold_start",
+      "trial": 2,
+      "seconds": 4.081351862754673,
+      "target_s": 120.0,
+      "met": true,
+      "start_rc": 0,
+      "startup_s_reported": 3.7076551388017833,
+      "validation": {
+        "passed": true,
+        "reason": "",
+        "n": 16,
+        "backend": "cuda",
+        "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+        "seconds": 0.04615068295970559
+      }
+    },
+    {
+      "kind": "cached_restart",
+      "trial": 2,
+      "seconds": 3.8941947198472917,
+      "target_s": 60.0,
+      "met": true,
+      "startup_s_reported": 3.4370851777493954,
+      "validation": {
+        "passed": true,
+        "reason": "",
+        "n": 16,
+        "backend": "cuda",
+        "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+        "seconds": 0.046318378765136003
+      }
+    },
+    {
+      "kind": "cold_start",
+      "trial": 3,
+      "seconds": 4.134011695161462,
+      "target_s": 120.0,
+      "met": true,
+      "start_rc": 0,
+      "startup_s_reported": 3.6424149349331856,
+      "validation": {
+        "passed": true,
+        "reason": "",
+        "n": 16,
+        "backend": "cuda",
+        "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+        "seconds": 0.05205932119861245
+      }
+    },
+    {
+      "kind": "cached_restart",
+      "trial": 3,
+      "seconds": 8.189890355337411,
+      "target_s": 60.0,
+      "met": true,
+      "startup_s_reported": 3.535013651009649,
+      "validation": {
+        "passed": true,
+        "reason": "",
+        "n": 16,
+        "backend": "cuda",
+        "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+        "seconds": 0.04719759477302432
+      }
+    }
+  ]
+}

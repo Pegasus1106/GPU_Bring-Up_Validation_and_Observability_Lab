@@ -1,0 +1,87 @@
+{
+  "run_id": "cpu-b8-c4-t3",
+  "cell": "cpu-b8-c4",
+  "backend": "cpu",
+  "batch_size": 8,
+  "concurrency": 4,
+  "trial": 3,
+  "order_index": 40,
+  "start_utc": "2026-11-11T01:19:59.403Z",
+  "end_utc": "2026-11-11T01:21:00.636Z",
+  "controls": {
+    "loadavg_1_5_15": [
+      13.88,
+      15.14,
+      13.1
+    ],
+    "platform": "Linux-4.18.0-553.172.1.el8_10.x86_64-x86_64-with-glibc2.28",
+    "cpu_count_logical": 48,
+    "mem_total_bytes": 540626964480,
+    "mem_available_bytes": 500934471680,
+    "cpu_percent_1s": 12.9
+  },
+  "service_info": {
+    "ready": true,
+    "state": "ready",
+    "startup_s": 34.93175586499274,
+    "model": "resnet18",
+    "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+    "weights_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+    "backend": "cpu",
+    "precision": "fp32",
+    "input_count": 256,
+    "inputs_synthetic": true,
+    "channels_last": false,
+    "torch_version": "2.11.0+cu128",
+    "tf32_matmul": false,
+    "tf32_cudnn": false,
+    "cpu_threads": 8
+  },
+  "load_config": {
+    "batch_size": 8,
+    "concurrency": 4,
+    "warmup_requests": 20,
+    "duration_s": 60,
+    "client_timeout_s": 12.0
+  },
+  "loadgen_placement": "same host, separate process (loopback)",
+  "aggregate": {
+    "attempts": 951,
+    "successes": 951,
+    "outcomes": {
+      "success": 951
+    },
+    "measure_seconds": 60.20199167600367,
+    "requests_per_s": 15.796819565673367,
+    "images_per_s": 126.37455652538694,
+    "success_rate": 1.0,
+    "error_rate": 0.0,
+    "timeout_rate": 0.0,
+    "rejection_rate": 0.0,
+    "e2e_ms": {
+      "p50": 236.928,
+      "p95": 290.953,
+      "p99": 647.4295,
+      "mean": 252.41915983175602
+    },
+    "model_ms": {
+      "p50": 57.772,
+      "p95": 67.24549999999999
+    },
+    "queue_ms": {
+      "p50": 171.507,
+      "p95": 196.11700000000002
+    },
+    "p99_weak_evidence": true,
+    "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+  },
+  "telemetry_available": {
+    "host_cpu_busy_percent": true,
+    "host_mem_available_bytes": true,
+    "service_rss_bytes": true,
+    "gpu_utilization_percent": true,
+    "gpu_memory_used_mib": true,
+    "gpu_power_watts": true,
+    "gpu_temperature_celsius": true
+  }
+}

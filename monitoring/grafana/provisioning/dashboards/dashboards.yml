@@ -1,0 +1,9 @@
+apiVersion: 1
+providers:
+  - name: gpu-workload-lab
+    type: file
+    disableDeletion: true
+    allowUiUpdates: false
+    updateIntervalSeconds: 30
+    options:
+      path: /var/lib/grafana/dashboards

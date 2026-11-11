@@ -1,0 +1,430 @@
+{
+  "uid": "lab-incidents",
+  "title": "Lab 3 - Incidents and recovery",
+  "tags": [
+    "gpu-workload-lab"
+  ],
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": true,
+  "refresh": "5s",
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timezone": "utc",
+  "panels": [
+    {
+      "id": 1,
+      "type": "state-timeline",
+      "title": "Alerts (pending / firing)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Alert lifecycle.\n\nUnit: state\nSource: Prometheus ALERTS series\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Empty means no alert is pending or firing. Notification receipt times are in artifacts/alerts/alerts.jsonl.",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 7
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "ALERTS{alertname!=\"Watchdog\"}",
+          "legendFormat": "{{alertname}} {{alertstate}} {{instance}}",
+          "refId": "A",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "Workload restarts (persistent counter) and container state",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Restarts remain visible even if shorter than any alert hold period.\n\nUnit: count / boolean\nSource: host controller\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Empty if the controller is down; ControllerHeartbeatStale fires after 15 s.",
+      "gridPos": {
+        "x": 0,
+        "y": 7,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "lab_workload_restarts_total",
+          "legendFormat": "restarts {{workload}}",
+          "refId": "A",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "lab_workload_container_running",
+          "legendFormat": "running {{workload}}",
+          "refId": "B",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 3,
+      "type": "state-timeline",
+      "title": "Recovery state",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "healthy, starting, suspect, recovering, container_down (Docker owns it), needs_operator, unresolved.\n\nUnit: state\nSource: host controller\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Containers that do not exist are not listed.",
+      "gridPos": {
+        "x": 12,
+        "y": 7,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "lab_controller_state == 1",
+          "legendFormat": "{{workload}}: {{state}}",
+          "refId": "A",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "Consecutive failed readiness probes",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Consecutive failed readiness probes\n\nUnit: probes (2 s apart)\nSource: host controller\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Empty if the controller is down. Restart threshold is 3 consecutive failures.",
+      "gridPos": {
+        "x": 0,
+        "y": 15,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "lab_controller_probe_failures_consecutive",
+          "legendFormat": "{{workload}}",
+          "refId": "A",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "Controller restart actions",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Bounded: 1 per 60 s, 3 per 5 min.\n\nUnit: count\nSource: host controller\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Only restarts performed by the controller; Docker-policy restarts appear in the restart counter above.",
+      "gridPos": {
+        "x": 12,
+        "y": 15,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "lab_controller_restart_actions_total",
+          "legendFormat": "{{workload}} {{result}}",
+          "refId": "A",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Readiness and scrape health",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Readiness and scrape health\n\nUnit: boolean\nSource: inference service; Prometheus up\nInterval: 5 s scrape / 5 s rule interval\nMissing data: A series that stops reporting is a gap (unknown), distinguishing 'service down' from 'monitoring down' via up.",
+      "gridPos": {
+        "x": 0,
+        "y": 23,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "inference_ready",
+          "legendFormat": "ready {{instance}}",
+          "refId": "A",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "up",
+          "legendFormat": "up {{job}}",
+          "refId": "B",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "Scrape freshness",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Scrape freshness\n\nUnit: seconds since last sample\nSource: Prometheus\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Large values mean stale telemetry.",
+      "gridPos": {
+        "x": 12,
+        "y": 23,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "time() - timestamp(up)",
+          "legendFormat": "age {{job}}",
+          "refId": "A",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 8,
+      "type": "timeseries",
+      "title": "Injected fault delay (lab-only)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Distinguishes injected from organic latency.\n\nUnit: seconds\nSource: inference service\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Empty if the service is down. Non-zero means a lab-injected latency fault is active (a real delay, clearly labelled).",
+      "gridPos": {
+        "x": 0,
+        "y": 31,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "inference_fault_injection_delay_seconds",
+          "legendFormat": "{{instance}}",
+          "refId": "A",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 9,
+      "type": "timeseries",
+      "title": "Latency vs frozen baseline",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Latency vs frozen baseline\n\nUnit: seconds\nSource: inference histogram; frozen baseline rules\nInterval: 5 s scrape / 5 s rule interval\nMissing data: No baseline line until `make freeze-baseline` has been run; then LatencyRegression can fire.",
+      "gridPos": {
+        "x": 12,
+        "y": 31,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "histogram_quantile(0.95, sum by (le, backend, batch_size) (rate(inference_request_duration_seconds_bucket{status=\"success\"}[60s])))",
+          "legendFormat": "p95 {{backend}} b={{batch_size}}",
+          "refId": "A",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "2 * lab_baseline_p95_seconds",
+          "legendFormat": "2x baseline {{backend}} b={{batch_size}}",
+          "refId": "B",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 10,
+      "type": "text",
+      "title": "How to read an incident",
+      "gridPos": {
+        "x": 0,
+        "y": 39,
+        "w": 24,
+        "h": 3
+      },
+      "options": {
+        "mode": "markdown",
+        "content": "Incident records are in `artifacts/faults/incidents.jsonl`, each with injected time, first observation, alert firing, notification receipt, corrective action, first successful readiness and validation completion. Controller events: `artifacts/controller/faults.jsonl`."
+      },
+      "description": "How to read an incident\n\nUnit: n/a\nSource: static text\nInterval: static\nMissing data: n/a (does not query data)"
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "name": "Restarts",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "enable": true,
+        "iconColor": "red",
+        "expr": "increase(lab_workload_restarts_total[10s]) > 0",
+        "titleFormat": "restart",
+        "textFormat": "{{workload}}",
+        "step": "5s"
+      },
+      {
+        "name": "Alerts firing",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "enable": true,
+        "iconColor": "orange",
+        "expr": "ALERTS{alertstate=\"firing\"} == 1",
+        "titleFormat": "{{alertname}}",
+        "textFormat": "{{instance}}",
+        "step": "5s"
+      }
+    ]
+  },
+  "templating": {
+    "list": []
+  }
+}

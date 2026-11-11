@@ -1,0 +1,13 @@
+# Runtime dependencies of the workload image, pinned to exact versions.
+# torch/torchvision come from the pinned CUDA base image (see deploy/versions.env);
+# their exact versions are recorded in the environment manifest by `make preflight`.
+fastapi==0.162.4
+starlette==1.10.0
+pydantic==2.14.3
+uvicorn==0.54.0
+prometheus_client==0.26.0
+numpy==2.5.4
+pillow==13.0.0
+requests==2.34.2
+PyYAML==6.0.3
+psutil==7.2.2

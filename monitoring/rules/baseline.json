@@ -1,0 +1,13 @@
+{
+  "frozen_utc": "2026-11-11T01:35:39.692Z",
+  "source": "/home/tuttare/P_3/artifacts/benchmark/baseline-v1/summary.json",
+  "concurrency": 4,
+  "p95_seconds": {
+    "cpu-b1-c4": 0.06460996666666667,
+    "cpu-b32-c4": 1.432814466666666,
+    "cpu-b8-c4": 0.2789506666666666,
+    "gpu-b1-c4": 0.026898799999999983,
+    "gpu-b32-c4": 0.08045461666666666,
+    "gpu-b8-c4": 0.030296066666666663
+  }
+}

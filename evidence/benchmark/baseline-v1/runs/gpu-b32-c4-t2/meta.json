@@ -1,0 +1,95 @@
+{
+  "run_id": "gpu-b32-c4-t2",
+  "cell": "gpu-b32-c4",
+  "backend": "gpu",
+  "batch_size": 32,
+  "concurrency": 4,
+  "trial": 2,
+  "order_index": 21,
+  "start_utc": "2026-11-11T00:58:35.695Z",
+  "end_utc": "2026-11-11T00:59:36.015Z",
+  "controls": {
+    "loadavg_1_5_15": [
+      10.78,
+      10.76,
+      10.16
+    ],
+    "platform": "Linux-4.18.0-553.172.1.el8_10.x86_64-x86_64-with-glibc2.28",
+    "cpu_count_logical": 48,
+    "mem_total_bytes": 540626964480,
+    "mem_available_bytes": 505785454592,
+    "cpu_percent_1s": 4.6
+  },
+  "service_info": {
+    "ready": true,
+    "state": "ready",
+    "startup_s": 35.28806297003757,
+    "model": "resnet18",
+    "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+    "weights_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+    "backend": "cuda",
+    "precision": "fp32",
+    "input_count": 256,
+    "inputs_synthetic": true,
+    "channels_last": false,
+    "torch_version": "2.11.0+cu128",
+    "tf32_matmul": false,
+    "tf32_cudnn": false,
+    "cpu_threads": 8,
+    "cuda": {
+      "device_uuid": "GPU-6b419034-6a17-774d-dfcd-6e0ef98903ff",
+      "device_name": "NVIDIA A100-SXM4-80GB",
+      "total_memory_bytes": 85125496832,
+      "capability": "8.0",
+      "cuda_runtime": "12.8",
+      "cudnn": 91900
+    }
+  },
+  "load_config": {
+    "batch_size": 32,
+    "concurrency": 4,
+    "warmup_requests": 20,
+    "duration_s": 60,
+    "client_timeout_s": 12.0
+  },
+  "loadgen_placement": "same host, separate process (loopback)",
+  "aggregate": {
+    "attempts": 3283,
+    "successes": 3283,
+    "outcomes": {
+      "success": 3283
+    },
+    "measure_seconds": 60.04263401904609,
+    "requests_per_s": 54.67781441697913,
+    "images_per_s": 1749.6900613433322,
+    "success_rate": 1.0,
+    "error_rate": 0.0,
+    "timeout_rate": 0.0,
+    "rejection_rate": 0.0,
+    "e2e_ms": {
+      "p50": 61.635,
+      "p95": 87.78349999999993,
+      "p99": 412.12883999999997,
+      "mean": 73.0551602193116
+    },
+    "model_ms": {
+      "p50": 7.278,
+      "p95": 7.29
+    },
+    "queue_ms": {
+      "p50": 42.809,
+      "p95": 54.15169999999998
+    },
+    "p99_weak_evidence": false,
+    "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+  },
+  "telemetry_available": {
+    "host_cpu_busy_percent": true,
+    "host_mem_available_bytes": true,
+    "service_rss_bytes": true,
+    "gpu_utilization_percent": true,
+    "gpu_memory_used_mib": true,
+    "gpu_power_watts": true,
+    "gpu_temperature_celsius": true
+  }
+}

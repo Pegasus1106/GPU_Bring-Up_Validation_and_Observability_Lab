@@ -1,0 +1,87 @@
+{
+  "run_id": "cpu-b1-c8-t2",
+  "cell": "cpu-b1-c8",
+  "backend": "cpu",
+  "batch_size": 1,
+  "concurrency": 8,
+  "trial": 2,
+  "order_index": 29,
+  "start_utc": "2026-11-11T01:07:43.083Z",
+  "end_utc": "2026-11-11T01:08:43.358Z",
+  "controls": {
+    "loadavg_1_5_15": [
+      11.03,
+      10.68,
+      10.34
+    ],
+    "platform": "Linux-4.18.0-553.172.1.el8_10.x86_64-x86_64-with-glibc2.28",
+    "cpu_count_logical": 48,
+    "mem_total_bytes": 540626964480,
+    "mem_available_bytes": 504577163264,
+    "cpu_percent_1s": 3.6
+  },
+  "service_info": {
+    "ready": true,
+    "state": "ready",
+    "startup_s": 34.93175586499274,
+    "model": "resnet18",
+    "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+    "weights_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+    "backend": "cpu",
+    "precision": "fp32",
+    "input_count": 256,
+    "inputs_synthetic": true,
+    "channels_last": false,
+    "torch_version": "2.11.0+cu128",
+    "tf32_matmul": false,
+    "tf32_cudnn": false,
+    "cpu_threads": 8
+  },
+  "load_config": {
+    "batch_size": 1,
+    "concurrency": 8,
+    "warmup_requests": 20,
+    "duration_s": 60,
+    "client_timeout_s": 12.0
+  },
+  "loadgen_placement": "same host, separate process (loopback)",
+  "aggregate": {
+    "attempts": 4396,
+    "successes": 4396,
+    "outcomes": {
+      "success": 4396
+    },
+    "measure_seconds": 60.08175830397522,
+    "requests_per_s": 73.16696654846643,
+    "images_per_s": 73.16696654846643,
+    "success_rate": 1.0,
+    "error_rate": 0.0,
+    "timeout_rate": 0.0,
+    "rejection_rate": 0.0,
+    "e2e_ms": {
+      "p50": 96.51650000000001,
+      "p95": 120.0625,
+      "p99": 618.6289000000004,
+      "mean": 109.15627274795268
+    },
+    "model_ms": {
+      "p50": 11.87,
+      "p95": 13.77125
+    },
+    "queue_ms": {
+      "p50": 72.56649999999999,
+      "p95": 88.559
+    },
+    "p99_weak_evidence": false,
+    "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+  },
+  "telemetry_available": {
+    "host_cpu_busy_percent": true,
+    "host_mem_available_bytes": true,
+    "service_rss_bytes": true,
+    "gpu_utilization_percent": true,
+    "gpu_memory_used_mib": true,
+    "gpu_power_watts": true,
+    "gpu_temperature_celsius": true
+  }
+}

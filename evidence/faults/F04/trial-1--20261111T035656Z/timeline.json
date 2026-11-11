@@ -1,0 +1,22 @@
+{
+  "scenario": "F04",
+  "scenario_name": "latency regression",
+  "trial": 1,
+  "run_id": "F04-t1-20261111T035656Z",
+  "commit": "unknown",
+  "profile": "gpu",
+  "fault_class": "injected_latency",
+  "expected_symptoms": "p95 > 2x frozen baseline; queue depth up but bounded; no restart",
+  "expected_alert": "LatencyRegression",
+  "action_owner": "fault harness removes the injected cause; controller restarts only if unhealthy (it is not)",
+  "evidence_dir": "artifacts/faults/F04/trial-1--20261111T035656Z",
+  "load": {
+    "batch_size": 8,
+    "concurrency": 4
+  },
+  "final_status": "BASELINE_ALERT_ACTIVE",
+  "errors": [
+    "LatencyRegression was already firing before injection (false positive on the healthy baseline); fix the rule/baseline, then re-run"
+  ],
+  "times": {}
+}

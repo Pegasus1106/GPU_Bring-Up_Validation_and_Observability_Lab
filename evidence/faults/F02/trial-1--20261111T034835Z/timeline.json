@@ -1,0 +1,103 @@
+{
+  "scenario": "F02",
+  "scenario_name": "exporter outage",
+  "trial": 1,
+  "run_id": "F02-t1-20261111T034835Z",
+  "commit": "unknown",
+  "profile": "gpu",
+  "fault_class": "actual",
+  "expected_symptoms": "exporter target down; GPU health unknown (series absent); inference unaffected",
+  "expected_alert": "TelemetryUnavailable",
+  "action_owner": "fault harness (restores exporter); controller must not restart inference",
+  "evidence_dir": "artifacts/faults/F02/trial-1--20261111T034835Z",
+  "load": {
+    "batch_size": 8,
+    "concurrency": 4
+  },
+  "final_status": "RECOVERED_VALIDATED",
+  "errors": [],
+  "inject_detail": {
+    "cmd": "stop gpu-exporter",
+    "rc": 0,
+    "stderr": ""
+  },
+  "stop_detail": {
+    "cmd": "start gpu-exporter",
+    "rc": 0
+  },
+  "validation": {
+    "passed": true,
+    "reason": "",
+    "n": 16,
+    "backend": "cuda",
+    "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+    "seconds": 0.07002544216811657
+  },
+  "first_observation_sources": {
+    "poll": "2026-11-11T03:48:58.847Z",
+    "loadgen": null
+  },
+  "requests_during_fault": {
+    "attempts": 5932,
+    "outcomes": {
+      "success": 5932
+    },
+    "success_fraction": 1.0
+  },
+  "queue": {
+    "max_depth": 3.0,
+    "capacity": 32.0,
+    "bounded": true
+  },
+  "restart_count": {
+    "inference-gpu": {
+      "restarts_observed": 0,
+      "controller_restart_actions": 0
+    },
+    "inference-fault": {
+      "restarts_observed": 0,
+      "controller_restart_actions": 0
+    },
+    "inference-cpu": {
+      "restarts_observed": 0,
+      "controller_restart_actions": 0
+    }
+  },
+  "controller_restart_check": {
+    "workload": "inference-gpu",
+    "controller_restart_actions": 0,
+    "pass": true
+  },
+  "extra": {
+    "note": "GPU series must be absent (not zero) while the exporter is down: see panel_data.json 'gpu_util' gap"
+  },
+  "controller_event_kinds": [],
+  "recovered": true,
+  "symptom_observed": true,
+  "cleanup": {
+    "ok": true,
+    "detail": ""
+  },
+  "times": {
+    "injected_utc": "2026-11-11T03:48:55.681Z",
+    "corrective_action_utc": "2026-11-11T03:49:27.770Z",
+    "first_ready_utc": "2026-11-11T03:49:29.100Z",
+    "validation_complete_utc": "2026-11-11T03:49:29.170Z",
+    "notification_received_utc": "2026-11-11T03:49:14.508Z",
+    "alert_firing_utc": "2026-11-11T03:49:09.487Z",
+    "alert_resolved_utc": "2026-11-11T03:49:34.529Z",
+    "alert_pending_utc": "2026-11-11T03:48:59.899Z",
+    "first_observation_utc": "2026-11-11T03:48:58.847Z"
+  },
+  "metrics": {
+    "fault_to_first_observation_s": 3.166,
+    "fault_to_alert_pending_s": 4.218,
+    "fault_to_alert_firing_s": 13.806,
+    "fault_to_notification_s": 18.827,
+    "fault_to_recovery_s": 33.489,
+    "correction_to_recovery_s": 1.4
+  },
+  "ac06_alert_within_45s": true,
+  "ac07_recovery_s": 1.4,
+  "ac07_within_60s": true
+}

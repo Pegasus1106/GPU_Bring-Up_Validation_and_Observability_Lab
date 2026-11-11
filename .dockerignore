@@ -1,0 +1,9 @@
+.venv
+.tools
+.git
+artifacts
+manifests/weights
+**/__pycache__
+.pytest_cache
+.env
+monitoring/grafana

@@ -1,0 +1,11 @@
+# F05 correction: restore the GPU device mapping on the separate fault case, then redeploy.
+# Used as:  docker compose -f deploy/docker-compose.yml -f faults/overrides/gpu-device.yml ...
+services:
+  inference-fault:
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

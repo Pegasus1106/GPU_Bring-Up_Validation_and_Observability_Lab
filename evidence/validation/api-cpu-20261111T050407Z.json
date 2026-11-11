@@ -1,0 +1,78 @@
+{
+  "run_id": "api-cpu-20261111T050407Z",
+  "created_utc": "2026-11-11T05:04:07.633Z",
+  "commit": "unknown",
+  "url": "http://127.0.0.1:8001",
+  "expect_backend": "cpu",
+  "contract_checks": [
+    {
+      "id": "A01",
+      "name": "GET /livez is 200",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A02",
+      "name": "GET /readyz is 200",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A03",
+      "name": "valid request returns real backend, model version, request id",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A04",
+      "name": "unknown id -> 422",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A05",
+      "name": "path-traversal id -> 422",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A06",
+      "name": "empty list -> 422",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A07",
+      "name": "33 ids -> 422",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A08",
+      "name": "malformed body -> 422",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A09",
+      "name": "batch and individual top-1 agree",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A10",
+      "name": "metrics expose no request/run id labels",
+      "status": "PASS",
+      "reason": ""
+    }
+  ],
+  "quick_validate": {
+    "passed": true,
+    "reason": "",
+    "n": 16,
+    "backend": "cpu",
+    "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+    "seconds": 0.19887404004111886
+  },
+  "passed": true
+}

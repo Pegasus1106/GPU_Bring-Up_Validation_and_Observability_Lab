@@ -1,0 +1,262 @@
+# promtool test rules monitoring/tests/alerts_test.yml
+# Series are sampled every 5 s (the scrape interval); evaluation_interval matches.
+rule_files:
+  - ../rules/alerts.yml
+
+evaluation_interval: 5s
+
+tests:
+  # ---------------------------------------------------------------- ServiceUnavailable
+  - name: ServiceUnavailable fires after 10s of failed scrapes
+    interval: 5s
+    input_series:
+      - series: 'up{job="inference",instance="gpu"}'
+        values: '1 1 1 1 0 0 0 0 0 0 0 0'
+    alert_rule_test:
+      - {eval_time: 25s, alertname: ServiceUnavailable, exp_alerts: []}   # pending only
+      - eval_time: 35s
+        alertname: ServiceUnavailable
+        exp_alerts:
+          - exp_labels: {job: inference, instance: gpu, severity: critical}
+            exp_annotations:
+              summary: "Inference service gpu unavailable"
+              description: "Target down or /readyz not ready for 10s. See docs/runbooks/RB-001-workload-unresponsive.md and RB-002/RB-003 for config causes."
+
+  - name: ServiceUnavailable fires when up but not ready (e.g. missing weights)
+    interval: 5s
+    input_series:
+      - series: 'up{job="inference",instance="fault"}'
+        values: '1x12'
+      - series: 'inference_ready{job="inference",instance="fault",backend="cpu"}'
+        values: '0x12'
+    alert_rule_test:
+      - eval_time: 30s
+        alertname: ServiceUnavailable
+        exp_alerts:
+          - exp_labels: {job: inference, instance: fault, backend: cpu, severity: critical}
+            exp_annotations:
+              summary: "Inference service fault unavailable"
+              description: "Target down or /readyz not ready for 10s. See docs/runbooks/RB-001-workload-unresponsive.md and RB-002/RB-003 for config causes."
+
+  - name: a single failed scrape does not fire ServiceUnavailable
+    interval: 5s
+    input_series:
+      - series: 'up{job="inference",instance="gpu"}'
+        values: '1 1 0 1 1 1 1 1'
+    alert_rule_test:
+      - {eval_time: 10s, alertname: ServiceUnavailable, exp_alerts: []}
+      - {eval_time: 20s, alertname: ServiceUnavailable, exp_alerts: []}
+      - {eval_time: 35s, alertname: ServiceUnavailable, exp_alerts: []}
+
+  - name: absent inference series never fires ServiceUnavailable (no target configured)
+    interval: 5s
+    input_series:
+      - series: 'up{job="node-exporter",instance="host"}'
+        values: '1x12'
+    alert_rule_test:
+      - {eval_time: 40s, alertname: ServiceUnavailable, exp_alerts: []}
+
+  # ---------------------------------------------------------------- TelemetryUnavailable
+  - name: TelemetryUnavailable when GPU exporter is down for >=10s
+    interval: 5s
+    input_series:
+      - series: 'up{job="dcgm-exporter",instance="gpu0"}'
+        values: '1 1 0 0 0 0 0 0'
+      - series: 'up{job="inference",instance="gpu"}'
+        values: '1x8'
+    alert_rule_test:
+      - eval_time: 30s
+        alertname: TelemetryUnavailable
+        exp_alerts:
+          - exp_labels: {job: dcgm-exporter, instance: gpu0, severity: warning}
+            exp_annotations:
+              summary: "Exporter dcgm-exporter unavailable: telemetry is unknown, not zero"
+              description: "See docs/runbooks/RB-004-telemetry-outage.md. Inference may still be healthy."
+      - {eval_time: 30s, alertname: ServiceUnavailable, exp_alerts: []}   # inference unaffected
+
+  - name: healthy exporter with zero GPU load is not a telemetry alert
+    interval: 5s
+    input_series:
+      - series: 'up{job="dcgm-exporter",instance="gpu0"}'
+        values: '1x10'
+      - series: 'DCGM_FI_DEV_GPU_UTIL{instance="gpu0"}'
+        values: '0x10'
+    alert_rule_test:
+      - {eval_time: 45s, alertname: TelemetryUnavailable, exp_alerts: []}
+
+  # ---------------------------------------------------------------- RestartObserved
+  - name: RestartObserved catches a restart shorter than any hold period
+    interval: 5s
+    input_series:
+      - series: 'lab_workload_restarts_total{workload="inference-gpu"}'
+        values: '3 3 3 4 4 4 4 4'
+      - series: 'up{job="inference",instance="gpu"}'
+        values: '1x8'            # service never looked down to Prometheus
+    alert_rule_test:
+      - eval_time: 20s
+        alertname: RestartObserved
+        exp_alerts:
+          - exp_labels: {workload: inference-gpu, severity: info}
+            exp_annotations:
+              summary: "Workload inference-gpu restarted"
+              description: "Restart counted from Docker events (die then start). Check artifacts/controller/faults.jsonl."
+      - {eval_time: 20s, alertname: ServiceUnavailable, exp_alerts: []}
+
+  - name: no restart, no alert (counter loaded from persisted state does not look like a restart)
+    interval: 5s
+    input_series:
+      - series: 'lab_workload_restarts_total{workload="inference-gpu"}'
+        values: '7x12'
+    alert_rule_test:
+      - {eval_time: 55s, alertname: RestartObserved, exp_alerts: []}
+
+  # ---------------------------------------------------------------- WorkloadErrorRate
+  - name: WorkloadErrorRate fires above 5% with >=20 requests
+    interval: 5s
+    input_series:
+      - series: 'inference_requests_total{backend="cuda",status="success",batch_size="8"}'
+        values: '0+10x30'
+      - series: 'inference_requests_total{backend="cuda",status="error",batch_size="8"}'
+        values: '0+2x30'
+    alert_rule_test:
+      - {eval_time: 70s, alertname: WorkloadErrorRate, exp_alerts: [{exp_labels: {backend: cuda, severity: critical}, exp_annotations: {summary: "Execution error rate >5% on backend cuda", description: "Over 60s with at least 20 requests. Rejections are tracked via status=rejected_capacity."}}]}
+
+  - name: WorkloadErrorRate stays quiet below 5%
+    interval: 5s
+    input_series:
+      - series: 'inference_requests_total{backend="cuda",status="success",batch_size="8"}'
+        values: '0+100x30'
+      - series: 'inference_requests_total{backend="cuda",status="error",batch_size="8"}'
+        values: '0+1x30'
+    alert_rule_test:
+      - {eval_time: 100s, alertname: WorkloadErrorRate, exp_alerts: []}
+
+  - name: WorkloadErrorRate needs at least 20 requests (low traffic)
+    interval: 5s
+    input_series:
+      - series: 'inference_requests_total{backend="cuda",status="success",batch_size="8"}'
+        values: '0+0.5x40'
+      - series: 'inference_requests_total{backend="cuda",status="error",batch_size="8"}'
+        values: '0+0.5x40'
+    alert_rule_test:
+      - {eval_time: 120s, alertname: WorkloadErrorRate, exp_alerts: []}
+
+  - name: capacity rejections are tracked separately and do not trigger WorkloadErrorRate
+    interval: 5s
+    input_series:
+      - series: 'inference_requests_total{backend="cuda",status="success",batch_size="8"}'
+        values: '0+10x30'
+      - series: 'inference_requests_total{backend="cuda",status="rejected_capacity",batch_size="8"}'
+        values: '0+500x30'
+    alert_rule_test:
+      - {eval_time: 100s, alertname: WorkloadErrorRate, exp_alerts: []}
+
+  - name: no traffic at all is insufficient data, not an alert
+    interval: 5s
+    input_series:
+      - series: 'inference_requests_total{backend="cuda",status="success",batch_size="8"}'
+        values: '5x30'
+      - series: 'inference_requests_total{backend="cuda",status="error",batch_size="8"}'
+        values: '5x30'
+    alert_rule_test:
+      - {eval_time: 120s, alertname: WorkloadErrorRate, exp_alerts: []}
+
+  # ---------------------------------------------------------------- LatencyRegression
+  - name: LatencyRegression fires when p95 > 2x frozen baseline with >=100 completions
+    interval: 5s
+    input_series:
+      - series: 'lab_baseline_p95_seconds{backend="cuda",batch_size="8",workload="resnet18"}'
+        values: '0.1x40'
+      - series: 'inference_request_duration_seconds_bucket{backend="cuda",batch_size="8",status="success",le="0.1"}'
+        values: '0x40'
+      - series: 'inference_request_duration_seconds_bucket{backend="cuda",batch_size="8",status="success",le="0.5"}'
+        values: '0+10x40'
+      - series: 'inference_request_duration_seconds_bucket{backend="cuda",batch_size="8",status="success",le="+Inf"}'
+        values: '0+10x40'
+      - series: 'inference_requests_total{backend="cuda",batch_size="8",status="success"}'
+        values: '0+10x40'
+    alert_rule_test:
+      - {eval_time: 30s, alertname: LatencyRegression, exp_alerts: []}   # fewer than 100 completions in window yet
+      - eval_time: 120s
+        alertname: LatencyRegression
+        exp_alerts:
+          - exp_labels: {backend: cuda, batch_size: "8", severity: warning}
+            exp_annotations:
+              summary: "p95 latency >2x baseline (cuda, batch 8)"
+              description: "See docs/runbooks/RB-005-latency-regression.md."
+
+  - name: LatencyRegression quiet when latency is at baseline
+    interval: 5s
+    input_series:
+      - series: 'lab_baseline_p95_seconds{backend="cuda",batch_size="8",workload="resnet18"}'
+        values: '0.1x40'
+      - series: 'inference_request_duration_seconds_bucket{backend="cuda",batch_size="8",status="success",le="0.1"}'
+        values: '0+10x40'
+      - series: 'inference_request_duration_seconds_bucket{backend="cuda",batch_size="8",status="success",le="0.5"}'
+        values: '0+10x40'
+      - series: 'inference_request_duration_seconds_bucket{backend="cuda",batch_size="8",status="success",le="+Inf"}'
+        values: '0+10x40'
+      - series: 'inference_requests_total{backend="cuda",batch_size="8",status="success"}'
+        values: '0+10x40'
+    alert_rule_test:
+      - {eval_time: 150s, alertname: LatencyRegression, exp_alerts: []}
+
+  - name: LatencyRegression needs >=100 completions per 60s (low traffic)
+    interval: 5s
+    input_series:
+      - series: 'lab_baseline_p95_seconds{backend="cuda",batch_size="8",workload="resnet18"}'
+        values: '0.1x40'
+      - series: 'inference_request_duration_seconds_bucket{backend="cuda",batch_size="8",status="success",le="0.1"}'
+        values: '0x40'
+      - series: 'inference_request_duration_seconds_bucket{backend="cuda",batch_size="8",status="success",le="0.5"}'
+        values: '0+1x40'
+      - series: 'inference_request_duration_seconds_bucket{backend="cuda",batch_size="8",status="success",le="+Inf"}'
+        values: '0+1x40'
+      - series: 'inference_requests_total{backend="cuda",batch_size="8",status="success"}'
+        values: '0+1x40'          # 12 completions per minute
+    alert_rule_test:
+      - {eval_time: 150s, alertname: LatencyRegression, exp_alerts: []}
+
+  - name: LatencyRegression silent when no frozen baseline exists (absent series)
+    interval: 5s
+    input_series:
+      - series: 'inference_request_duration_seconds_bucket{backend="cuda",batch_size="8",status="success",le="0.1"}'
+        values: '0x40'
+      - series: 'inference_request_duration_seconds_bucket{backend="cuda",batch_size="8",status="success",le="5"}'
+        values: '0+10x40'
+      - series: 'inference_request_duration_seconds_bucket{backend="cuda",batch_size="8",status="success",le="+Inf"}'
+        values: '0+10x40'
+      - series: 'inference_requests_total{backend="cuda",batch_size="8",status="success"}'
+        values: '0+10x40'
+    alert_rule_test:
+      - {eval_time: 150s, alertname: LatencyRegression, exp_alerts: []}
+
+  # ---------------------------------------------------------------- controller / recovery
+  - name: stale controller heartbeat is reported
+    interval: 5s
+    input_series:
+      - series: 'lab_controller_heartbeat_timestamp_seconds'
+        values: '0 5 10 10 10 10 10 10 10 10 10'   # stops advancing at t=10s
+    alert_rule_test:
+      - {eval_time: 20s, alertname: ControllerHeartbeatStale, exp_alerts: []}
+      - eval_time: 45s
+        alertname: ControllerHeartbeatStale
+        exp_alerts:
+          - exp_labels: {severity: warning}
+            exp_annotations:
+              summary: "Host recovery controller heartbeat is stale"
+              description: "Recovery actions are not being applied. Restart ops/controller.py."
+
+  - name: operator-required state is surfaced
+    interval: 5s
+    input_series:
+      - series: 'lab_controller_state{workload="inference-fault",state="needs_operator"}'
+        values: '0 0 1 1 1 1 1'
+    alert_rule_test:
+      - eval_time: 30s
+        alertname: OperatorActionRequired
+        exp_alerts:
+          - exp_labels: {workload: inference-fault, state: needs_operator, severity: warning}
+            exp_annotations:
+              summary: "inference-fault needs a configuration fix (restarts will not help)"
+              description: "Missing weights / GPU access / unsupported hardware. See RB-002 and RB-003."

@@ -1,0 +1,80 @@
+{
+  "prometheus": "http://127.0.0.1:9090",
+  "window": {
+    "start": 1794360404.4666042,
+    "end": 1794360469.9985776,
+    "step_s": 5
+  },
+  "fields": {
+    "host_cpu_busy_percent": {
+      "unit": "%",
+      "source": "node-exporter",
+      "query": "100 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[15s])) * 100",
+      "available": true,
+      "samples": 14,
+      "mean": 30.227299302613122,
+      "max": 32.17388766598239,
+      "min": 21.879166666670542
+    },
+    "host_mem_available_bytes": {
+      "unit": "bytes",
+      "source": "node-exporter",
+      "query": "node_memory_MemAvailable_bytes",
+      "available": true,
+      "samples": 14,
+      "mean": 501328305005.7143,
+      "max": 501380030464.0,
+      "min": 501238763520.0
+    },
+    "service_rss_bytes": {
+      "unit": "bytes",
+      "source": "inference service",
+      "query": "process_resident_memory_bytes{job=\"inference\"}",
+      "available": true,
+      "samples": 28,
+      "mean": 1284382281.142857,
+      "max": 1522995200.0,
+      "min": 1024794624.0
+    },
+    "gpu_utilization_percent": {
+      "unit": "%",
+      "source": "dcgm-exporter",
+      "query": "avg(DCGM_FI_DEV_GPU_UTIL)",
+      "available": true,
+      "samples": 14,
+      "mean": 0.0,
+      "max": 0.0,
+      "min": 0.0
+    },
+    "gpu_memory_used_mib": {
+      "unit": "MiB",
+      "source": "dcgm-exporter",
+      "query": "sum(DCGM_FI_DEV_FB_USED)",
+      "available": true,
+      "samples": 14,
+      "mean": 979.0,
+      "max": 979.0,
+      "min": 979.0
+    },
+    "gpu_power_watts": {
+      "unit": "W",
+      "source": "dcgm-exporter",
+      "query": "sum(DCGM_FI_DEV_POWER_USAGE)",
+      "available": true,
+      "samples": 14,
+      "mean": 96.39428571428572,
+      "max": 96.65,
+      "min": 96.24
+    },
+    "gpu_temperature_celsius": {
+      "unit": "C",
+      "source": "dcgm-exporter",
+      "query": "max(DCGM_FI_DEV_GPU_TEMP)",
+      "available": true,
+      "samples": 14,
+      "mean": 32.0,
+      "max": 32.0,
+      "min": 32.0
+    }
+  }
+}

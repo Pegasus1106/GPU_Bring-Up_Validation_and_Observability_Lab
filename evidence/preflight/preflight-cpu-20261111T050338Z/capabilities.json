@@ -1,0 +1,8 @@
+{
+  "run_id": "preflight-cpu-20261111T050338Z",
+  "created_utc": "2026-11-11T05:03:47.059Z",
+  "gpus": [],
+  "nvidia_smi_fields": {},
+  "dcgm_fields": {},
+  "note": "unsupported/unavailable fields must be displayed as unavailable, never as zero"
+}

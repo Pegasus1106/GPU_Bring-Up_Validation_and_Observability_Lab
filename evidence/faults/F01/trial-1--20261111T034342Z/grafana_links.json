@@ -1,0 +1,5 @@
+{
+  "lab-readiness": "http://127.0.0.1:3000/d/lab-readiness?from=1794368612462&to=1794368710493",
+  "lab-performance": "http://127.0.0.1:3000/d/lab-performance?from=1794368612462&to=1794368710493",
+  "lab-incidents": "http://127.0.0.1:3000/d/lab-incidents?from=1794368612462&to=1794368710493"
+}

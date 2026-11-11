@@ -1,0 +1,133 @@
+{
+  "scenario": "F05",
+  "scenario_name": "GPU inaccessible",
+  "trial": 1,
+  "run_id": "F05-t1-20261111T040121Z",
+  "commit": "unknown",
+  "profile": "gpu",
+  "fault_class": "actual",
+  "expected_symptoms": "readyz 503 cuda_unavailable; no CPU fallback; operator_required; no restart loop",
+  "expected_alert": "ServiceUnavailable",
+  "action_owner": "operator (harness): restore device mapping + redeploy; no driver/hardware repair",
+  "evidence_dir": "artifacts/faults/F05/trial-1--20261111T040121Z",
+  "load": {
+    "batch_size": 8,
+    "concurrency": 4
+  },
+  "final_status": "RECOVERED_VALIDATED",
+  "errors": [],
+  "inject_detail": {
+    "cmd": "compose up inference-fault (backend=cuda, no GPU device mapping)",
+    "rc": 0,
+    "stderr": ""
+  },
+  "stop_detail": {
+    "cmd": "compose -f gpu-device.yml up --force-recreate inference-fault",
+    "rc": 0,
+    "readyz": {
+      "status": 503,
+      "ready": false,
+      "state": "failed",
+      "reason_code": "cuda_unavailable",
+      "reason": "backend=cuda requested but torch.cuda reports no usable device (refusing to fall back to CPU)",
+      "backend": "cuda"
+    },
+    "infer_while_broken": {
+      "status": 503,
+      "backend_reported": null,
+      "body": {
+        "error": {
+          "code": "not_ready",
+          "message": "backend=cuda requested but torch.cuda reports no usable device (refusing to fall back to CPU)",
+          "request_id": "22b3301064fb448ebb53bc73a2a5fcf9",
+          "reason_code": "cuda_unavailable"
+        }
+      }
+    }
+  },
+  "validation": {
+    "passed": true,
+    "reason": "",
+    "n": 16,
+    "backend": "cuda",
+    "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+    "seconds": 0.9394300319254398
+  },
+  "first_observation_sources": {
+    "poll": "2026-11-11T04:01:45.059Z",
+    "loadgen": null
+  },
+  "requests_during_fault": {
+    "attempts": 3642,
+    "outcomes": {
+      "success": 3642
+    },
+    "success_fraction": 1.0
+  },
+  "queue": {
+    "max_depth": 3.0,
+    "capacity": 32.0,
+    "bounded": true
+  },
+  "restart_count": {
+    "inference-gpu": {
+      "restarts_observed": 0,
+      "controller_restart_actions": 0
+    },
+    "inference-fault": {
+      "restarts_observed": 2,
+      "controller_restart_actions": 0
+    },
+    "inference-cpu": {
+      "restarts_observed": 0,
+      "controller_restart_actions": 0
+    }
+  },
+  "controller_restart_check": {
+    "workload": "inference-fault",
+    "controller_restart_actions": 0,
+    "pass": true
+  },
+  "extra": {
+    "reason_code_seen": "cuda_unavailable",
+    "infer_status_while_broken": 503,
+    "silent_cpu_fallback": false,
+    "no_silent_fallback_pass": true
+  },
+  "controller_event_kinds": [
+    "docker_event:die",
+    "docker_event:kill",
+    "docker_event:start",
+    "docker_event:stop",
+    "operator_required",
+    "state_change"
+  ],
+  "recovered": true,
+  "symptom_observed": true,
+  "cleanup": {
+    "ok": true,
+    "detail": ""
+  },
+  "times": {
+    "injected_utc": "2026-11-11T04:01:41.572Z",
+    "corrective_action_utc": "2026-11-11T04:01:59.712Z",
+    "first_ready_utc": "2026-11-11T04:02:31.646Z",
+    "validation_complete_utc": "2026-11-11T04:02:32.586Z",
+    "notification_received_utc": "2026-11-11T04:01:59.527Z",
+    "alert_firing_utc": "2026-11-11T04:01:54.487Z",
+    "alert_resolved_utc": "2026-11-11T04:02:39.546Z",
+    "alert_pending_utc": "2026-11-11T04:01:44.784Z",
+    "first_observation_utc": "2026-11-11T04:01:45.059Z"
+  },
+  "metrics": {
+    "fault_to_first_observation_s": 3.487,
+    "fault_to_alert_pending_s": 3.212,
+    "fault_to_alert_firing_s": 12.915,
+    "fault_to_notification_s": 17.955,
+    "fault_to_recovery_s": 51.014,
+    "correction_to_recovery_s": 32.874
+  },
+  "ac06_alert_within_45s": true,
+  "ac07_recovery_s": 32.874,
+  "ac07_within_60s": true
+}

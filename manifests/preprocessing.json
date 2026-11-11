@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "resize": 256,
+  "center_crop": 224,
+  "interpolation": "bilinear",
+  "mean": [0.485, 0.456, 0.406],
+  "std": [0.229, 0.224, 0.225],
+  "color_mode": "RGB",
+  "notes": "torchvision ImageNet eval preprocessing. Applied once on CPU at load time, identically for CPU and CUDA backends."
+}

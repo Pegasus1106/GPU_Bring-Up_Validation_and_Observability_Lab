@@ -1,0 +1,30 @@
+{
+  "experiment": "baseline-v1",
+  "seed": 20261110,
+  "backends": {
+    "cpu": {
+      "url": "http://127.0.0.1:8001",
+      "expect": "cpu"
+    },
+    "gpu": {
+      "url": "http://127.0.0.1:8000",
+      "expect": "cuda"
+    }
+  },
+  "batch_sizes": [
+    1,
+    8,
+    32
+  ],
+  "concurrency": [
+    1,
+    4,
+    8
+  ],
+  "trials": 3,
+  "warmup_requests": 20,
+  "duration_s": 60,
+  "cooldown_s": 5,
+  "prometheus": "http://127.0.0.1:9090",
+  "overrides": {}
+}

@@ -1,0 +1,103 @@
+# Required alerts (spec). Evaluated every 5 s. All thresholds are proposed targets.
+# Tested with promtool: monitoring/tests/alerts_test.yml
+groups:
+  - name: lab-alerts
+    interval: 5s
+    rules:
+      - alert: ServiceUnavailable
+        # Scrape failing OR the service reports not-ready. A service that is up but not ready
+        # (missing weights, no GPU) is "unavailable" for the purpose of this lab.
+        expr: (up{job="inference"} == 0) or (inference_ready == 0)
+        for: 10s
+        labels: {severity: critical}
+        annotations:
+          summary: "Inference service {{ $labels.instance }} unavailable"
+          description: "Target down or /readyz not ready for 10s. See docs/runbooks/RB-001-workload-unresponsive.md and RB-002/RB-003 for config causes."
+
+      - alert: TelemetryUnavailable
+        # Distinct from a healthy GPU at 0% load: here the exporter is not being scraped at all,
+        # so GPU/host health is UNKNOWN (not zero).
+        expr: up{job=~"dcgm-exporter|node-exporter"} == 0
+        for: 10s
+        labels: {severity: warning}
+        annotations:
+          summary: "Exporter {{ $labels.job }} unavailable: telemetry is unknown, not zero"
+          description: "See docs/runbooks/RB-004-telemetry-outage.md. Inference may still be healthy."
+
+      - alert: RestartObserved
+        # Driven by the controller's persistent counter so a restart shorter than any hold
+        # period is still visible. No `for:` on purpose.
+        expr: increase(lab_workload_restarts_total[1m]) > 0
+        for: 0s
+        labels: {severity: info}
+        annotations:
+          summary: "Workload {{ $labels.workload }} restarted"
+          description: "Restart counted from Docker events (die then start). Check artifacts/controller/faults.jsonl."
+
+      - alert: WorkloadErrorRate
+        # Execution errors (status error|timeout) over admitted requests (success|error|timeout).
+        # Capacity rejections (429) and invalid input (422) are excluded and tracked separately.
+        expr: |
+          (
+            sum by (backend) (increase(inference_requests_total{status=~"error|timeout"}[60s]))
+            /
+            sum by (backend) (increase(inference_requests_total{status=~"success|error|timeout"}[60s]))
+          ) > 0.05
+          and
+          sum by (backend) (increase(inference_requests_total{status=~"success|error|timeout"}[60s])) >= 20
+        for: 10s
+        labels: {severity: critical}
+        annotations:
+          summary: "Execution error rate >5% on backend {{ $labels.backend }}"
+          description: "Over 60s with at least 20 requests. Rejections are tracked via status=rejected_capacity."
+
+      - alert: LatencyRegression
+        # p95 (server-side histogram, incl. queueing) > 2x the frozen matching baseline for the same
+        # backend + batch size, with >=100 completions in 60s. Absent baseline or low traffic => no alert
+        # (insufficient data).
+        expr: |
+          histogram_quantile(0.95,
+            sum by (le, backend, batch_size) (rate(inference_request_duration_seconds_bucket{status="success"}[60s]))
+          )
+          > on (backend, batch_size) (2 * lab_baseline_p95_seconds)
+          and on (backend, batch_size)
+          sum by (backend, batch_size) (increase(inference_requests_total{status="success"}[60s])) >= 100
+        for: 15s
+        labels: {severity: warning}
+        annotations:
+          summary: "p95 latency >2x baseline ({{ $labels.backend }}, batch {{ $labels.batch_size }})"
+          description: "See docs/runbooks/RB-005-latency-regression.md."
+
+  - name: lab-monitoring-health
+    interval: 5s
+    rules:
+      - alert: ControllerHeartbeatStale
+        expr: time() - lab_controller_heartbeat_timestamp_seconds > 15
+        for: 5s
+        labels: {severity: warning}
+        annotations:
+          summary: "Host recovery controller heartbeat is stale"
+          description: "Recovery actions are not being applied. Restart ops/controller.py."
+
+      - alert: ControllerTargetDown
+        expr: up{job="lab-controller"} == 0
+        for: 10s
+        labels: {severity: warning}
+        annotations:
+          summary: "Controller metrics endpoint not scraped"
+
+      - alert: RecoveryUnresolved
+        expr: lab_controller_unresolved == 1
+        for: 0s
+        labels: {severity: critical}
+        annotations:
+          summary: "Automatic recovery exhausted for {{ $labels.workload }}"
+          description: "See docs/runbooks/RB-006-recovery-exhausted.md."
+
+      - alert: OperatorActionRequired
+        expr: lab_controller_state{state="needs_operator"} == 1
+        for: 5s
+        labels: {severity: warning}
+        annotations:
+          summary: "{{ $labels.workload }} needs a configuration fix (restarts will not help)"
+          description: "Missing weights / GPU access / unsupported hardware. See RB-002 and RB-003."

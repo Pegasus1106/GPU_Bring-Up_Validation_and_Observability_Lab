@@ -1,0 +1,23 @@
+metrics_addr: 127.0.0.1
+metrics_port: 9105
+state_file: artifacts/controller/state.json
+events_file: artifacts/controller/faults.jsonl
+probe_timeout_s: 1.5
+policy:
+  probe_interval_s: 2
+  failures_required: 3
+  min_restart_interval_s: 60
+  max_restarts_per_window: 3
+  window_s: 300
+  startup_grace_s: 120
+  post_restart_grace_s: 60
+workloads:
+- name: inference-gpu
+  container: inference-gpu
+  url: http://127.0.0.1:8000
+  optional: true
+- name: inference-fault
+  container: inference-fault
+  url: http://127.0.0.1:8010
+  optional: true
+runtime: native

@@ -1,0 +1,145 @@
+{
+  "cwd": "/home/tuttare/P_3",
+  "created_utc": "2026-11-11T05:16:24.733Z",
+  "options": {
+    "profiles": [
+      "gpu"
+    ],
+    "grafana": false,
+    "node_exporter": true,
+    "cpu_threads": 8,
+    "run_id": "1000266"
+  },
+  "services": {
+    "alert-receiver": {
+      "cmd": [
+        "/home/tuttare/.conda/envs/gpulab/bin/python",
+        "-m",
+        "ops.alert_receiver",
+        "--addr",
+        "127.0.0.1",
+        "--port",
+        "9094",
+        "--out",
+        "/home/tuttare/P_3/artifacts/alerts/alerts.jsonl"
+      ],
+      "restart": "always",
+      "env": {},
+      "autostart": true
+    },
+    "alertmanager": {
+      "cmd": [
+        "/home/tuttare/P_3/.tools/linux-amd64/alertmanager",
+        "--config.file=/home/tuttare/P_3/artifacts/native/run/alertmanager.yml",
+        "--storage.path=/home/tuttare/P_3/artifacts/native/am-data",
+        "--web.listen-address=127.0.0.1:9093",
+        "--cluster.listen-address="
+      ],
+      "restart": "always",
+      "env": {},
+      "autostart": true
+    },
+    "prometheus": {
+      "cmd": [
+        "/home/tuttare/P_3/.tools/linux-amd64/prometheus",
+        "--config.file=/home/tuttare/P_3/artifacts/native/run/prometheus.yml",
+        "--storage.tsdb.path=/home/tuttare/P_3/artifacts/native/prom-data/1000266",
+        "--storage.tsdb.retention.time=30d",
+        "--web.listen-address=127.0.0.1:9090",
+        "--web.enable-lifecycle"
+      ],
+      "restart": "always",
+      "env": {},
+      "autostart": true
+    },
+    "node-exporter": {
+      "cmd": [
+        "/home/tuttare/P_3/.tools/linux-amd64/node_exporter",
+        "--web.listen-address=127.0.0.1:43055"
+      ],
+      "restart": "always",
+      "env": {},
+      "autostart": true
+    },
+    "gpu-exporter": {
+      "cmd": [
+        "/home/tuttare/.conda/envs/gpulab/bin/python",
+        "-m",
+        "ops.gpu_exporter",
+        "--addr",
+        "127.0.0.1",
+        "--port",
+        "52373"
+      ],
+      "restart": "always",
+      "env": {},
+      "autostart": true
+    },
+    "controller": {
+      "cmd": [
+        "/home/tuttare/.conda/envs/gpulab/bin/python",
+        "-m",
+        "ops.controller",
+        "--config",
+        "/home/tuttare/P_3/artifacts/native/run/controller.yaml"
+      ],
+      "restart": "always",
+      "env": {},
+      "autostart": true
+    },
+    "inference-gpu": {
+      "cmd": [
+        "/home/tuttare/.conda/envs/gpulab/bin/python",
+        "-m",
+        "app.main"
+      ],
+      "restart": "on-failure:3",
+      "env": {
+        "LAB_HOST": "127.0.0.1",
+        "LAB_PORT": "8000",
+        "LAB_BACKEND": "cuda",
+        "LAB_WORKLOAD": "resnet18",
+        "LAB_PRECISION": "fp32",
+        "LAB_MODEL_PATH": "/home/tuttare/P_3/manifests/weights/resnet18-f37072fd.pth",
+        "LAB_MODEL_MANIFEST": "/home/tuttare/P_3/manifests/model.json",
+        "LAB_INPUT_DIR": "/home/tuttare/P_3/manifests/inputs",
+        "LAB_INPUT_MANIFEST": "/home/tuttare/P_3/manifests/inputs.json",
+        "LAB_MAX_PENDING": "32",
+        "LAB_REQUEST_DEADLINE_S": "10",
+        "LAB_CPU_THREADS": "8",
+        "LAB_CHANNELS_LAST": "0",
+        "LAB_ENABLE_FAULT_INJECTION": "1",
+        "LAB_FAULT_DIR": "/home/tuttare/P_3/artifacts/faults/inject/gpu",
+        "LAB_LOG_FILE": "/home/tuttare/P_3/artifacts/logs/inference-gpu.jsonl"
+      },
+      "autostart": true
+    },
+    "inference-fault": {
+      "cmd": [
+        "/home/tuttare/.conda/envs/gpulab/bin/python",
+        "-m",
+        "app.main"
+      ],
+      "restart": "no",
+      "env": {
+        "LAB_HOST": "127.0.0.1",
+        "LAB_PORT": "8010",
+        "LAB_BACKEND": "cpu",
+        "LAB_WORKLOAD": "resnet18",
+        "LAB_PRECISION": "fp32",
+        "LAB_MODEL_PATH": "/home/tuttare/P_3/manifests/weights/resnet18-f37072fd.pth",
+        "LAB_MODEL_MANIFEST": "/home/tuttare/P_3/manifests/model.json",
+        "LAB_INPUT_DIR": "/home/tuttare/P_3/manifests/inputs",
+        "LAB_INPUT_MANIFEST": "/home/tuttare/P_3/manifests/inputs.json",
+        "LAB_MAX_PENDING": "32",
+        "LAB_REQUEST_DEADLINE_S": "10",
+        "LAB_CPU_THREADS": "8",
+        "LAB_CHANNELS_LAST": "0",
+        "LAB_ENABLE_FAULT_INJECTION": "1",
+        "LAB_FAULT_DIR": "/home/tuttare/P_3/artifacts/faults/inject/fault",
+        "LAB_LOG_FILE": "/home/tuttare/P_3/artifacts/logs/inference-fault.jsonl"
+      },
+      "autostart": false
+    }
+  }
+}

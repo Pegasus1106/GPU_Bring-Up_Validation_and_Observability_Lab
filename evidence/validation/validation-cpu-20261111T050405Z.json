@@ -1,0 +1,4514 @@
+{
+  "run_id": "validation-cpu-20261111T050405Z",
+  "created_utc": "2026-11-11T05:04:05.817Z",
+  "commit": "unknown",
+  "backend": "cpu",
+  "mode": "acceptance",
+  "tolerances": {
+    "status": "frozen",
+    "atol": 0.0001,
+    "rtol": 0.001,
+    "top1_policy": "Every top-1 disagreement must have a CPU-reference top-1 margin <= 2*(atol + rtol*|top1 logit|); any other disagreement fails.",
+    "notes": "Candidate values from the specification. Run `python -m validation.correctness --calibrate` on the target host, review, then `--freeze`. Do not loosen after seeing final-evaluation failures; investigate instead.",
+    "frozen_utc": "2026-11-11T00:32:45.633Z",
+    "frozen_commit": "unknown",
+    "calibration_ids": "img_000..img_063"
+  },
+  "tolerances_frozen": true,
+  "passed": true,
+  "checks_passed": true,
+  "note": "",
+  "cases": [
+    {
+      "id": "C01",
+      "name": "executed on requested backend; TF32 disabled",
+      "status": "PASS",
+      "reason": "",
+      "metrics": {
+        "backend_actual": "cpu",
+        "tf32_matmul": false,
+        "tf32_cudnn": false,
+        "torch": "2.11.0+cu128",
+        "cuda": null
+      }
+    },
+    {
+      "id": "C02-bs1",
+      "name": "logits within tolerance vs CPU FP32 reference, batch=1",
+      "status": "PASS",
+      "reason": "",
+      "metrics": {
+        "n_inputs": 256,
+        "n_outside_tolerance": 0,
+        "max_abs_error": 0.0,
+        "max_normalized_error": 0.0,
+        "atol": 0.0001,
+        "rtol": 0.001,
+        "backends": [
+          "cpu"
+        ],
+        "worst_input": "img_000"
+      }
+    },
+    {
+      "id": "C04-bs1",
+      "name": "top-1 agreement vs reference, batch=1",
+      "status": "PASS",
+      "reason": "",
+      "metrics": {
+        "top1_agreement": 1.0,
+        "flips": [],
+        "unexplained_flips": []
+      }
+    },
+    {
+      "id": "C02-bs8",
+      "name": "logits within tolerance vs CPU FP32 reference, batch=8",
+      "status": "PASS",
+      "reason": "",
+      "metrics": {
+        "n_inputs": 256,
+        "n_outside_tolerance": 0,
+        "max_abs_error": 5.7220458984375e-06,
+        "max_normalized_error": 6.2325171402012e-07,
+        "atol": 0.0001,
+        "rtol": 0.001,
+        "backends": [
+          "cpu"
+        ],
+        "worst_input": "img_009"
+      }
+    },
+    {
+      "id": "C04-bs8",
+      "name": "top-1 agreement vs reference, batch=8",
+      "status": "PASS",
+      "reason": "",
+      "metrics": {
+        "top1_agreement": 1.0,
+        "flips": [],
+        "unexplained_flips": []
+      }
+    },
+    {
+      "id": "C02-bs32",
+      "name": "logits within tolerance vs CPU FP32 reference, batch=32",
+      "status": "PASS",
+      "reason": "",
+      "metrics": {
+        "n_inputs": 256,
+        "n_outside_tolerance": 0,
+        "max_abs_error": 5.7220458984375e-06,
+        "max_normalized_error": 6.2325171402012e-07,
+        "atol": 0.0001,
+        "rtol": 0.001,
+        "backends": [
+          "cpu"
+        ],
+        "worst_input": "img_009"
+      }
+    },
+    {
+      "id": "C04-bs32",
+      "name": "top-1 agreement vs reference, batch=32",
+      "status": "PASS",
+      "reason": "",
+      "metrics": {
+        "top1_agreement": 1.0,
+        "flips": [],
+        "unexplained_flips": []
+      }
+    },
+    {
+      "id": "C03",
+      "name": "batch(32) vs individual predictions consistent",
+      "status": "PASS",
+      "reason": "",
+      "metrics": {
+        "max_abs_error": 5.7220458984375e-06,
+        "n_outside_tolerance": 0
+      }
+    },
+    {
+      "id": "C05-missing",
+      "name": "bad weights: missing",
+      "status": "PASS",
+      "reason": "model weights not found at /tmp/tmpref4s39y/nope.pth (no download is attempted)",
+      "metrics": {
+        "reason_code": "weights_missing"
+      }
+    },
+    {
+      "id": "C05-checksum",
+      "name": "bad weights: checksum",
+      "status": "PASS",
+      "reason": "weights SHA256 9143fcc5e774\u2026 != manifest f37072fd47e8\u2026",
+      "metrics": {
+        "reason_code": "weights_checksum_mismatch"
+      }
+    },
+    {
+      "id": "C05-corrupt",
+      "name": "bad weights: corrupt",
+      "status": "PASS",
+      "reason": "could not load weights: Weights only load failed. In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.\nPlease file an issue with the following so that we can make `weights_only=True` compatible with your use case: WeightsUnpickler error: \n\nUnsupported operand 110\n\nCheck the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.",
+      "metrics": {
+        "reason_code": "weights_corrupt"
+      }
+    }
+  ],
+  "per_input_errors": {
+    "img_000": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 4.0250265416958537e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 4.0250265416958537e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_001": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.7508283469977574e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.7508283469977574e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_002": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.334705615219839e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.334705615219839e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_003": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 2.9930874916479255e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 2.9930874916479255e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_004": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.4247959335343004e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.4247959335343004e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_005": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.0258356132500374e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.0258356132500374e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_006": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.766287039280867e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.766287039280867e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_007": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.033525658860105e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.033525658860105e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_008": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.3288806226125267e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.3288806226125267e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_009": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 5.7220458984375e-06,
+        "normalized_error": 5.146793851948872e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 5.7220458984375e-06,
+        "normalized_error": 5.146793851948872e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_010": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 4.0293984913932047e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 4.0293984913932047e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_011": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.609548627748874e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.609548627748874e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_012": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.059626218259716e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.059626218259716e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_013": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.0077192513040867e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.0077192513040867e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_014": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.9351192723453563e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.9351192723453563e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_015": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 5.920858645552271e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 5.920858645552271e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_016": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.264795160822227e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.264795160822227e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_017": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.610229105029007e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.610229105029007e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_018": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.0918198045015836e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.0918198045015836e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_019": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 4.7217756646607516e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 4.7217756646607516e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_020": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 1.9073486328125e-06,
+        "normalized_error": 1.9131326801515737e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 1.9073486328125e-06,
+        "normalized_error": 1.9131326801515737e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_021": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.182892166796281e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.182892166796281e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_022": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.719427237960772e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.719427237960772e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_023": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 4.149198827740686e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 4.149198827740686e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_024": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 3.505815878864892e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 3.505815878864892e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_025": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.0417011139317817e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.0417011139317817e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_026": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.916001429540541e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.916001429540541e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_027": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.5888583666073365e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.5888583666073365e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_028": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.903518855799872e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.903518855799872e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_029": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 2.630999120480912e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 2.630999120480912e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_030": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.7988776873657355e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.7988776873657355e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_031": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 3.401203565591583e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 3.401203565591583e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_032": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.9166302175267046e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.9166302175267046e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_033": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.8499344818149885e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.8499344818149885e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_034": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.9304369936021723e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.9304369936021723e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_035": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.199989760032768e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.199989760032768e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_036": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.302469849586487e-06,
+        "normalized_error": 4.2318147506437743e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.302469849586487e-06,
+        "normalized_error": 4.2318147506437743e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_037": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.081337131868801e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.081337131868801e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_038": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.312253416534195e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.312253416534195e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_039": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 3.9093626890785817e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 3.9093626890785817e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_040": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.042659177019112e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.042659177019112e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_041": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.129405289904977e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.129405289904977e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_042": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 3.7068597515543976e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 3.7068597515543976e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_043": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.0531158447265625e-06,
+        "normalized_error": 4.1404176366203863e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.0531158447265625e-06,
+        "normalized_error": 4.1404176366203863e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_044": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.8502051862713596e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.8502051862713596e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_045": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.4688565480969104e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.4688565480969104e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_046": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.794854025333228e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.794854025333228e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_047": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.7926581939405027e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.7926581939405027e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_048": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.5532977934706867e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.5532977934706867e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_049": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.68609764118417e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.68609764118417e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_050": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.757444382898286e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.757444382898286e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_051": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.4715958081174937e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.4715958081174937e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_052": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.4570693969726562e-06,
+        "normalized_error": 4.344265742989883e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.4570693969726562e-06,
+        "normalized_error": 4.344265742989883e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_053": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.5299530029296875e-06,
+        "normalized_error": 3.4473503955163254e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.5299530029296875e-06,
+        "normalized_error": 3.4473503955163254e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_054": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.4542533084550336e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.4542533084550336e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_055": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 4.1633841466658465e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 4.1633841466658465e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_056": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.498501941468663e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.498501941468663e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_057": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.489669763244518e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.489669763244518e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_058": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.8712375160028425e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.8712375160028425e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_059": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.802656649448639e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.802656649448639e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_060": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.1313341909013904e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.1313341909013904e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_061": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.8556868065474536e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.8556868065474536e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_062": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.576798879460447e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.576798879460447e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_063": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.585220233877636e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.585220233877636e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_064": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.2211652028260355e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.2211652028260355e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_065": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.2296351319709653e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.2296351319709653e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_066": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.466891074673829e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.466891074673829e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_067": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.7418136596679688e-06,
+        "normalized_error": 3.400449332417873e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.7418136596679688e-06,
+        "normalized_error": 3.400449332417873e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_068": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.844426159208904e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.844426159208904e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_069": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.35567150353098e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.35567150353098e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_070": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.4731258781219927e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.4731258781219927e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_071": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.272169676908624e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.272169676908624e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_072": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.0265579223632812e-06,
+        "normalized_error": 2.6461748546269363e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.0265579223632812e-06,
+        "normalized_error": 2.6461748546269363e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_073": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.260414808230226e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.260414808230226e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_074": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 4.306206785600079e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 4.306206785600079e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_075": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.3149032081412255e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.3149032081412255e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_076": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.180865187378804e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.180865187378804e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_077": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.8471331504524804e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.8471331504524804e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_078": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.009854715817795e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.009854715817795e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_079": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 3.737511249908862e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 3.737511249908862e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_080": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.1611373983101614e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.1611373983101614e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_081": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 5.399094666308617e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 5.399094666308617e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_082": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.868190630623382e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.868190630623382e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_083": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.028934196808432e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.028934196808432e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_084": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.47815249340732e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.47815249340732e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_085": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 4.5325514245658043e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 4.5325514245658043e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_086": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.477598815390739e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.477598815390739e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_087": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.5324123456114814e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.5324123456114814e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_088": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.919240950644977e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.919240950644977e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_089": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.842337796308978e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.842337796308978e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_090": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.893658066071859e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.893658066071859e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_091": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.7045249714090053e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.7045249714090053e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_092": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.58220127907791e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.58220127907791e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_093": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.725408300230978e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.725408300230978e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_094": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.223061057261162e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.223061057261162e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_095": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.1510808207215074e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.1510808207215074e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_096": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.9404124080659565e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.9404124080659565e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_097": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 4.306831913107656e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 4.306831913107656e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_098": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.1094098430573435e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.1094098430573435e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_099": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.3569896665144084e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.3569896665144084e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_100": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.954155206680298e-06,
+        "normalized_error": 2.6767751200621066e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.954155206680298e-06,
+        "normalized_error": 2.6767751200621066e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_101": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.933135366250347e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.933135366250347e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_102": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.507706303195163e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.507706303195163e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_103": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.316258078404679e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.316258078404679e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_104": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 2.465891036448146e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 2.465891036448146e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_105": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.5964389787523106e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.5964389787523106e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_106": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.407757126228679e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.407757126228679e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_107": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.5515996523220714e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.5515996523220714e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_108": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.652071528012119e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.652071528012119e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_109": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.768741426130717e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.768741426130717e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_110": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.630336874608474e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.630336874608474e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_111": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.5905427617036657e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.5905427617036657e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_112": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.88555318940194e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.88555318940194e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_113": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.191565416026935e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.191565416026935e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_114": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.948920337353053e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.948920337353053e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_115": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.5033950805664062e-06,
+        "normalized_error": 3.0384951288582376e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.5033950805664062e-06,
+        "normalized_error": 3.0384951288582376e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_116": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.3405872814359597e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.3405872814359597e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_117": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 2.494290342652002e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 2.494290342652002e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_118": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.1457672119140625e-06,
+        "normalized_error": 2.593263554181805e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.1457672119140625e-06,
+        "normalized_error": 2.593263554181805e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_119": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.927909891390346e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.927909891390346e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_120": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 3.9840062511714086e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 3.9840062511714086e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_121": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 3.70517690737662e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 3.70517690737662e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_122": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.9563897333268976e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.9563897333268976e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_123": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 1.9073486328125e-06,
+        "normalized_error": 2.5809525444127087e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 1.9073486328125e-06,
+        "normalized_error": 2.5809525444127087e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_124": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.574113621993062e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.574113621993062e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_125": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.6545720432182383e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.6545720432182383e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_126": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.1457672119140625e-06,
+        "normalized_error": 2.838325390542536e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.1457672119140625e-06,
+        "normalized_error": 2.838325390542536e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_127": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.091102518990961e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.091102518990961e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_128": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.057047360043784e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.057047360043784e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_129": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.6352356918279833e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.6352356918279833e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_130": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 4.215588318171167e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 4.215588318171167e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_131": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.8135874853313083e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.8135874853313083e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_132": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.883260749642407e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.883260749642407e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_133": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.234482376728701e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.234482376728701e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_134": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 4.670690186020512e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 4.670690186020512e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_135": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 4.426371919197719e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 4.426371919197719e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_136": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 5.7220458984375e-06,
+        "normalized_error": 6.2325171402012e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 5.7220458984375e-06,
+        "normalized_error": 6.2325171402012e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_137": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.434120922908307e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.434120922908307e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_138": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.296138866674271e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.296138866674271e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_139": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.8245324198418886e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.8245324198418886e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_140": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 2.83833000042433e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 2.83833000042433e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_141": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.8653208336577286e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.8653208336577286e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_142": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.570276500064771e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.570276500064771e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_143": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.10480454013498e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.10480454013498e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_144": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.5775899052815187e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.5775899052815187e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_145": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.4703296934946666e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.4703296934946666e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_146": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 4.355308832149446e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 4.355308832149446e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_147": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.7477114540275357e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.7477114540275357e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_148": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.7998615113330326e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.7998615113330326e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_149": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.7710155761002344e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.7710155761002344e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_150": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.3048125684932675e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.3048125684932675e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_151": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.6432400864249413e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.6432400864249413e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_152": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.1667530737862513e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.1667530737862513e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_153": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.5762786865234375e-06,
+        "normalized_error": 3.594030573986809e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.5762786865234375e-06,
+        "normalized_error": 3.594030573986809e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_154": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.3818325699785704e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.3818325699785704e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_155": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.364700567445535e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.364700567445535e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_156": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 1.9073486328125e-06,
+        "normalized_error": 2.568297285033678e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 1.9073486328125e-06,
+        "normalized_error": 2.568297285033678e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_157": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 2.8695527410750387e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 2.8695527410750387e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_158": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 3.2623969816593117e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 3.2623969816593117e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_159": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.8820434379665606e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.8820434379665606e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_160": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 4.1207619508621116e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 4.1207619508621116e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_161": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.6150123406192703e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.6150123406192703e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_162": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 2.971153984322895e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 2.971153984322895e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_163": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.1457672119140625e-06,
+        "normalized_error": 2.5049046032130913e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.1457672119140625e-06,
+        "normalized_error": 2.5049046032130913e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_164": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.924270988178526e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.924270988178526e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_165": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.509382833352187e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.509382833352187e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_166": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 4.148491335935109e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 4.148491335935109e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_167": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 3.85229084179489e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 3.85229084179489e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_168": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.506812010958579e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.506812010958579e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_169": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 4.925008536681463e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.291534423828125e-06,
+        "normalized_error": 4.925008536681463e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_170": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.233920671537857e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.233920671537857e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_171": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.883373635354766e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.883373635354766e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_172": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.205780570265231e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.205780570265231e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_173": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.99979841354661e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.99979841354661e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_174": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.22203692171288e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.22203692171288e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_175": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.5367607067537094e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.5367607067537094e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_176": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.5969534523649157e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.5969534523649157e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_177": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.3468505188343454e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.3468505188343454e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_178": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.989096076422817e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.989096076422817e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_179": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.996799589284335e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.996799589284335e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_180": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.5133923489557497e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.5133923489557497e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_181": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.136872706732174e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.136872706732174e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_182": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.706611439763911e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.706611439763911e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_183": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.7501082843767114e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.7501082843767114e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_184": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.914267695873031e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.914267695873031e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_185": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.7191893190243547e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.7191893190243547e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_186": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.839391952163742e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.839391952163742e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_187": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.5294333565334754e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.5294333565334754e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_188": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.7734435019050785e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.7734435019050785e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_189": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.4943826502715884e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.4943826502715884e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_190": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.8132507863035946e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.8132507863035946e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_191": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.467830594288157e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.467830594288157e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_192": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.8687346527818817e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.8687346527818817e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_193": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.4398955647706534e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.4398955647706534e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_194": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.402334954432528e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.402334954432528e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_195": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.1339192648076116e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.1339192648076116e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_196": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.9397695314759946e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.9397695314759946e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_197": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.762021468272199e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.762021468272199e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_198": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 3.9130807716219626e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 3.9130807716219626e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_199": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.1457672119140625e-06,
+        "normalized_error": 2.360426907859634e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.1457672119140625e-06,
+        "normalized_error": 2.360426907859634e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_200": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.5023662862221287e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.5023662862221287e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_201": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 3.9815529872238337e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 3.9815529872238337e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_202": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.79224439599342e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.79224439599342e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_203": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.664070998862213e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 2.664070998862213e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_204": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.019884346116522e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.019884346116522e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_205": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.596046809146946e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.596046809146946e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_206": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.974693980835633e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.974693980835633e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_207": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.6425266571482855e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.6425266571482855e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_208": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.2433324035780445e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.337860107421875e-06,
+        "normalized_error": 3.2433324035780445e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_209": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.74244267357811e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.74244267357811e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_210": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.787333686767245e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.787333686767245e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_211": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 5.814817597312717e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 5.814817597312717e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_212": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.657681267825481e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.657681267825481e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_213": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.1667149926566757e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.1667149926566757e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_214": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.516674041748047e-06,
+        "normalized_error": 2.6517864590974076e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.516674041748047e-06,
+        "normalized_error": 2.6517864590974076e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_215": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.275218471679938e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 4.275218471679938e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_216": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 1.9073486328125e-06,
+        "normalized_error": 2.3098595778616127e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 1.9073486328125e-06,
+        "normalized_error": 2.3098595778616127e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_217": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.7249352282896234e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.7249352282896234e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_218": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.9158069490871923e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.9158069490871923e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_219": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.958941958104696e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.958941958104696e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_220": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.597450723329419e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.597450723329419e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_221": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.0722639492560306e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.0722639492560306e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_222": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.8358377751060405e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.8358377751060405e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_223": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.4906987346453405e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.4906987346453405e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_224": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.440871758623534e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.440871758623534e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_225": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.3086223359800107e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.3086223359800107e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_226": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.8925867922778474e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.8925867922778474e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_227": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 2.794896376930092e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 2.794896376930092e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_228": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 4.958220546211458e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 4.958220546211458e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_229": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.539614386644608e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.539614386644608e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_230": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 3.3559320073718984e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 3.3559320073718984e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_231": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.757143367870843e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.757143367870843e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_232": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.785827529603364e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.785827529603364e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_233": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.5828103228523235e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.5828103228523235e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_234": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.7792621179677776e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.7792621179677776e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_235": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.6626813072955764e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.6626813072955764e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_236": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.694102544870817e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.694102544870817e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_237": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.841097632059337e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.841097632059337e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_238": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 4.380673135986345e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 4.76837158203125e-06,
+        "normalized_error": 4.380673135986345e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_239": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.936802767624836e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.936802767624836e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_240": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.1307155125075214e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.1307155125075214e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_241": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.0124693940640735e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.0124693940640735e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_242": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.431152047042467e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.431152047042467e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_243": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.2443998119899805e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.6226043701171875e-06,
+        "normalized_error": 3.2443998119899805e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_244": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.9962870011481774e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.9962870011481774e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_245": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.956653672026844e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.956653672026844e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_246": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.1457672119140625e-06,
+        "normalized_error": 2.807910119920225e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.1457672119140625e-06,
+        "normalized_error": 2.807910119920225e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_247": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.399682474015038e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 2.399682474015038e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_248": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 2.8622889381163443e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.0994415283203125e-06,
+        "normalized_error": 2.8622889381163443e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_249": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.1731858182710134e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.86102294921875e-06,
+        "normalized_error": 3.1731858182710134e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_250": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 1.9073486328125e-06,
+        "normalized_error": 2.5163547330430716e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 1.9073486328125e-06,
+        "normalized_error": 2.5163547330430716e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_251": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.1450164572421174e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.1450164572421174e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_252": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.171932709350731e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.171932709350731e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_253": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.802814558124832e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 3.814697265625e-06,
+        "normalized_error": 3.802814558124832e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_254": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.355339438887928e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 3.355339438887928e-07,
+        "within_tolerance": true
+      }
+    },
+    "img_255": {
+      "bs1": {
+        "max_abs_error": 0.0,
+        "normalized_error": 0.0,
+        "within_tolerance": true
+      },
+      "bs8": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.758989366744621e-07,
+        "within_tolerance": true
+      },
+      "bs32": {
+        "max_abs_error": 2.384185791015625e-06,
+        "normalized_error": 2.758989366744621e-07,
+        "within_tolerance": true
+      }
+    }
+  }
+}

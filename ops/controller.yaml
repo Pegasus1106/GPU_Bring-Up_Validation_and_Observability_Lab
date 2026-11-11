@@ -1,0 +1,20 @@
+# Host recovery controller configuration. Runs on the host, never in the workload container.
+metrics_addr: 127.0.0.1     # loopback only (Prometheus runs with host networking)
+metrics_port: 9105
+state_file: artifacts/controller/state.json    # restart counters persist across restarts
+events_file: artifacts/controller/faults.jsonl # Docker events, probes' state changes, actions
+probe_timeout_s: 1.5
+
+policy:                      # spec: 3 consecutive failures @2 s, 1 restart/60 s, 3 restarts/5 min
+  probe_interval_s: 2
+  failures_required: 3
+  min_restart_interval_s: 60
+  max_restarts_per_window: 3
+  window_s: 300
+  startup_grace_s: 120       # cold healthy startup target
+  post_restart_grace_s: 60   # cached restart target
+
+workloads:                   # optional: skipped when the container does not exist
+  - {name: inference-gpu,   container: lab-inference-gpu,   url: "http://127.0.0.1:8000", optional: true}
+  - {name: inference-cpu,   container: lab-inference-cpu,   url: "http://127.0.0.1:8001", optional: true}
+  - {name: inference-fault, container: lab-inference-fault, url: "http://127.0.0.1:8010", optional: true}

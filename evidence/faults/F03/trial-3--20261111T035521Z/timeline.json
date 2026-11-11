@@ -1,0 +1,130 @@
+{
+  "scenario": "F03",
+  "scenario_name": "missing weights",
+  "trial": 3,
+  "run_id": "F03-t3-20261111T035521Z",
+  "commit": "unknown",
+  "profile": "gpu",
+  "fault_class": "actual",
+  "expected_symptoms": "readyz 503 weights_missing; inference rejected; operator_required; no restart loop",
+  "expected_alert": "ServiceUnavailable",
+  "action_owner": "operator (harness): corrected configuration + controlled redeploy",
+  "evidence_dir": "artifacts/faults/F03/trial-3--20261111T035521Z",
+  "load": {
+    "batch_size": 8,
+    "concurrency": 4
+  },
+  "final_status": "RECOVERED_VALIDATED",
+  "errors": [],
+  "inject_detail": {
+    "cmd": "compose up inference-fault (FAULT_MODEL_PATH invalid)",
+    "rc": 0,
+    "stderr": ""
+  },
+  "stop_detail": {
+    "cmd": "compose up --force-recreate inference-fault (valid path)",
+    "rc": 0,
+    "readyz": {
+      "status": 503,
+      "ready": false,
+      "state": "failed",
+      "reason_code": "weights_missing",
+      "reason": "model weights not found at /home/tuttare/P_3/manifests/weights/DOES-NOT-EXIST.pth (no download is attempted)",
+      "backend": "cpu"
+    },
+    "infer_while_broken": {
+      "status": 503,
+      "body": {
+        "error": {
+          "code": "not_ready",
+          "message": "model weights not found at /home/tuttare/P_3/manifests/weights/DOES-NOT-EXIST.pth (no download is attempted)",
+          "request_id": "1d605c7dd1794565ba578267dd38ac64",
+          "reason_code": "weights_missing"
+        }
+      }
+    }
+  },
+  "validation": {
+    "passed": true,
+    "reason": "",
+    "n": 16,
+    "backend": "cpu",
+    "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+    "seconds": 3.4389122938737273
+  },
+  "first_observation_sources": {
+    "poll": "2026-11-11T03:55:45.456Z",
+    "loadgen": null
+  },
+  "requests_during_fault": {
+    "attempts": 3964,
+    "outcomes": {
+      "success": 3964
+    },
+    "success_fraction": 1.0
+  },
+  "queue": {
+    "max_depth": 3.0,
+    "capacity": 32.0,
+    "bounded": true
+  },
+  "restart_count": {
+    "inference-gpu": {
+      "restarts_observed": 0,
+      "controller_restart_actions": 0
+    },
+    "inference-fault": {
+      "restarts_observed": 2,
+      "controller_restart_actions": 0
+    },
+    "inference-cpu": {
+      "restarts_observed": 0,
+      "controller_restart_actions": 0
+    }
+  },
+  "controller_restart_check": {
+    "workload": "inference-fault",
+    "controller_restart_actions": 0,
+    "pass": true
+  },
+  "extra": {
+    "reason_code_seen": "weights_missing",
+    "infer_rejected": true
+  },
+  "controller_event_kinds": [
+    "docker_event:die",
+    "docker_event:kill",
+    "docker_event:start",
+    "docker_event:stop",
+    "operator_required",
+    "state_change"
+  ],
+  "recovered": true,
+  "symptom_observed": true,
+  "cleanup": {
+    "ok": true,
+    "detail": ""
+  },
+  "times": {
+    "injected_utc": "2026-11-11T03:55:41.657Z",
+    "corrective_action_utc": "2026-11-11T03:56:04.655Z",
+    "first_ready_utc": "2026-11-11T03:56:36.365Z",
+    "validation_complete_utc": "2026-11-11T03:56:39.804Z",
+    "notification_received_utc": "2026-11-11T03:56:04.525Z",
+    "alert_firing_utc": "2026-11-11T03:55:59.487Z",
+    "alert_resolved_utc": "2026-11-11T03:56:44.541Z",
+    "alert_pending_utc": "2026-11-11T03:55:50.166Z",
+    "first_observation_utc": "2026-11-11T03:55:45.456Z"
+  },
+  "metrics": {
+    "fault_to_first_observation_s": 3.799,
+    "fault_to_alert_pending_s": 8.509,
+    "fault_to_alert_firing_s": 17.83,
+    "fault_to_notification_s": 22.868,
+    "fault_to_recovery_s": 58.147,
+    "correction_to_recovery_s": 35.149
+  },
+  "ac06_alert_within_45s": true,
+  "ac07_recovery_s": 35.149,
+  "ac07_within_60s": true
+}

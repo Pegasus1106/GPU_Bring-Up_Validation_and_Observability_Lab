@@ -1,0 +1,101 @@
+{
+  "scenario": "F01",
+  "scenario_name": "workload crash",
+  "trial": 1,
+  "run_id": "F01-t1-20261111T034342Z",
+  "commit": "unknown",
+  "profile": "gpu",
+  "fault_class": "actual",
+  "expected_symptoms": "die event, failed/connection-error requests, restart, readiness revalidated",
+  "expected_alert": "RestartObserved",
+  "action_owner": "docker restart policy (on-failure:3)",
+  "evidence_dir": "artifacts/faults/F01/trial-1--20261111T034342Z",
+  "load": {
+    "batch_size": 8,
+    "concurrency": 4
+  },
+  "final_status": "RECOVERED_VALIDATED",
+  "errors": [],
+  "inject_detail": {
+    "cmd": "kill -9 (supervised process inference-gpu)",
+    "rc": 0,
+    "stderr": "",
+    "started_at_before": "2026-11-11T03:43:24.523Z"
+  },
+  "stop_detail": {},
+  "validation": {
+    "passed": true,
+    "reason": "",
+    "n": 16,
+    "backend": "cuda",
+    "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+    "seconds": 0.3413121309131384
+  },
+  "first_observation_sources": {
+    "poll": "2026-11-11T03:44:02.473Z",
+    "loadgen": "2026-11-11T03:44:02.496Z"
+  },
+  "requests_during_fault": {
+    "attempts": 127,
+    "outcomes": {
+      "success": 23,
+      "connection_error": 32,
+      "not_ready": 72
+    },
+    "success_fraction": 0.18110236220472442
+  },
+  "queue": {
+    "max_depth": 3.0,
+    "capacity": 32.0,
+    "bounded": true
+  },
+  "restart_count": {
+    "inference-gpu": {
+      "restarts_observed": 1,
+      "controller_restart_actions": 0
+    },
+    "inference-fault": {
+      "restarts_observed": 0,
+      "controller_restart_actions": 0
+    },
+    "inference-cpu": {
+      "restarts_observed": 0,
+      "controller_restart_actions": 0
+    }
+  },
+  "extra": {},
+  "controller_event_kinds": [
+    "docker_event:die",
+    "docker_event:start",
+    "state_change"
+  ],
+  "crash_event_capture_lag_s": 0.014,
+  "recovered": true,
+  "symptom_observed": true,
+  "cleanup": {
+    "ok": true,
+    "detail": ""
+  },
+  "times": {
+    "injected_utc": "2026-11-11T03:44:02.462Z",
+    "corrective_action_utc": "2026-11-11T03:44:02.484Z",
+    "first_ready_utc": "2026-11-11T03:44:07.964Z",
+    "validation_complete_utc": "2026-11-11T03:44:08.306Z",
+    "notification_received_utc": "2026-11-11T03:44:14.512Z",
+    "alert_firing_utc": "2026-11-11T03:44:09.487Z",
+    "alert_resolved_utc": "2026-11-11T03:45:04.526Z",
+    "alert_pending_utc": "2026-11-11T03:44:09.785Z",
+    "first_observation_utc": "2026-11-11T03:44:02.473Z",
+    "crash_event_logged_utc": "2026-11-11T03:44:02.851Z"
+  },
+  "metrics": {
+    "fault_to_first_observation_s": 0.011,
+    "fault_to_alert_pending_s": 7.323,
+    "fault_to_alert_firing_s": 7.025,
+    "fault_to_notification_s": 12.05,
+    "fault_to_recovery_s": 5.844
+  },
+  "ac06_crash_logged_within_5s": true,
+  "ac07_recovery_s": 5.844,
+  "ac07_within_60s": true
+}

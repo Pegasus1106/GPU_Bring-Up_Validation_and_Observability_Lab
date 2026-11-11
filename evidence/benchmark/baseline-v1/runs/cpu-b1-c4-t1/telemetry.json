@@ -1,0 +1,80 @@
+{
+  "prometheus": "http://127.0.0.1:9090",
+  "window": {
+    "start": 1794357300.0416183,
+    "end": 1794357360.3108552,
+    "step_s": 5
+  },
+  "fields": {
+    "host_cpu_busy_percent": {
+      "unit": "%",
+      "source": "node-exporter",
+      "query": "100 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[15s])) * 100",
+      "available": true,
+      "samples": 13,
+      "mean": 20.8239329603228,
+      "max": 22.371577053738164,
+      "min": 15.704262906963095
+    },
+    "host_mem_available_bytes": {
+      "unit": "bytes",
+      "source": "node-exporter",
+      "query": "node_memory_MemAvailable_bytes",
+      "available": true,
+      "samples": 13,
+      "mean": 506972298633.8461,
+      "max": 507014107136.0,
+      "min": 506917171200.0
+    },
+    "service_rss_bytes": {
+      "unit": "bytes",
+      "source": "inference service",
+      "query": "process_resident_memory_bytes{job=\"inference\"}",
+      "available": true,
+      "samples": 26,
+      "mean": 1183473979.0769231,
+      "max": 1443901440.0,
+      "min": 922509312.0
+    },
+    "gpu_utilization_percent": {
+      "unit": "%",
+      "source": "dcgm-exporter",
+      "query": "avg(DCGM_FI_DEV_GPU_UTIL)",
+      "available": true,
+      "samples": 13,
+      "mean": 0.0,
+      "max": 0.0,
+      "min": 0.0
+    },
+    "gpu_memory_used_mib": {
+      "unit": "MiB",
+      "source": "dcgm-exporter",
+      "query": "sum(DCGM_FI_DEV_FB_USED)",
+      "available": true,
+      "samples": 13,
+      "mean": 611.0,
+      "max": 611.0,
+      "min": 611.0
+    },
+    "gpu_power_watts": {
+      "unit": "W",
+      "source": "dcgm-exporter",
+      "query": "sum(DCGM_FI_DEV_POWER_USAGE)",
+      "available": true,
+      "samples": 13,
+      "mean": 96.22,
+      "max": 96.22,
+      "min": 96.22
+    },
+    "gpu_temperature_celsius": {
+      "unit": "C",
+      "source": "dcgm-exporter",
+      "query": "max(DCGM_FI_DEV_GPU_TEMP)",
+      "available": true,
+      "samples": 13,
+      "mean": 31.076923076923077,
+      "max": 32.0,
+      "min": 31.0
+    }
+  }
+}

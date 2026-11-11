@@ -1,0 +1,137 @@
+{
+  "run_id": "preflight-gpu-20261111T015621Z",
+  "created_utc": "2026-11-11T01:56:31.127Z",
+  "gpus": [
+    {
+      "name": "NVIDIA A100-SXM4-80GB",
+      "uuid": "GPU-c5bef930-c1a4-4894-0d30-0c3a6dd28f11",
+      "driver_version": "615.71.09",
+      "memory_total": "81920 MiB",
+      "pci_bus_id": "00000000:81:00.0",
+      "vbios_version": "92.00.36.00.02"
+    }
+  ],
+  "nvidia_smi_fields": {
+    "temperature.gpu": {
+      "status": "supported",
+      "sample": [
+        "44"
+      ]
+    },
+    "power.draw": {
+      "status": "supported",
+      "sample": [
+        "123.32"
+      ]
+    },
+    "power.limit": {
+      "status": "supported",
+      "sample": [
+        "500.00"
+      ]
+    },
+    "utilization.gpu": {
+      "status": "supported",
+      "sample": [
+        "0"
+      ]
+    },
+    "utilization.memory": {
+      "status": "supported",
+      "sample": [
+        "0"
+      ]
+    },
+    "memory.used": {
+      "status": "supported",
+      "sample": [
+        "611"
+      ]
+    },
+    "memory.total": {
+      "status": "supported",
+      "sample": [
+        "81920"
+      ]
+    },
+    "clocks.sm": {
+      "status": "supported",
+      "sample": [
+        "1410"
+      ]
+    },
+    "clocks.mem": {
+      "status": "supported",
+      "sample": [
+        "1593"
+      ]
+    },
+    "fan.speed": {
+      "status": "unavailable",
+      "sample": [
+        "[N/A]"
+      ]
+    },
+    "ecc.mode.current": {
+      "status": "supported",
+      "sample": [
+        "Enabled"
+      ]
+    },
+    "ecc.errors.corrected.volatile.total": {
+      "status": "supported",
+      "sample": [
+        "0"
+      ]
+    },
+    "ecc.errors.uncorrected.volatile.total": {
+      "status": "supported",
+      "sample": [
+        "0"
+      ]
+    },
+    "pcie.link.gen.current": {
+      "status": "supported",
+      "sample": [
+        "4"
+      ]
+    }
+  },
+  "dcgm_fields": {
+    "DCGM_FI_DEV_GPU_UTIL": {
+      "status": "supported"
+    },
+    "DCGM_FI_DEV_MEM_COPY_UTIL": {
+      "status": "supported"
+    },
+    "DCGM_FI_DEV_FB_USED": {
+      "status": "supported"
+    },
+    "DCGM_FI_DEV_FB_FREE": {
+      "status": "supported"
+    },
+    "DCGM_FI_DEV_GPU_TEMP": {
+      "status": "supported"
+    },
+    "DCGM_FI_DEV_POWER_USAGE": {
+      "status": "supported"
+    },
+    "DCGM_FI_DEV_SM_CLOCK": {
+      "status": "supported"
+    },
+    "DCGM_FI_DEV_MEM_CLOCK": {
+      "status": "supported"
+    },
+    "DCGM_FI_DEV_XID_ERRORS": {
+      "status": "unsupported",
+      "reason": "requested but not exported by this GPU/driver/exporter combination (e.g. DCGM-only fields in nvidia-smi mode)"
+    },
+    "DCGM_FI_DEV_ECC_SBE_VOL_TOTAL": {
+      "status": "supported"
+    },
+    "DCGM_FI_DEV_ECC_DBE_VOL_TOTAL": {
+      "status": "supported"
+    }
+  },
+  "note": "unsupported/unavailable fields must be displayed as unavailable, never as zero"
+}

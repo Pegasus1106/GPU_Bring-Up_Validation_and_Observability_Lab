@@ -1,0 +1,1 @@
+{"AC01": "ASU Sol has no container runtime. Native deployment instead: deploy log (artifacts/deploy/native-up-*.log), pip env lock sha256 in preflight.json, git commit, pinned tool versions in deploy/versions.env. No image digest exists."}

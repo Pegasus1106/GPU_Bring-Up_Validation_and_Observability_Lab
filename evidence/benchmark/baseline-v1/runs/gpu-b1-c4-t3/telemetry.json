@@ -1,0 +1,80 @@
+{
+  "prometheus": "http://127.0.0.1:9090",
+  "window": {
+    "start": 1794359799.4717865,
+    "end": 1794359859.5627437,
+    "step_s": 5
+  },
+  "fields": {
+    "host_cpu_busy_percent": {
+      "unit": "%",
+      "source": "node-exporter",
+      "query": "100 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[15s])) * 100",
+      "available": true,
+      "samples": 13,
+      "mean": 30.189047602695794,
+      "max": 32.99200799205208,
+      "min": 21.504166666745732
+    },
+    "host_mem_available_bytes": {
+      "unit": "bytes",
+      "source": "node-exporter",
+      "query": "node_memory_MemAvailable_bytes",
+      "available": true,
+      "samples": 13,
+      "mean": 500118044987.0769,
+      "max": 500143718400.0,
+      "min": 500081352704.0
+    },
+    "service_rss_bytes": {
+      "unit": "bytes",
+      "source": "inference service",
+      "query": "process_resident_memory_bytes{job=\"inference\"}",
+      "available": true,
+      "samples": 26,
+      "mean": 1274001408.0,
+      "max": 1523040256.0,
+      "min": 1024962560.0
+    },
+    "gpu_utilization_percent": {
+      "unit": "%",
+      "source": "dcgm-exporter",
+      "query": "avg(DCGM_FI_DEV_GPU_UTIL)",
+      "available": true,
+      "samples": 13,
+      "mean": 39.38461538461539,
+      "max": 47.0,
+      "min": 0.0
+    },
+    "gpu_memory_used_mib": {
+      "unit": "MiB",
+      "source": "dcgm-exporter",
+      "query": "sum(DCGM_FI_DEV_FB_USED)",
+      "available": true,
+      "samples": 13,
+      "mean": 979.0,
+      "max": 979.0,
+      "min": 979.0
+    },
+    "gpu_power_watts": {
+      "unit": "W",
+      "source": "dcgm-exporter",
+      "query": "sum(DCGM_FI_DEV_POWER_USAGE)",
+      "available": true,
+      "samples": 13,
+      "mean": 134.2023076923077,
+      "max": 142.4,
+      "min": 96.89
+    },
+    "gpu_temperature_celsius": {
+      "unit": "C",
+      "source": "dcgm-exporter",
+      "query": "max(DCGM_FI_DEV_GPU_TEMP)",
+      "available": true,
+      "samples": 13,
+      "mean": 36.15384615384615,
+      "max": 37.0,
+      "min": 33.0
+    }
+  }
+}

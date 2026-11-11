@@ -1,0 +1,40 @@
+# Prometheus runs with host networking and listens on loopback only.
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+  external_labels: {lab: gpu-workload-lab}
+
+rule_files:
+  - /etc/prometheus/rules/*.yml
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ["127.0.0.1:9093"]
+
+scrape_configs:
+  - job_name: inference            # targets written by deploy/set_targets.py per active profile
+    file_sd_configs:
+      - files: ["/etc/prometheus/targets/inference.yml"]
+        refresh_interval: 5s
+
+  - job_name: dcgm-exporter        # GPU profile only
+    file_sd_configs:
+      - files: ["/etc/prometheus/targets/dcgm.yml"]
+        refresh_interval: 5s
+
+  - job_name: node-exporter
+    static_configs:
+      - targets: ["127.0.0.1:9100"]
+
+  - job_name: lab-controller       # host recovery controller (persistent restart counters, heartbeat)
+    static_configs:
+      - targets: ["127.0.0.1:9105"]
+
+  - job_name: alertmanager
+    static_configs:
+      - targets: ["127.0.0.1:9093"]
+
+  - job_name: prometheus
+    static_configs:
+      - targets: ["127.0.0.1:9090"]

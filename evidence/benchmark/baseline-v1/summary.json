@@ -1,0 +1,3663 @@
+{
+  "experiment": "baseline-v1",
+  "experiment_id": "baseline-v1",
+  "commit": "unknown",
+  "experiment_matrix": {
+    "backends": {
+      "cpu": {
+        "url": "http://127.0.0.1:8001",
+        "expect": "cpu"
+      },
+      "gpu": {
+        "url": "http://127.0.0.1:8000",
+        "expect": "cuda"
+      }
+    },
+    "batch_sizes": [
+      1,
+      8,
+      32
+    ],
+    "concurrency": [
+      1,
+      4,
+      8
+    ],
+    "trials": 3,
+    "warmup_requests": 20,
+    "duration_s": 60,
+    "seed": 20261110
+  },
+  "expected_cells": 18,
+  "expected_runs": 54,
+  "completed_runs": 54,
+  "completed_cells": 18,
+  "sample_counts": {
+    "cpu-b1-c1": {
+      "attempts": 13800,
+      "successes": 13800
+    },
+    "cpu-b1-c4": {
+      "attempts": 13604,
+      "successes": 13604
+    },
+    "cpu-b1-c8": {
+      "attempts": 13464,
+      "successes": 13464
+    },
+    "cpu-b32-c1": {
+      "attempts": 672,
+      "successes": 672
+    },
+    "cpu-b32-c4": {
+      "attempts": 671,
+      "successes": 671
+    },
+    "cpu-b32-c8": {
+      "attempts": 672,
+      "successes": 672
+    },
+    "cpu-b8-c1": {
+      "attempts": 2964,
+      "successes": 2964
+    },
+    "cpu-b8-c4": {
+      "attempts": 2876,
+      "successes": 2876
+    },
+    "cpu-b8-c8": {
+      "attempts": 2947,
+      "successes": 2947
+    },
+    "gpu-b1-c1": {
+      "attempts": 51573,
+      "successes": 51573
+    },
+    "gpu-b1-c4": {
+      "attempts": 55450,
+      "successes": 55450
+    },
+    "gpu-b1-c8": {
+      "attempts": 59425,
+      "successes": 59425
+    },
+    "gpu-b32-c1": {
+      "attempts": 11403,
+      "successes": 11403
+    },
+    "gpu-b32-c4": {
+      "attempts": 10095,
+      "successes": 10095
+    },
+    "gpu-b32-c8": {
+      "attempts": 10021,
+      "successes": 10021
+    },
+    "gpu-b8-c1": {
+      "attempts": 32882,
+      "successes": 32882
+    },
+    "gpu-b8-c4": {
+      "attempts": 35080,
+      "successes": 35080
+    },
+    "gpu-b8-c8": {
+      "attempts": 35883,
+      "successes": 35883
+    }
+  },
+  "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')",
+  "p99_note": "p99 is weak evidence when a run has fewer than 1000 successful requests",
+  "cells": {
+    "cpu-b1-c1": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 76.65365666559494,
+        "stdev": 1.8167351589823586,
+        "cv": 0.023700567435522985,
+        "min": 74.58832289227477,
+        "max": 78.00463777039488
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 76.65365666559494,
+        "stdev": 1.8167351589823586,
+        "cv": 0.023700567435522985,
+        "min": 74.58832289227477,
+        "max": 78.00463777039488
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 11.905666666666667,
+        "stdev": 0.17884164317443854,
+        "cv": 0.015021556388367321,
+        "min": 11.704,
+        "max": 12.045
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 13.38745,
+        "stdev": 0.2874048668690233,
+        "cv": 0.021468230833282163,
+        "min": 13.196599999999995,
+        "max": 13.718
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 19.85447333333332,
+        "stdev": 0.42111752294737903,
+        "cv": 0.02121020869590997,
+        "min": 19.39471999999999,
+        "max": 20.2215
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 13800,
+      "total_successes": 13800,
+      "p99_weak_evidence": false,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 1,
+          "run_id": "cpu-b1-c1-t1",
+          "attempts": 4476,
+          "successes": 4476,
+          "outcomes": {
+            "success": 4476
+          },
+          "measure_seconds": 60.009393245971296,
+          "requests_per_s": 74.58832289227477,
+          "images_per_s": 74.58832289227477,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 11.704,
+            "p95": 13.24775,
+            "p99": 20.2215,
+            "mean": 13.368943923145665
+          },
+          "model_ms": {
+            "p50": 10.115,
+            "p95": 10.631
+          },
+          "queue_ms": {
+            "p50": 0.035,
+            "p95": 0.042
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 19,
+          "run_id": "cpu-b1-c1-t2",
+          "attempts": 4643,
+          "successes": 4643,
+          "outcomes": {
+            "success": 4643
+          },
+          "measure_seconds": 60.01188398100203,
+          "requests_per_s": 77.36800933411514,
+          "images_per_s": 77.36800933411514,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 11.968,
+            "p95": 13.196599999999995,
+            "p99": 19.39471999999999,
+            "mean": 12.88769739392634
+          },
+          "model_ms": {
+            "p50": 10.291,
+            "p95": 11.0177
+          },
+          "queue_ms": {
+            "p50": 0.036,
+            "p95": 0.047
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 50,
+          "run_id": "cpu-b1-c1-t3",
+          "attempts": 4681,
+          "successes": 4681,
+          "outcomes": {
+            "success": 4681
+          },
+          "measure_seconds": 60.00925244699465,
+          "requests_per_s": 78.00463777039488,
+          "images_per_s": 78.00463777039488,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 12.045,
+            "p95": 13.718,
+            "p99": 19.94719999999998,
+            "mean": 12.78071523178808
+          },
+          "model_ms": {
+            "p50": 10.395,
+            "p95": 11.338
+          },
+          "queue_ms": {
+            "p50": 0.036,
+            "p95": 0.052
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "cpu-b1-c4": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 75.52755399278418,
+        "stdev": 6.202429035012069,
+        "cv": 0.08212140744826242,
+        "min": 68.78917511979981,
+        "max": 80.99812715374202
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 75.52755399278418,
+        "stdev": 6.202429035012069,
+        "cv": 0.08212140744826242,
+        "min": 68.78917511979981,
+        "max": 80.99812715374202
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 47.62733333333333,
+        "stdev": 0.5805310786971997,
+        "cv": 0.01218903176111476,
+        "min": 46.957,
+        "max": 47.965
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 64.60996666666666,
+        "stdev": 3.109571188015047,
+        "cv": 0.04812835152907338,
+        "min": 61.0471,
+        "max": 66.77729999999998
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 171.30147333333298,
+        "stdev": 146.53674325595014,
+        "cv": 0.8554318909493935,
+        "min": 74.93232,
+        "max": 339.93420000000015
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 13604,
+      "total_successes": 13604,
+      "p99_weak_evidence": false,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 0,
+          "run_id": "cpu-b1-c4-t1",
+          "attempts": 4130,
+          "successes": 4130,
+          "outcomes": {
+            "success": 4130
+          },
+          "measure_seconds": 60.03851613000734,
+          "requests_per_s": 68.78917511979981,
+          "images_per_s": 68.78917511979981,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 46.957,
+            "p95": 66.77729999999998,
+            "p99": 339.93420000000015,
+            "mean": 58.07364092009686
+          },
+          "model_ms": {
+            "p50": 11.548,
+            "p95": 13.061549999999999
+          },
+          "queue_ms": {
+            "p50": 23.51,
+            "p95": 34.137399999999985
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 24,
+          "run_id": "cpu-b1-c4-t2",
+          "attempts": 4863,
+          "successes": 4863,
+          "outcomes": {
+            "success": 4863
+          },
+          "measure_seconds": 60.038425219012424,
+          "requests_per_s": 80.99812715374202,
+          "images_per_s": 80.99812715374202,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 47.96,
+            "p95": 61.0471,
+            "p99": 74.93232,
+            "mean": 49.3210551100144
+          },
+          "model_ms": {
+            "p50": 11.56,
+            "p95": 13.428399999999998
+          },
+          "queue_ms": {
+            "p50": 27.542,
+            "p95": 35.34339999999999
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 49,
+          "run_id": "cpu-b1-c4-t3",
+          "attempts": 4611,
+          "successes": 4611,
+          "outcomes": {
+            "success": 4611
+          },
+          "measure_seconds": 60.04269030998694,
+          "requests_per_s": 76.79535970481072,
+          "images_per_s": 76.79535970481072,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 47.965,
+            "p95": 66.00550000000001,
+            "p99": 99.03789999999874,
+            "mean": 52.026396226415095
+          },
+          "model_ms": {
+            "p50": 11.977,
+            "p95": 13.744499999999999
+          },
+          "queue_ms": {
+            "p50": 25.983,
+            "p95": 35.9965
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "cpu-b1-c8": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 74.69097323626897,
+        "stdev": 1.8101952742425231,
+        "cv": 0.024235797122583422,
+        "min": 73.16696654846643,
+        "max": 76.69187110455067
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 74.69097323626897,
+        "stdev": 1.8101952742425231,
+        "cv": 0.024235797122583422,
+        "min": 73.16696654846643,
+        "max": 76.69187110455067
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 96.83483333333334,
+        "stdev": 0.31700841208606584,
+        "cv": 0.003273702253349595,
+        "min": 96.51650000000001,
+        "max": 97.1505
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 120.5484333333333,
+        "stdev": 1.3098910663995738,
+        "cv": 0.010866097801350446,
+        "min": 119.55094999999993,
+        "max": 122.03185
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 457.4895666666689,
+        "stdev": 143.54023937786624,
+        "cv": 0.31375631235422463,
+        "min": 343.31355000000667,
+        "max": 618.6289000000004
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 13464,
+      "total_successes": 13464,
+      "p99_weak_evidence": false,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 10,
+          "run_id": "cpu-b1-c8-t1",
+          "attempts": 4460,
+          "successes": 4460,
+          "outcomes": {
+            "success": 4460
+          },
+          "measure_seconds": 60.09641130705131,
+          "requests_per_s": 74.2140820557898,
+          "images_per_s": 74.2140820557898,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 96.8375,
+            "p95": 122.03185,
+            "p99": 410.5262499999998,
+            "mean": 107.59873452914799
+          },
+          "model_ms": {
+            "p50": 11.915,
+            "p95": 13.538200000000002
+          },
+          "queue_ms": {
+            "p50": 74.1885,
+            "p95": 92.91150000000006
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 29,
+          "run_id": "cpu-b1-c8-t2",
+          "attempts": 4396,
+          "successes": 4396,
+          "outcomes": {
+            "success": 4396
+          },
+          "measure_seconds": 60.08175830397522,
+          "requests_per_s": 73.16696654846643,
+          "images_per_s": 73.16696654846643,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 96.51650000000001,
+            "p95": 120.0625,
+            "p99": 618.6289000000004,
+            "mean": 109.15627274795268
+          },
+          "model_ms": {
+            "p50": 11.87,
+            "p95": 13.77125
+          },
+          "queue_ms": {
+            "p50": 72.56649999999999,
+            "p95": 88.559
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 53,
+          "run_id": "cpu-b1-c8-t3",
+          "attempts": 4608,
+          "successes": 4608,
+          "outcomes": {
+            "success": 4608
+          },
+          "measure_seconds": 60.08459480298916,
+          "requests_per_s": 76.69187110455067,
+          "images_per_s": 76.69187110455067,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 97.1505,
+            "p95": 119.55094999999993,
+            "p99": 343.31355000000667,
+            "mean": 104.12176866319444
+          },
+          "model_ms": {
+            "p50": 11.894,
+            "p95": 13.642799999999996
+          },
+          "queue_ms": {
+            "p50": 74.7285,
+            "p95": 92.17635
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "cpu-b32-c1": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 119.15183922485085,
+        "stdev": 3.6107016299202424,
+        "cv": 0.030303364626260657,
+        "min": 114.98256554624946,
+        "max": 121.24230744477768
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 3.723494975776589,
+        "stdev": 0.11283442593500757,
+        "cv": 0.030303364626260657,
+        "min": 3.5932051733202957,
+        "max": 3.7888221076493025
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 255.8995,
+        "stdev": 0.986769856653534,
+        "cv": 0.00385608356660929,
+        "min": 254.93599999999998,
+        "max": 256.908
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 281.99555000000004,
+        "stdev": 4.132484720782406,
+        "cv": 0.014654432386547964,
+        "min": 277.23145,
+        "max": 284.612
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 595.285783333333,
+        "stdev": 330.1854082772831,
+        "cv": 0.5546670482006023,
+        "min": 397.74811999999963,
+        "max": 976.4666499999995
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 672,
+      "total_successes": 672,
+      "p99_weak_evidence": true,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 6,
+          "run_id": "cpu-b32-c1-t1",
+          "attempts": 228,
+          "successes": 228,
+          "outcomes": {
+            "success": 228
+          },
+          "measure_seconds": 60.177013731969055,
+          "requests_per_s": 3.7888221076493025,
+          "images_per_s": 121.24230744477768,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 255.8545,
+            "p95": 284.1432,
+            "p99": 397.74811999999963,
+            "mean": 263.8763640350877
+          },
+          "model_ms": {
+            "p50": 249.45,
+            "p95": 269.81244999999996
+          },
+          "queue_ms": {
+            "p50": 0.042,
+            "p95": 0.052649999999999975
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 23,
+          "run_id": "cpu-b32-c1-t2",
+          "attempts": 216,
+          "successes": 216,
+          "outcomes": {
+            "success": 216
+          },
+          "measure_seconds": 60.11346126400167,
+          "requests_per_s": 3.5932051733202957,
+          "images_per_s": 114.98256554624946,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 254.93599999999998,
+            "p95": 284.612,
+            "p99": 976.4666499999995,
+            "mean": 278.24507407407407
+          },
+          "model_ms": {
+            "p50": 248.15050000000002,
+            "p95": 274.5615
+          },
+          "queue_ms": {
+            "p50": 0.043,
+            "p95": 0.069
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 46,
+          "run_id": "cpu-b32-c1-t3",
+          "attempts": 228,
+          "successes": 228,
+          "outcomes": {
+            "success": 228
+          },
+          "measure_seconds": 60.18280294595752,
+          "requests_per_s": 3.788457646360168,
+          "images_per_s": 121.23064468352537,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 256.908,
+            "p95": 277.23145,
+            "p99": 411.64257999999995,
+            "mean": 263.90244736842106
+          },
+          "model_ms": {
+            "p50": 250.03,
+            "p95": 270.4477499999999
+          },
+          "queue_ms": {
+            "p50": 0.046,
+            "p95": 0.06564999999999999
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "cpu-b32-c4": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 117.42340992872322,
+        "stdev": 2.498087133882425,
+        "cv": 0.02127418319225085,
+        "min": 115.50685344347815,
+        "max": 120.24865034493624
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 3.6694815602726005,
+        "stdev": 0.07806522293382578,
+        "cv": 0.02127418319225085,
+        "min": 3.609589170108692,
+        "max": 3.7577703232792574
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 1034.606,
+        "stdev": 11.757488124595406,
+        "cv": 0.011364217996604897,
+        "min": 1025.9279999999999,
+        "max": 1047.987
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 1432.814466666666,
+        "stdev": 120.938477802076,
+        "cv": 0.08440623724537774,
+        "min": 1293.7187999999999,
+        "max": 1513.1052999999986
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 1719.0544466666668,
+        "stdev": 306.68375551137774,
+        "cv": 0.1784025841101502,
+        "min": 1365.74044,
+        "max": 1916.4921
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 671,
+      "total_successes": 671,
+      "p99_weak_evidence": true,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 3,
+          "run_id": "cpu-b32-c4-t1",
+          "attempts": 222,
+          "successes": 222,
+          "outcomes": {
+            "success": 222
+          },
+          "measure_seconds": 60.9708338509663,
+          "requests_per_s": 3.641085187429852,
+          "images_per_s": 116.51472599775526,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 1025.9279999999999,
+            "p95": 1513.1052999999986,
+            "p99": 1916.4921,
+            "mean": 1084.7571081081082
+          },
+          "model_ms": {
+            "p50": 250.027,
+            "p95": 284.2039
+          },
+          "queue_ms": {
+            "p50": 758.0835,
+            "p95": 1102.3536999999997
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 27,
+          "run_id": "cpu-b32-c4-t2",
+          "attempts": 229,
+          "successes": 229,
+          "outcomes": {
+            "success": 229
+          },
+          "measure_seconds": 60.94039291900117,
+          "requests_per_s": 3.7577703232792574,
+          "images_per_s": 120.24865034493624,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 1029.903,
+            "p95": 1293.7187999999999,
+            "p99": 1365.74044,
+            "mean": 1051.219637554585
+          },
+          "model_ms": {
+            "p50": 250.424,
+            "p95": 271.2202
+          },
+          "queue_ms": {
+            "p50": 758.667,
+            "p95": 894.8563999999997
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 44,
+          "run_id": "cpu-b32-c4-t3",
+          "attempts": 220,
+          "successes": 220,
+          "outcomes": {
+            "success": 220
+          },
+          "measure_seconds": 60.9487644250039,
+          "requests_per_s": 3.609589170108692,
+          "images_per_s": 115.50685344347815,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 1047.987,
+            "p95": 1491.6192999999998,
+            "p99": 1874.9308,
+            "mean": 1093.8633181818184
+          },
+          "model_ms": {
+            "p50": 257.526,
+            "p95": 277.36325
+          },
+          "queue_ms": {
+            "p50": 774.5540000000001,
+            "p95": 990.4514499999999
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "cpu-b32-c8": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 115.63479810656649,
+        "stdev": 2.7127079514752674,
+        "cv": 0.02345927001122357,
+        "min": 113.21124902251196,
+        "max": 118.56517434994313
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 3.613587440830203,
+        "stdev": 0.08477212348360211,
+        "cv": 0.02345927001122357,
+        "min": 3.537851531953499,
+        "max": 3.705161698435723
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 2069.613,
+        "stdev": 16.82546038003095,
+        "cv": 0.008129761641442603,
+        "min": 2056.2160000000003,
+        "max": 2088.497
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 2493.3959166666664,
+        "stdev": 144.98783180926188,
+        "cv": 0.05814874037456957,
+        "min": 2326.02935,
+        "max": 2580.6562999999996
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 3228.4368666666664,
+        "stdev": 536.908921943215,
+        "cv": 0.16630615499616966,
+        "min": 2608.50502,
+        "max": 3544.28238
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 672,
+      "total_successes": 672,
+      "p99_weak_evidence": true,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 9,
+          "run_id": "cpu-b32-c8-t1",
+          "attempts": 223,
+          "successes": 223,
+          "outcomes": {
+            "success": 223
+          },
+          "measure_seconds": 61.98319957597414,
+          "requests_per_s": 3.5977490921013864,
+          "images_per_s": 115.12797094724436,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 2064.126,
+            "p95": 2580.6562999999996,
+            "p99": 3544.28238,
+            "mean": 2159.7110403587444
+          },
+          "model_ms": {
+            "p50": 250.128,
+            "p95": 296.27309999999943
+          },
+          "queue_ms": {
+            "p50": 1789.113,
+            "p95": 2309.9076999999997
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 26,
+          "run_id": "cpu-b32-c8-t2",
+          "attempts": 230,
+          "successes": 230,
+          "outcomes": {
+            "success": 230
+          },
+          "measure_seconds": 62.075563421996776,
+          "requests_per_s": 3.705161698435723,
+          "images_per_s": 118.56517434994313,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 2056.2160000000003,
+            "p95": 2326.02935,
+            "p99": 2608.50502,
+            "mean": 2091.417795652174
+          },
+          "model_ms": {
+            "p50": 249.23649999999998,
+            "p95": 269.35729999999995
+          },
+          "queue_ms": {
+            "p50": 1786.155,
+            "p95": 2053.0463999999997
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 36,
+          "run_id": "cpu-b32-c8-t3",
+          "attempts": 219,
+          "successes": 219,
+          "outcomes": {
+            "success": 219
+          },
+          "measure_seconds": 61.90197582403198,
+          "requests_per_s": 3.537851531953499,
+          "images_per_s": 113.21124902251196,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 2088.497,
+            "p95": 2573.5020999999997,
+            "p99": 3532.5231999999987,
+            "mean": 2191.7238538812785
+          },
+          "model_ms": {
+            "p50": 253.986,
+            "p95": 273.5941
+          },
+          "queue_ms": {
+            "p50": 1815.702,
+            "p95": 2293.0646
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "cpu-b8-c1": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 131.68386619700817,
+        "stdev": 1.5803604795935196,
+        "cv": 0.012001170114713909,
+        "min": 130.6486604745181,
+        "max": 133.5029301908092
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 16.46048327462602,
+        "stdev": 0.19754505994918994,
+        "cv": 0.012001170114713909,
+        "min": 16.331082559314762,
+        "max": 16.68786627385115
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 58.24066666666667,
+        "stdev": 0.7023639251366299,
+        "cv": 0.01205968209733113,
+        "min": 57.583,
+        "max": 58.9805
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 66.85278333333333,
+        "stdev": 1.247962564876583,
+        "cv": 0.018667323971451447,
+        "min": 65.93435,
+        "max": 68.27365
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 82.01937333333338,
+        "stdev": 5.020563197534056,
+        "cv": 0.06121191851990968,
+        "min": 76.58993000000001,
+        "max": 86.4939
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 2964,
+      "total_successes": 2964,
+      "p99_weak_evidence": true,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 7,
+          "run_id": "cpu-b8-c1-t1",
+          "attempts": 1002,
+          "successes": 1002,
+          "outcomes": {
+            "success": 1002
+          },
+          "measure_seconds": 60.04362592299003,
+          "requests_per_s": 16.68786627385115,
+          "images_per_s": 133.5029301908092,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 57.583,
+            "p95": 65.93435,
+            "p99": 76.58993000000001,
+            "mean": 59.87414171656687
+          },
+          "model_ms": {
+            "p50": 54.706,
+            "p95": 63.0165
+          },
+          "queue_ms": {
+            "p50": 0.041,
+            "p95": 0.05694999999999993
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 30,
+          "run_id": "cpu-b8-c1-t2",
+          "attempts": 980,
+          "successes": 980,
+          "outcomes": {
+            "success": 980
+          },
+          "measure_seconds": 60.00826928898459,
+          "requests_per_s": 16.331082559314762,
+          "images_per_s": 130.6486604745181,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 58.9805,
+            "p95": 68.27365,
+            "p99": 82.97429000000012,
+            "mean": 61.18304897959184
+          },
+          "model_ms": {
+            "p50": 56.13,
+            "p95": 64.3674
+          },
+          "queue_ms": {
+            "p50": 0.04,
+            "p95": 0.05904999999999995
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 45,
+          "run_id": "cpu-b8-c1-t3",
+          "attempts": 982,
+          "successes": 982,
+          "outcomes": {
+            "success": 982
+          },
+          "measure_seconds": 60.01527520501986,
+          "requests_per_s": 16.362500990712153,
+          "images_per_s": 130.90000792569722,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 58.158500000000004,
+            "p95": 66.35035,
+            "p99": 86.4939,
+            "mean": 61.065851323828916
+          },
+          "model_ms": {
+            "p50": 55.271,
+            "p95": 63.28994999999999
+          },
+          "queue_ms": {
+            "p50": 0.041,
+            "p95": 0.054
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "cpu-b8-c4": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 126.84631614979924,
+        "stdev": 6.980342705510523,
+        "cv": 0.05502992059514825,
+        "min": 120.1138197932732,
+        "max": 134.05057213073758
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 15.855789518724904,
+        "stdev": 0.8725428381888154,
+        "cv": 0.05502992059514825,
+        "min": 15.01422747415915,
+        "max": 16.756321516342197
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 232.96483333333333,
+        "stdev": 3.432203750265029,
+        "cv": 0.014732711805279748,
+        "min": 230.981,
+        "max": 236.928
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 278.9506666666666,
+        "stdev": 17.119287670149557,
+        "cv": 0.06137030563402929,
+        "min": 259.3469999999999,
+        "max": 290.953
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 860.6935799999997,
+        "stdev": 543.5735241394062,
+        "cv": 0.6315528973033661,
+        "min": 456.0908399999991,
+        "max": 1478.5604
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 2876,
+      "total_successes": 2876,
+      "p99_weak_evidence": true,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 4,
+          "run_id": "cpu-b8-c4-t1",
+          "attempts": 916,
+          "successes": 916,
+          "outcomes": {
+            "success": 916
+          },
+          "measure_seconds": 61.00879992503906,
+          "requests_per_s": 15.01422747415915,
+          "images_per_s": 120.1138197932732,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 230.9855,
+            "p95": 286.552,
+            "p99": 1478.5604,
+            "mean": 264.774846069869
+          },
+          "model_ms": {
+            "p50": 56.513000000000005,
+            "p95": 64.649
+          },
+          "queue_ms": {
+            "p50": 167.39999999999998,
+            "p95": 190.84675
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 18,
+          "run_id": "cpu-b8-c4-t2",
+          "attempts": 1009,
+          "successes": 1009,
+          "outcomes": {
+            "success": 1009
+          },
+          "measure_seconds": 60.21608018298866,
+          "requests_per_s": 16.756321516342197,
+          "images_per_s": 134.05057213073758,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 230.981,
+            "p95": 259.3469999999999,
+            "p99": 456.0908399999991,
+            "mean": 237.98559663032705
+          },
+          "model_ms": {
+            "p50": 56.493,
+            "p95": 64.50619999999999
+          },
+          "queue_ms": {
+            "p50": 168.994,
+            "p95": 187.31879999999998
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 40,
+          "run_id": "cpu-b8-c4-t3",
+          "attempts": 951,
+          "successes": 951,
+          "outcomes": {
+            "success": 951
+          },
+          "measure_seconds": 60.20199167600367,
+          "requests_per_s": 15.796819565673367,
+          "images_per_s": 126.37455652538694,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 236.928,
+            "p95": 290.953,
+            "p99": 647.4295,
+            "mean": 252.41915983175602
+          },
+          "model_ms": {
+            "p50": 57.772,
+            "p95": 67.24549999999999
+          },
+          "queue_ms": {
+            "p50": 171.507,
+            "p95": 196.11700000000002
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "cpu-b8-c8": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 129.9891803369066,
+        "stdev": 1.0671272060541828,
+        "cv": 0.008209354065379882,
+        "min": 129.01616875795597,
+        "max": 131.13043556267186
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 16.248647542113325,
+        "stdev": 0.13339090075677285,
+        "cv": 0.008209354065379882,
+        "min": 16.127021094744496,
+        "max": 16.391304445333983
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 466.27400000000006,
+        "stdev": 6.673813677351213,
+        "cv": 0.01431307273695555,
+        "min": 461.959,
+        "max": 473.961
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 620.5723666666667,
+        "stdev": 10.345056713393754,
+        "cv": 0.016670185894613776,
+        "min": 610.143,
+        "max": 630.831
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 1020.0441866666666,
+        "stdev": 292.96833526481066,
+        "cv": 0.2872114160291252,
+        "min": 841.4413000000002,
+        "max": 1358.1552
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 2947,
+      "total_successes": 2947,
+      "p99_weak_evidence": true,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 16,
+          "run_id": "cpu-b8-c8-t1",
+          "attempts": 981,
+          "successes": 981,
+          "outcomes": {
+            "success": 981
+          },
+          "measure_seconds": 60.45249865000369,
+          "requests_per_s": 16.227617086261496,
+          "images_per_s": 129.82093669009197,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 461.959,
+            "p95": 630.831,
+            "p99": 1358.1552,
+            "mean": 489.6946962283384
+          },
+          "model_ms": {
+            "p50": 56.207,
+            "p95": 63.833
+          },
+          "queue_ms": {
+            "p50": 395.935,
+            "p95": 549.901
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 22,
+          "run_id": "cpu-b8-c8-t2",
+          "attempts": 991,
+          "successes": 991,
+          "outcomes": {
+            "success": 991
+          },
+          "measure_seconds": 60.45888558198931,
+          "requests_per_s": 16.391304445333983,
+          "images_per_s": 131.13043556267186,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 462.902,
+            "p95": 610.143,
+            "p99": 841.4413000000002,
+            "mean": 484.65488799192735
+          },
+          "model_ms": {
+            "p50": 56.354,
+            "p95": 64.0775
+          },
+          "queue_ms": {
+            "p50": 396.441,
+            "p95": 491.1465
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 38,
+          "run_id": "cpu-b8-c8-t3",
+          "attempts": 975,
+          "successes": 975,
+          "outcomes": {
+            "success": 975
+          },
+          "measure_seconds": 60.45753857900854,
+          "requests_per_s": 16.127021094744496,
+          "images_per_s": 129.01616875795597,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 473.961,
+            "p95": 620.7430999999999,
+            "p99": 860.5360599999999,
+            "mean": 492.73703897435894
+          },
+          "model_ms": {
+            "p50": 57.628,
+            "p95": 65.76549999999999
+          },
+          "queue_ms": {
+            "p50": 406.471,
+            "p95": 518.3999999999992
+          },
+          "p99_weak_evidence": true,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "gpu-b1-c1": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 286.5091486055319,
+        "stdev": 1.6014373730865166,
+        "cv": 0.005589480757877608,
+        "min": 285.2112540084044,
+        "max": 288.29879913937583
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 286.5091486055319,
+        "stdev": 1.6014373730865166,
+        "cv": 0.005589480757877608,
+        "min": 285.2112540084044,
+        "max": 288.29879913937583
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 3.3520000000000003,
+        "stdev": 0.017521415467935304,
+        "cv": 0.005227152585899553,
+        "min": 3.335,
+        "max": 3.37
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 3.4583333333333335,
+        "stdev": 0.05030241876225558,
+        "cv": 0.014545277714387154,
+        "min": 3.414,
+        "max": 3.513
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 7.962260000000008,
+        "stdev": 2.332315520057288,
+        "cv": 0.2929212962220884,
+        "min": 6.440209999999992,
+        "max": 10.647400000000031
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 51573,
+      "total_successes": 51573,
+      "p99_weak_evidence": false,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 17,
+          "run_id": "gpu-b1-c1-t1",
+          "attempts": 17162,
+          "successes": 17162,
+          "outcomes": {
+            "success": 17162
+          },
+          "measure_seconds": 60.00334399199346,
+          "requests_per_s": 286.01739266881543,
+          "images_per_s": 286.01739266881543,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 3.37,
+            "p95": 3.448,
+            "p99": 6.799169999999998,
+            "mean": 3.463631861088451
+          },
+          "model_ms": {
+            "p50": 1.824,
+            "p95": 1.836
+          },
+          "queue_ms": {
+            "p50": 0.031,
+            "p95": 0.038
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 28,
+          "run_id": "gpu-b1-c1-t2",
+          "attempts": 17113,
+          "successes": 17113,
+          "outcomes": {
+            "success": 17113
+          },
+          "measure_seconds": 60.00113866297761,
+          "requests_per_s": 285.2112540084044,
+          "images_per_s": 285.2112540084044,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 3.351,
+            "p95": 3.414,
+            "p99": 10.647400000000031,
+            "mean": 3.473148951089814
+          },
+          "model_ms": {
+            "p50": 1.837,
+            "p95": 1.85
+          },
+          "queue_ms": {
+            "p50": 0.031,
+            "p95": 0.037
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 52,
+          "run_id": "gpu-b1-c1-t3",
+          "attempts": 17298,
+          "successes": 17298,
+          "outcomes": {
+            "success": 17298
+          },
+          "measure_seconds": 60.000249920005444,
+          "requests_per_s": 288.29879913937583,
+          "images_per_s": 288.29879913937583,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 3.335,
+            "p95": 3.513,
+            "p99": 6.440209999999992,
+            "mean": 3.4358877904960106
+          },
+          "model_ms": {
+            "p50": 1.825,
+            "p95": 1.895
+          },
+          "queue_ms": {
+            "p50": 0.031,
+            "p95": 0.038
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "gpu-b1-c4": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 308.0115765197357,
+        "stdev": 5.686673676952311,
+        "cv": 0.018462532289230175,
+        "min": 301.49879641087614,
+        "max": 311.99324510574826
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 308.0115765197357,
+        "stdev": 5.686673676952311,
+        "cv": 0.018462532289230175,
+        "min": 301.49879641087614,
+        "max": 311.99324510574826
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 11.898666666666665,
+        "stdev": 0.025813433195399277,
+        "cv": 0.0021694391412538615,
+        "min": 11.869,
+        "max": 11.916
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 26.898799999999984,
+        "stdev": 2.0624582710930293,
+        "cv": 0.0766747316271741,
+        "min": 25.468399999999964,
+        "max": 29.262999999999998
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 44.85421999999998,
+        "stdev": 1.282442641680277,
+        "cv": 0.028591348632977624,
+        "min": 43.963559999999994,
+        "max": 46.32409999999993
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 55450,
+      "total_successes": 55450,
+      "p99_weak_evidence": false,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 13,
+          "run_id": "gpu-b1-c4-t1",
+          "attempts": 18636,
+          "successes": 18636,
+          "outcomes": {
+            "success": 18636
+          },
+          "measure_seconds": 60.011073252011556,
+          "requests_per_s": 310.54268804258265,
+          "images_per_s": 310.54268804258265,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 11.869,
+            "p95": 25.965,
+            "p99": 44.27500000000003,
+            "mean": 12.8442830543035
+          },
+          "model_ms": {
+            "p50": 1.813,
+            "p95": 1.843
+          },
+          "queue_ms": {
+            "p50": 2.164,
+            "p95": 6.325
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 20,
+          "run_id": "gpu-b1-c4-t2",
+          "attempts": 18723,
+          "successes": 18723,
+          "outcomes": {
+            "success": 18723
+          },
+          "measure_seconds": 60.01091463904595,
+          "requests_per_s": 311.99324510574826,
+          "images_per_s": 311.99324510574826,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 11.911,
+            "p95": 25.468399999999964,
+            "p99": 43.963559999999994,
+            "mean": 12.783780377076324
+          },
+          "model_ms": {
+            "p50": 1.818,
+            "p95": 1.849
+          },
+          "queue_ms": {
+            "p50": 2.162,
+            "p95": 6.337
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 37,
+          "run_id": "gpu-b1-c4-t3",
+          "attempts": 18091,
+          "successes": 18091,
+          "outcomes": {
+            "success": 18091
+          },
+          "measure_seconds": 60.003556284005754,
+          "requests_per_s": 301.49879641087614,
+          "images_per_s": 301.49879641087614,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 11.916,
+            "p95": 29.262999999999998,
+            "p99": 46.32409999999993,
+            "mean": 13.226109170305676
+          },
+          "model_ms": {
+            "p50": 1.817,
+            "p95": 1.902
+          },
+          "queue_ms": {
+            "p50": 2.157,
+            "p95": 6.355
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "gpu-b1-c8": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 330.06549899227247,
+        "stdev": 4.6788806024086345,
+        "cv": 0.014175612466900628,
+        "min": 324.7108610184113,
+        "max": 333.36556417008586
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 330.06549899227247,
+        "stdev": 4.6788806024086345,
+        "cv": 0.014175612466900628,
+        "min": 324.7108610184113,
+        "max": 333.36556417008586
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 22.883333333333336,
+        "stdev": 0.13482334120371411,
+        "cv": 0.005891770190985321,
+        "min": 22.728,
+        "max": 22.97
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 43.28405,
+        "stdev": 0.5867500170430358,
+        "cv": 0.013555802126719559,
+        "min": 42.921499999999995,
+        "max": 43.961
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 78.07892333333358,
+        "stdev": 8.117012690247103,
+        "cv": 0.10395907555735691,
+        "min": 71.41180000000001,
+        "max": 87.11757000000009
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 59425,
+      "total_successes": 59425,
+      "p99_weak_evidence": false,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 14,
+          "run_id": "gpu-b1-c8-t1",
+          "attempts": 20006,
+          "successes": 20006,
+          "outcomes": {
+            "success": 20006
+          },
+          "measure_seconds": 60.01219726999989,
+          "requests_per_s": 333.36556417008586,
+          "images_per_s": 333.36556417008586,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 22.728,
+            "p95": 43.961,
+            "p99": 71.41180000000001,
+            "mean": 23.896872088373488
+          },
+          "model_ms": {
+            "p50": 1.803,
+            "p95": 1.858
+          },
+          "queue_ms": {
+            "p50": 4.271,
+            "p95": 11.831
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 35,
+          "run_id": "gpu-b1-c8-t2",
+          "attempts": 19931,
+          "successes": 19931,
+          "outcomes": {
+            "success": 19931
+          },
+          "measure_seconds": 60.01142867602175,
+          "requests_per_s": 332.12007178832016,
+          "images_per_s": 332.12007178832016,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 22.952,
+            "p95": 42.921499999999995,
+            "p99": 75.70740000000063,
+            "mean": 24.02250107872159
+          },
+          "model_ms": {
+            "p50": 1.807,
+            "p95": 1.975
+          },
+          "queue_ms": {
+            "p50": 4.331,
+            "p95": 12.0125
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 47,
+          "run_id": "gpu-b1-c8-t3",
+          "attempts": 19488,
+          "successes": 19488,
+          "outcomes": {
+            "success": 19488
+          },
+          "measure_seconds": 60.016471081005875,
+          "requests_per_s": 324.7108610184113,
+          "images_per_s": 324.7108610184113,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 22.97,
+            "p95": 42.969649999999994,
+            "p99": 87.11757000000009,
+            "mean": 24.57628432881773
+          },
+          "model_ms": {
+            "p50": 1.806,
+            "p95": 2.0182999999999955
+          },
+          "queue_ms": {
+            "p50": 4.472,
+            "p95": 12.939599999999992
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "gpu-b32-c1": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 2026.993774935441,
+        "stdev": 44.959805496417815,
+        "cv": 0.022180534569155134,
+        "min": 1975.8006148141335,
+        "max": 2060.062260902311
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 63.34355546673253,
+        "stdev": 1.4049939217630567,
+        "cv": 0.022180534569155134,
+        "min": 61.74376921294167,
+        "max": 64.37694565319723
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 15.310333333333332,
+        "stdev": 0.35230857686598216,
+        "cv": 0.023011163061939573,
+        "min": 15.049,
+        "max": 15.711
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 16.040499999999998,
+        "stdev": 0.0877428629576213,
+        "cv": 0.005470082787794727,
+        "min": 15.9396,
+        "max": 16.0989
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 20.7602,
+        "stdev": 0.24296308114609028,
+        "cv": 0.011703311198644054,
+        "min": 20.538339999999994,
+        "max": 21.019840000000002
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 11403,
+      "total_successes": 11403,
+      "p99_weak_evidence": false,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 15,
+          "run_id": "gpu-b32-c1-t1",
+          "attempts": 3705,
+          "successes": 3705,
+          "outcomes": {
+            "success": 3705
+          },
+          "measure_seconds": 60.006054817000404,
+          "requests_per_s": 61.74376921294167,
+          "images_per_s": 1975.8006148141335,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 15.711,
+            "p95": 16.083,
+            "p99": 21.019840000000002,
+            "mean": 16.145306882591093
+          },
+          "model_ms": {
+            "p50": 7.275,
+            "p95": 7.284
+          },
+          "queue_ms": {
+            "p50": 0.033,
+            "p95": 0.05
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 25,
+          "run_id": "gpu-b32-c1-t2",
+          "attempts": 3863,
+          "successes": 3863,
+          "outcomes": {
+            "success": 3863
+          },
+          "measure_seconds": 60.00595338601852,
+          "requests_per_s": 64.37694565319723,
+          "images_per_s": 2060.062260902311,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 15.049,
+            "p95": 16.0989,
+            "p99": 20.722420000000003,
+            "mean": 15.482231685218743
+          },
+          "model_ms": {
+            "p50": 7.28,
+            "p95": 7.289
+          },
+          "queue_ms": {
+            "p50": 0.039,
+            "p95": 0.053
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 51,
+          "run_id": "gpu-b32-c1-t3",
+          "attempts": 3835,
+          "successes": 3835,
+          "outcomes": {
+            "success": 3835
+          },
+          "measure_seconds": 60.00630430702586,
+          "requests_per_s": 63.90995153405869,
+          "images_per_s": 2045.1184490898781,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 15.171,
+            "p95": 15.9396,
+            "p99": 20.538339999999994,
+            "mean": 15.595221382007823
+          },
+          "model_ms": {
+            "p50": 7.279,
+            "p95": 7.385599999999999
+          },
+          "queue_ms": {
+            "p50": 0.035,
+            "p95": 0.053
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "gpu-b32-c4": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 1793.152483383892,
+        "stdev": 41.78821284844148,
+        "cv": 0.023304327565931343,
+        "min": 1749.6900613433322,
+        "max": 1833.0363288092065
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 56.03601510574663,
+        "stdev": 1.3058816515137963,
+        "cv": 0.023304327565931343,
+        "min": 54.67781441697913,
+        "max": 57.2823852752877
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 62.19649999999999,
+        "stdev": 0.6750701815367034,
+        "cv": 0.010853829098690497,
+        "min": 61.635,
+        "max": 62.945499999999996
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 80.45461666666665,
+        "stdev": 6.52107615665028,
+        "cv": 0.08105285223926799,
+        "min": 75.29350000000001,
+        "max": 87.78349999999993
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 363.1892533333333,
+        "stdev": 43.852395960405985,
+        "cv": 0.12074254829384634,
+        "min": 327.46245,
+        "max": 412.12883999999997
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 10095,
+      "total_successes": 10095,
+      "p99_weak_evidence": false,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 12,
+          "run_id": "gpu-b32-c4-t1",
+          "attempts": 3440,
+          "successes": 3440,
+          "outcomes": {
+            "success": 3440
+          },
+          "measure_seconds": 60.05336515698582,
+          "requests_per_s": 57.2823852752877,
+          "images_per_s": 1833.0363288092065,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 62.009,
+            "p95": 75.29350000000001,
+            "p99": 349.97647000000006,
+            "mean": 69.72950552325582
+          },
+          "model_ms": {
+            "p50": 7.275,
+            "p95": 7.291
+          },
+          "queue_ms": {
+            "p50": 43.085,
+            "p95": 51.22784999999999
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 21,
+          "run_id": "gpu-b32-c4-t2",
+          "attempts": 3283,
+          "successes": 3283,
+          "outcomes": {
+            "success": 3283
+          },
+          "measure_seconds": 60.04263401904609,
+          "requests_per_s": 54.67781441697913,
+          "images_per_s": 1749.6900613433322,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 61.635,
+            "p95": 87.78349999999993,
+            "p99": 412.12883999999997,
+            "mean": 73.0551602193116
+          },
+          "model_ms": {
+            "p50": 7.278,
+            "p95": 7.29
+          },
+          "queue_ms": {
+            "p50": 42.809,
+            "p95": 54.15169999999998
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 39,
+          "run_id": "gpu-b32-c4-t3",
+          "attempts": 3372,
+          "successes": 3372,
+          "outcomes": {
+            "success": 3372
+          },
+          "measure_seconds": 60.055732548004016,
+          "requests_per_s": 56.147845624973066,
+          "images_per_s": 1796.731059999138,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 62.945499999999996,
+            "p95": 78.28685,
+            "p99": 327.46245,
+            "mean": 71.14386328588375
+          },
+          "model_ms": {
+            "p50": 7.279,
+            "p95": 7.350249999999999
+          },
+          "queue_ms": {
+            "p50": 43.526,
+            "p95": 51.13974999999999
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "gpu-b32-c8": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 1778.1120955562603,
+        "stdev": 47.12309062884704,
+        "cv": 0.026501754724358458,
+        "min": 1744.2012261108562,
+        "max": 1831.9202828289024
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 55.566002986133135,
+        "stdev": 1.47259658215147,
+        "cv": 0.026501754724358458,
+        "min": 54.506288315964255,
+        "max": 57.2475088384032
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 126.73566666666666,
+        "stdev": 1.7033347684273161,
+        "cv": 0.01344005845574108,
+        "min": 124.785,
+        "max": 127.929
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 221.43224999999998,
+        "stdev": 12.87081099571819,
+        "cv": 0.05812527757685789,
+        "min": 210.77074999999996,
+        "max": 235.73
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 610.9560366666666,
+        "stdev": 201.70351825733985,
+        "cv": 0.3301440793642373,
+        "min": 378.846,
+        "max": 743.6846099999999
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 10021,
+      "total_successes": 10021,
+      "p99_weak_evidence": false,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 2,
+          "run_id": "gpu-b32-c8-t1",
+          "attempts": 3304,
+          "successes": 3304,
+          "outcomes": {
+            "success": 3304
+          },
+          "measure_seconds": 60.13372276199516,
+          "requests_per_s": 54.944211804031966,
+          "images_per_s": 1758.214777729023,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 124.785,
+            "p95": 210.77074999999996,
+            "p99": 743.6846099999999,
+            "mean": 145.25547608958837
+          },
+          "model_ms": {
+            "p50": 7.275,
+            "p95": 7.29
+          },
+          "queue_ms": {
+            "p50": 105.454,
+            "p95": 162.49885
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 31,
+          "run_id": "gpu-b32-c8-t2",
+          "attempts": 3276,
+          "successes": 3276,
+          "outcomes": {
+            "success": 3276
+          },
+          "measure_seconds": 60.10315692401491,
+          "requests_per_s": 54.506288315964255,
+          "images_per_s": 1744.2012261108562,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 127.493,
+            "p95": 235.73,
+            "p99": 710.3375000000001,
+            "mean": 146.45280647130647
+          },
+          "model_ms": {
+            "p50": 7.282,
+            "p95": 7.395
+          },
+          "queue_ms": {
+            "p50": 107.8215,
+            "p95": 194.30725
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 48,
+          "run_id": "gpu-b32-c8-t3",
+          "attempts": 3441,
+          "successes": 3441,
+          "outcomes": {
+            "success": 3441
+          },
+          "measure_seconds": 60.10741899203276,
+          "requests_per_s": 57.2475088384032,
+          "images_per_s": 1831.9202828289024,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 127.929,
+            "p95": 217.796,
+            "p99": 378.846,
+            "mean": 139.43878174949143
+          },
+          "model_ms": {
+            "p50": 7.282,
+            "p95": 7.405
+          },
+          "queue_ms": {
+            "p50": 108.15,
+            "p95": 190.755
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "gpu-b8-c1": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 1461.3623043687223,
+        "stdev": 18.55307493230569,
+        "cv": 0.012695739363771415,
+        "min": 1445.3020769909344,
+        "max": 1481.6711969820071
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 182.6702880460903,
+        "stdev": 2.3191343665382114,
+        "cv": 0.012695739363771415,
+        "min": 180.6627596238668,
+        "max": 185.2088996227509
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 5.244,
+        "stdev": 0.12669254121691584,
+        "cv": 0.024159523496742153,
+        "min": 5.105,
+        "max": 5.353
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 5.518999999999999,
+        "stdev": 0.05150728103870352,
+        "cv": 0.009332719883802052,
+        "min": 5.468,
+        "max": 5.571
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 7.846839999999969,
+        "stdev": 0.16376183193890753,
+        "cv": 0.020869780948624947,
+        "min": 7.740239999999982,
+        "max": 8.035399999999923
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 32882,
+      "total_successes": 32882,
+      "p99_weak_evidence": false,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 11,
+          "run_id": "gpu-b8-c1-t1",
+          "attempts": 10840,
+          "successes": 10840,
+          "outcomes": {
+            "success": 10840
+          },
+          "measure_seconds": 60.00129756995011,
+          "requests_per_s": 180.6627596238668,
+          "images_per_s": 1445.3020769909344,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 5.353,
+            "p95": 5.468,
+            "p99": 7.764880000000004,
+            "mean": 5.500325553505535
+          },
+          "model_ms": {
+            "p50": 2.76,
+            "p95": 2.765
+          },
+          "queue_ms": {
+            "p50": 0.031,
+            "p95": 0.041
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 33,
+          "run_id": "gpu-b8-c1-t2",
+          "attempts": 11113,
+          "successes": 11113,
+          "outcomes": {
+            "success": 11113
+          },
+          "measure_seconds": 60.00251620000927,
+          "requests_per_s": 185.2088996227509,
+          "images_per_s": 1481.6711969820071,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 5.105,
+            "p95": 5.518,
+            "p99": 7.740239999999982,
+            "mean": 5.363792315306398
+          },
+          "model_ms": {
+            "p50": 2.761,
+            "p95": 2.8013999999999997
+          },
+          "queue_ms": {
+            "p50": 0.031,
+            "p95": 0.038
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 43,
+          "run_id": "gpu-b8-c1-t3",
+          "attempts": 10929,
+          "successes": 10929,
+          "outcomes": {
+            "success": 10929
+          },
+          "measure_seconds": 60.00355610699626,
+          "requests_per_s": 182.1392048916532,
+          "images_per_s": 1457.1136391332257,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 5.274,
+            "p95": 5.571,
+            "p99": 8.035399999999923,
+            "mean": 5.454425931009242
+          },
+          "model_ms": {
+            "p50": 2.761,
+            "p95": 2.779
+          },
+          "queue_ms": {
+            "p50": 0.031,
+            "p95": 0.04
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "gpu-b8-c4": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 1558.9582793283087,
+        "stdev": 39.009881193207214,
+        "cv": 0.025023043727645473,
+        "min": 1525.4393837506057,
+        "max": 1601.7779182167362
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 194.86978491603858,
+        "stdev": 4.876235149150902,
+        "cv": 0.025023043727645473,
+        "min": 190.6799229688257,
+        "max": 200.22223977709203
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 19.703,
+        "stdev": 0.27238024891684115,
+        "cv": 0.013824303350598444,
+        "min": 19.404,
+        "max": 19.937
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 30.29606666666666,
+        "stdev": 0.3191759128338754,
+        "cv": 0.010535226118479917,
+        "min": 29.93449999999999,
+        "max": 30.538700000000002
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 41.33222333333334,
+        "stdev": 1.563293810079648,
+        "cv": 0.03782264015831186,
+        "min": 39.95530000000001,
+        "max": 43.03160000000001
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 35080,
+      "total_successes": 35080,
+      "p99_weak_evidence": false,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 5,
+          "run_id": "gpu-b8-c4-t1",
+          "attempts": 11624,
+          "successes": 11624,
+          "outcomes": {
+            "success": 11624
+          },
+          "measure_seconds": 60.00809716898948,
+          "requests_per_s": 193.707192002198,
+          "images_per_s": 1549.657536017584,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 19.768,
+            "p95": 30.538700000000002,
+            "p99": 41.009769999999996,
+            "mean": 20.60860572952512
+          },
+          "model_ms": {
+            "p50": 2.76,
+            "p95": 2.767
+          },
+          "queue_ms": {
+            "p50": 3.685,
+            "p95": 10.86955
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 32,
+          "run_id": "gpu-b8-c4-t2",
+          "attempts": 12015,
+          "successes": 12015,
+          "outcomes": {
+            "success": 12015
+          },
+          "measure_seconds": 60.00831882300554,
+          "requests_per_s": 200.22223977709203,
+          "images_per_s": 1601.7779182167362,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 19.404,
+            "p95": 29.93449999999999,
+            "p99": 39.95530000000001,
+            "mean": 19.926420890553473
+          },
+          "model_ms": {
+            "p50": 2.76,
+            "p95": 2.843
+          },
+          "queue_ms": {
+            "p50": 3.471,
+            "p95": 10.245
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 41,
+          "run_id": "gpu-b8-c4-t3",
+          "attempts": 11441,
+          "successes": 11441,
+          "outcomes": {
+            "success": 11441
+          },
+          "measure_seconds": 60.00107311701868,
+          "requests_per_s": 190.6799229688257,
+          "images_per_s": 1525.4393837506057,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 19.937,
+            "p95": 30.415,
+            "p99": 43.03160000000001,
+            "mean": 20.917106983655273
+          },
+          "model_ms": {
+            "p50": 2.76,
+            "p95": 2.775
+          },
+          "queue_ms": {
+            "p50": 3.615,
+            "p95": 11.298
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    },
+    "gpu-b8-c8": {
+      "trials": 3,
+      "images_per_s": {
+        "n": 3,
+        "mean": 1594.049510074944,
+        "stdev": 71.19707890735485,
+        "cv": 0.044664283296952004,
+        "min": 1513.277166641057,
+        "max": 1647.6982398818177
+      },
+      "requests_per_s": {
+        "n": 3,
+        "mean": 199.256188759368,
+        "stdev": 8.899634863419356,
+        "cv": 0.044664283296952004,
+        "min": 189.15964583013212,
+        "max": 205.9622799852272
+      },
+      "p50_ms": {
+        "n": 3,
+        "mean": 37.693999999999996,
+        "stdev": 0.37019454344979175,
+        "cv": 0.00982104694247869,
+        "min": 37.272,
+        "max": 37.964
+      },
+      "p95_ms": {
+        "n": 3,
+        "mean": 55.8413,
+        "stdev": 1.9912531908323485,
+        "cv": 0.03565914817227301,
+        "min": 54.027499999999996,
+        "max": 57.972
+      },
+      "p99_ms": {
+        "n": 3,
+        "mean": 139.45418666666635,
+        "stdev": 55.04649445308703,
+        "cv": 0.3947281596117527,
+        "min": 100.29921999999927,
+        "max": 202.3938999999997
+      },
+      "success_rate": {
+        "n": 3,
+        "mean": 1.0,
+        "stdev": 0.0,
+        "cv": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "error_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "timeout_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "rejection_rate": {
+        "n": 3,
+        "mean": 0.0,
+        "stdev": 0.0,
+        "cv": null,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "total_attempts": 35883,
+      "total_successes": 35883,
+      "p99_weak_evidence": false,
+      "per_trial": [
+        {
+          "trial": 1,
+          "order_index": 8,
+          "run_id": "gpu-b8-c8-t1",
+          "attempts": 12363,
+          "successes": 12363,
+          "outcomes": {
+            "success": 12363
+          },
+          "measure_seconds": 60.025554198015016,
+          "requests_per_s": 205.9622799852272,
+          "images_per_s": 1647.6982398818177,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 37.272,
+            "p95": 54.027499999999996,
+            "p99": 100.29921999999927,
+            "mean": 38.78739076275985
+          },
+          "model_ms": {
+            "p50": 2.759,
+            "p95": 2.834
+          },
+          "queue_ms": {
+            "p50": 14.554,
+            "p95": 27.517599999999998
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 2,
+          "order_index": 34,
+          "run_id": "gpu-b8-c8-t2",
+          "attempts": 11355,
+          "successes": 11355,
+          "outcomes": {
+            "success": 11355
+          },
+          "measure_seconds": 60.02865965501405,
+          "requests_per_s": 189.15964583013212,
+          "images_per_s": 1513.277166641057,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 37.964,
+            "p95": 57.972,
+            "p99": 202.3938999999997,
+            "mean": 42.23441884632321
+          },
+          "model_ms": {
+            "p50": 2.759,
+            "p95": 2.904299999999999
+          },
+          "queue_ms": {
+            "p50": 15.022,
+            "p95": 29.9716
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        },
+        {
+          "trial": 3,
+          "order_index": 42,
+          "run_id": "gpu-b8-c8-t3",
+          "attempts": 12165,
+          "successes": 12165,
+          "outcomes": {
+            "success": 12165
+          },
+          "measure_seconds": 60.0306028869818,
+          "requests_per_s": 202.64664046274464,
+          "images_per_s": 1621.1731237019571,
+          "success_rate": 1.0,
+          "error_rate": 0.0,
+          "timeout_rate": 0.0,
+          "rejection_rate": 0.0,
+          "e2e_ms": {
+            "p50": 37.846,
+            "p95": 55.5244,
+            "p99": 115.66944000000007,
+            "mean": 39.423086313193586
+          },
+          "model_ms": {
+            "p50": 2.759,
+            "p95": 3.1753999999999687
+          },
+          "queue_ms": {
+            "p50": 15.116,
+            "p95": 29.22179999999999
+          },
+          "p99_weak_evidence": false,
+          "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+        }
+      ],
+      "telemetry_available": {
+        "host_cpu_busy_percent": true,
+        "host_mem_available_bytes": true,
+        "service_rss_bytes": true,
+        "gpu_utilization_percent": true,
+        "gpu_memory_used_mib": true,
+        "gpu_power_watts": true,
+        "gpu_temperature_celsius": true
+      }
+    }
+  },
+  "missing": [],
+  "comparisons": [
+    {
+      "batch_size": 1,
+      "concurrency": 1,
+      "images_per_s": {
+        "metric": "images_per_s (gpu vs cpu)",
+        "base": 76.65365666559494,
+        "variant": 286.5091486055319,
+        "change_pct": 273.7710124585981,
+        "verdict": "improvement"
+      },
+      "p95_ms": {
+        "metric": "p95 latency ms (gpu vs cpu)",
+        "base": 13.38745,
+        "variant": 3.4583333333333335,
+        "change_pct": -74.16734827518808,
+        "verdict": "improvement"
+      }
+    },
+    {
+      "batch_size": 1,
+      "concurrency": 4,
+      "images_per_s": {
+        "metric": "images_per_s (gpu vs cpu)",
+        "base": 75.52755399278418,
+        "variant": 308.0115765197357,
+        "change_pct": 307.8135200157055,
+        "verdict": "improvement"
+      },
+      "p95_ms": {
+        "metric": "p95 latency ms (gpu vs cpu)",
+        "base": 64.60996666666666,
+        "variant": 26.898799999999984,
+        "change_pct": -58.36741390260226,
+        "verdict": "improvement"
+      }
+    },
+    {
+      "batch_size": 1,
+      "concurrency": 8,
+      "images_per_s": {
+        "metric": "images_per_s (gpu vs cpu)",
+        "base": 74.69097323626897,
+        "variant": 330.06549899227247,
+        "change_pct": 341.9081512677316,
+        "verdict": "improvement"
+      },
+      "p95_ms": {
+        "metric": "p95 latency ms (gpu vs cpu)",
+        "base": 120.5484333333333,
+        "variant": 43.28405,
+        "change_pct": -64.09405846004358,
+        "verdict": "improvement"
+      }
+    },
+    {
+      "batch_size": 8,
+      "concurrency": 1,
+      "images_per_s": {
+        "metric": "images_per_s (gpu vs cpu)",
+        "base": 131.68386619700817,
+        "variant": 1461.3623043687223,
+        "change_pct": 1009.7504550651811,
+        "verdict": "improvement"
+      },
+      "p95_ms": {
+        "metric": "p95 latency ms (gpu vs cpu)",
+        "base": 66.85278333333333,
+        "variant": 5.518999999999999,
+        "change_pct": -91.74454716046478,
+        "verdict": "improvement"
+      }
+    },
+    {
+      "batch_size": 8,
+      "concurrency": 4,
+      "images_per_s": {
+        "metric": "images_per_s (gpu vs cpu)",
+        "base": 126.84631614979924,
+        "variant": 1558.9582793283087,
+        "change_pct": 1129.0134444955077,
+        "verdict": "improvement"
+      },
+      "p95_ms": {
+        "metric": "p95 latency ms (gpu vs cpu)",
+        "base": 278.9506666666666,
+        "variant": 30.29606666666666,
+        "change_pct": -89.13927432807712,
+        "verdict": "improvement"
+      }
+    },
+    {
+      "batch_size": 8,
+      "concurrency": 8,
+      "images_per_s": {
+        "metric": "images_per_s (gpu vs cpu)",
+        "base": 129.9891803369066,
+        "variant": 1594.049510074944,
+        "change_pct": 1126.2939930411737,
+        "verdict": "improvement"
+      },
+      "p95_ms": {
+        "metric": "p95 latency ms (gpu vs cpu)",
+        "base": 620.5723666666667,
+        "variant": 55.8413,
+        "change_pct": -91.0016457387645,
+        "verdict": "improvement"
+      }
+    },
+    {
+      "batch_size": 32,
+      "concurrency": 1,
+      "images_per_s": {
+        "metric": "images_per_s (gpu vs cpu)",
+        "base": 119.15183922485085,
+        "variant": 2026.993774935441,
+        "change_pct": 1601.1854689966733,
+        "verdict": "improvement"
+      },
+      "p95_ms": {
+        "metric": "p95 latency ms (gpu vs cpu)",
+        "base": 281.99555000000004,
+        "variant": 16.040499999999998,
+        "change_pct": -94.31178967185829,
+        "verdict": "improvement"
+      }
+    },
+    {
+      "batch_size": 32,
+      "concurrency": 4,
+      "images_per_s": {
+        "metric": "images_per_s (gpu vs cpu)",
+        "base": 117.42340992872322,
+        "variant": 1793.152483383892,
+        "change_pct": 1427.0826187660089,
+        "verdict": "improvement"
+      },
+      "p95_ms": {
+        "metric": "p95 latency ms (gpu vs cpu)",
+        "base": 1432.814466666666,
+        "variant": 80.45461666666665,
+        "change_pct": -94.38485452664096,
+        "verdict": "improvement"
+      }
+    },
+    {
+      "batch_size": 32,
+      "concurrency": 8,
+      "images_per_s": {
+        "metric": "images_per_s (gpu vs cpu)",
+        "base": 115.63479810656649,
+        "variant": 1778.1120955562603,
+        "change_pct": 1437.6963722612213,
+        "verdict": "improvement"
+      },
+      "p95_ms": {
+        "metric": "p95 latency ms (gpu vs cpu)",
+        "base": 2493.3959166666664,
+        "variant": 221.43224999999998,
+        "change_pct": -91.11925031560872,
+        "verdict": "improvement"
+      }
+    }
+  ],
+  "trial_order_file": "plan.json"
+}

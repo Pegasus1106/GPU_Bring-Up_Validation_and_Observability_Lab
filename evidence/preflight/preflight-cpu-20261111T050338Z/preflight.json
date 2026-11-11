@@ -1,0 +1,171 @@
+{
+  "run_id": "preflight-cpu-20261111T050338Z",
+  "commit": "unknown",
+  "timestamp_utc": "2026-11-11T05:03:47.059Z",
+  "configured_mode": "cpu",
+  "inventory": {
+    "host": {
+      "os": "Linux-4.18.0-553.172.1.el8_10.x86_64-x86_64-with-glibc2.28",
+      "machine": "x86_64",
+      "kernel": "4.18.0-553.172.1.el8_10.x86_64",
+      "python": "3.12.16",
+      "os_pretty": "Rocky Linux 8.10 (Green Obsidian)",
+      "cpu_logical": 128,
+      "cpu_physical": 128,
+      "ram_bytes": 540601966592,
+      "disk_free_bytes_cwd": 77238108160,
+      "cpu_model": "AMD EPYC 7713 64-Core Processor",
+      "gpus": [],
+      "gpu_query_error": "",
+      "docker_version": "n/a (native mode: no container runtime)",
+      "docker_runtimes": "n/a (native mode: no container runtime)",
+      "nvidia_ctk_version": "n/a (native mode: no container runtime)",
+      "compose_version": "n/a (native mode: no container runtime)",
+      "slurm": {
+        "SLURM_JOB_ID": "999207",
+        "SLURM_JOB_PARTITION": "public",
+        "SLURMD_NODENAME": "sc010",
+        "SLURM_CPUS_PER_TASK": "8",
+        "SLURM_MEM_PER_NODE": "32768"
+      },
+      "time_sync": {
+        "ntp_synchronized": "yes"
+      }
+    },
+    "container": {
+      "python": "3.12.16",
+      "torch": "2.11.0+cu128",
+      "torchvision": "0.26.0+cu128",
+      "cuda_runtime": "12.8",
+      "cudnn": 91900,
+      "cuda_available": false,
+      "device_count": 0,
+      "hostname": "sc010",
+      "in_container": false
+    },
+    "image": {
+      "image_ref": "native environment (no container image)",
+      "image_id": "native-env:dfaa2e2267ba4585934bafc7",
+      "env_lock_sha256": "dfaa2e2267ba4585934bafc73d559f396944df03dfd3cc54d30497026826d173",
+      "env_lock_file": "env-lock.txt",
+      "python": "/home/tuttare/.conda/envs/gpulab/bin/python",
+      "python_version": "3.12.16"
+    },
+    "tf32": {
+      "matmul": false,
+      "cudnn": false
+    }
+  },
+  "hashes": {
+    "model_weights_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+    "inputs_manifest_sha256": "29b6b9db51bce3515f297e6ddac1569d160cc5bf69253e8070dd5e749c03a6f3",
+    "preprocessing_sha256": "f5df5ebaf0b54a28eef3fd4ba6d2994c3af85a1bc1caf2c6bd5bd4b701091066",
+    "requirements_app_sha256": "8f41169bf6e7ace1c549dde7e0268834ed81792318c88c8d55f4b5a7fcaab8cb",
+    "image_id": "native-env:dfaa2e2267ba4585934bafc7"
+  },
+  "executed_in": "native-process",
+  "capabilities_file": "capabilities.json",
+  "checks": [
+    {
+      "id": "PF01",
+      "name": "hardware/software inventory recorded",
+      "status": "PASS",
+      "required": true,
+      "reason": "",
+      "evidence": {
+        "commit": "unknown",
+        "image": {
+          "image_ref": "native environment (no container image)",
+          "image_id": "native-env:dfaa2e2267ba4585934bafc7",
+          "env_lock_sha256": "dfaa2e2267ba4585934bafc73d559f396944df03dfd3cc54d30497026826d173",
+          "env_lock_file": "env-lock.txt",
+          "python": "/home/tuttare/.conda/envs/gpulab/bin/python",
+          "python_version": "3.12.16"
+        }
+      }
+    },
+    {
+      "id": "PF02",
+      "name": "GPU visible to the job and to the framework, matching identity (native; no container)",
+      "status": "SKIP",
+      "required": false,
+      "reason": "cpu profile: GPU visibility not applicable",
+      "evidence": {}
+    },
+    {
+      "id": "PF03",
+      "name": "CUDA tensor operation executed in the workload container",
+      "status": "SKIP",
+      "required": false,
+      "reason": "cpu profile: CUDA execution not applicable",
+      "evidence": {}
+    },
+    {
+      "id": "PF04",
+      "name": "model checksum, input manifest, disk space, mounted-path permissions",
+      "status": "PASS",
+      "required": true,
+      "reason": "",
+      "evidence": {
+        "checks": {
+          "model_weights": {
+            "ok": true,
+            "reason": "",
+            "sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+            "path": "/home/tuttare/P_3/manifests/weights/resnet18-f37072fd.pth"
+          },
+          "input_manifest": {
+            "ok": true,
+            "reason": "",
+            "count": 256,
+            "synthetic": true,
+            "manifest_sha256": "29b6b9db51bce3515f297e6ddac1569d160cc5bf69253e8070dd5e749c03a6f3"
+          },
+          "disk_space": {
+            "ok": true,
+            "reason": "",
+            "free_bytes": 77238108160,
+            "required_gb": 10.0
+          },
+          "manifests_readable": {
+            "ok": true,
+            "reason": ""
+          },
+          "artifacts_writable": {
+            "ok": true,
+            "reason": "",
+            "path": "/home/tuttare/P_3/artifacts"
+          }
+        }
+      }
+    },
+    {
+      "id": "PF05",
+      "name": "telemetry and diagnostic capabilities discovered (supported / unsupported / unavailable)",
+      "status": "SKIP",
+      "required": false,
+      "reason": "cpu profile: GPU capability discovery not applicable",
+      "evidence": {}
+    },
+    {
+      "id": "PF06",
+      "name": "applicable readiness diagnostics run while the GPU is idle",
+      "status": "SKIP",
+      "required": false,
+      "reason": "cpu profile: GPU diagnostics not applicable",
+      "evidence": {}
+    }
+  ],
+  "summary": {
+    "counts": {
+      "PASS": 2,
+      "FAIL": 0,
+      "SKIP": 4,
+      "ERROR": 0
+    },
+    "blocking": [],
+    "required_not_passed": [],
+    "gpu_ready": null,
+    "cpu_ready": true
+  }
+}

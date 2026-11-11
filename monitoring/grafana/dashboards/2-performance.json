@@ -1,0 +1,656 @@
+{
+  "uid": "lab-performance",
+  "title": "Lab 2 - Workload performance and resources",
+  "tags": [
+    "gpu-workload-lab"
+  ],
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": true,
+  "refresh": "5s",
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timezone": "utc",
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Throughput (images/s)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Completed images, counted from actual completed batch sizes.\n\nUnit: images per second\nSource: inference service (inference_images_total)\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Gaps mean the inference service was not scraped; no traffic yields empty latency panels (insufficient data, not 0 ms).",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "sum by (backend) (rate(inference_images_total[30s]))",
+          "legendFormat": "{{backend}}",
+          "refId": "A",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "Requests/s by outcome",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "success, error, timeout, rejected_capacity (429), invalid (422), not_ready (503).\n\nUnit: requests per second\nSource: inference service (inference_requests_total)\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Gaps mean the inference service was not scraped; no traffic yields empty latency panels (insufficient data, not 0 ms).",
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "sum by (backend, status) (rate(inference_requests_total[30s]))",
+          "legendFormat": "{{backend}} {{status}}",
+          "refId": "A",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "Server-side latency p50 / p95 / p99",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Bucket-interpolated quantiles over a 1 min window.\n\nUnit: seconds\nSource: inference service histogram (includes queueing)\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Gaps mean the inference service was not scraped; no traffic yields empty latency panels (insufficient data, not 0 ms). p99 is weak evidence below ~1000 samples. Client-side end-to-end numbers live in requests.csv.",
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "histogram_quantile(0.50, sum by (le, backend) (rate(inference_request_duration_seconds_bucket{status=\"success\"}[1m])))",
+          "legendFormat": "p50 {{backend}}",
+          "refId": "A",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "histogram_quantile(0.95, sum by (le, backend) (rate(inference_request_duration_seconds_bucket{status=\"success\"}[1m])))",
+          "legendFormat": "p95 {{backend}}",
+          "refId": "B",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "histogram_quantile(0.99, sum by (le, backend) (rate(inference_request_duration_seconds_bucket{status=\"success\"}[1m])))",
+          "legendFormat": "p99 {{backend}}",
+          "refId": "C",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "Model-only time p95 by batch size",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Model-only time p95 by batch size\n\nUnit: seconds\nSource: inference service (CUDA events on cuda, perf_counter on cpu)\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Gaps mean the inference service was not scraped; no traffic yields empty latency panels (insufficient data, not 0 ms).",
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "histogram_quantile(0.95, sum by (le, backend, batch_size) (rate(inference_model_duration_seconds_bucket[1m])))",
+          "legendFormat": "{{backend}} b={{batch_size}}",
+          "refId": "A",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "Queue depth, in-flight, capacity",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Pending work is bounded by the capacity line.\n\nUnit: requests\nSource: inference service gauges\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Gaps mean the inference service was not scraped; no traffic yields empty latency panels (insufficient data, not 0 ms).",
+      "gridPos": {
+        "x": 0,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "inference_queue_depth",
+          "legendFormat": "queue {{backend}}",
+          "refId": "A",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "inference_in_flight_requests",
+          "legendFormat": "in-flight {{backend}}",
+          "refId": "B",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "inference_queue_capacity",
+          "legendFormat": "capacity {{backend}}",
+          "refId": "C",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Error / timeout / rejection share",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Error / timeout / rejection share\n\nUnit: fraction of requests (1 min)\nSource: inference service counters\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Empty when there was no traffic in the window (division undefined). The WorkloadErrorRate alert requires >=20 requests.",
+      "gridPos": {
+        "x": 12,
+        "y": 16,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "sum by (backend) (increase(inference_requests_total{status=~\"error|timeout\"}[1m])) / sum by (backend) (increase(inference_requests_total{status=~\"success|error|timeout\"}[1m]))",
+          "legendFormat": "exec error+timeout {{backend}}",
+          "refId": "A",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "sum by (backend) (increase(inference_requests_total{status=\"rejected_capacity\"}[1m])) / sum by (backend) (increase(inference_requests_total[1m]))",
+          "legendFormat": "capacity rejected {{backend}}",
+          "refId": "B",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "GPU utilization",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "GPU utilization\n\nUnit: percent (0-100)\nSource: dcgm-exporter DCGM_FI_DEV_GPU_UTIL\nInterval: 5 s scrape / 5 s rule interval\nMissing data: If the field is unsupported on this GPU or dcgm-exporter is down the panel is empty ('unavailable'). It is never plotted as 0. See artifacts/*/capabilities.json and the TelemetryUnavailable alert.",
+      "gridPos": {
+        "x": 0,
+        "y": 24,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "DCGM_FI_DEV_GPU_UTIL",
+          "legendFormat": "GPU {{gpu}}",
+          "refId": "A",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "noValue": "unavailable",
+          "custom": {},
+          "min": 0,
+          "max": 100
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 8,
+      "type": "timeseries",
+      "title": "GPU memory (VRAM)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "GPU memory (VRAM)\n\nUnit: MiB\nSource: dcgm-exporter DCGM_FI_DEV_FB_USED / FB_FREE\nInterval: 5 s scrape / 5 s rule interval\nMissing data: If the field is unsupported on this GPU or dcgm-exporter is down the panel is empty ('unavailable'). It is never plotted as 0. See artifacts/*/capabilities.json and the TelemetryUnavailable alert.",
+      "gridPos": {
+        "x": 12,
+        "y": 24,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "DCGM_FI_DEV_FB_USED",
+          "legendFormat": "used GPU {{gpu}}",
+          "refId": "A",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "DCGM_FI_DEV_FB_FREE",
+          "legendFormat": "free GPU {{gpu}}",
+          "refId": "B",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "mebibytes",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 9,
+      "type": "timeseries",
+      "title": "GPU temperature and power",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "GPU temperature and power\n\nUnit: degrees C and watts (per series legend)\nSource: dcgm-exporter\nInterval: 5 s scrape / 5 s rule interval\nMissing data: If the field is unsupported on this GPU or dcgm-exporter is down the panel is empty ('unavailable'). It is never plotted as 0. See artifacts/*/capabilities.json and the TelemetryUnavailable alert. Many GPUs do not expose power or temperature through DCGM; absence is shown, not hidden.",
+      "gridPos": {
+        "x": 0,
+        "y": 32,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "DCGM_FI_DEV_GPU_TEMP",
+          "legendFormat": "temp C GPU {{gpu}}",
+          "refId": "A",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "DCGM_FI_DEV_POWER_USAGE",
+          "legendFormat": "power W GPU {{gpu}}",
+          "refId": "B",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 10,
+      "type": "timeseries",
+      "title": "GPU errors (XID, ECC)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "GPU errors (XID, ECC)\n\nUnit: error code / count\nSource: dcgm-exporter\nInterval: 5 s scrape / 5 s rule interval\nMissing data: If the field is unsupported on this GPU or dcgm-exporter is down the panel is empty ('unavailable'). It is never plotted as 0. See artifacts/*/capabilities.json and the TelemetryUnavailable alert. ECC fields are unsupported on many consumer GPUs; an empty panel means unsupported, not 'no errors'.",
+      "gridPos": {
+        "x": 12,
+        "y": 32,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "DCGM_FI_DEV_XID_ERRORS",
+          "legendFormat": "XID GPU {{gpu}}",
+          "refId": "A",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "DCGM_FI_DEV_ECC_DBE_VOL_TOTAL",
+          "legendFormat": "ECC DBE GPU {{gpu}}",
+          "refId": "B",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 11,
+      "type": "timeseries",
+      "title": "Host CPU busy",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Host CPU busy\n\nUnit: percent\nSource: node-exporter\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Empty if node-exporter is down.",
+      "gridPos": {
+        "x": 0,
+        "y": 40,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "100 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[30s])) * 100",
+          "legendFormat": "cpu busy",
+          "refId": "A",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "noValue": "unavailable",
+          "custom": {},
+          "min": 0,
+          "max": 100
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 12,
+      "type": "timeseries",
+      "title": "Host memory available and service RSS",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Host memory available and service RSS\n\nUnit: bytes\nSource: node-exporter; inference service process collector (Linux only)\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Service RSS is empty on non-Linux hosts.",
+      "gridPos": {
+        "x": 12,
+        "y": 40,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "node_memory_MemAvailable_bytes",
+          "legendFormat": "available RAM",
+          "refId": "A",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "process_resident_memory_bytes{job=\"inference\"}",
+          "legendFormat": "service RSS {{instance}}",
+          "refId": "B",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 13,
+      "type": "timeseries",
+      "title": "Host disk I/O and free space",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Host disk I/O and free space\n\nUnit: fraction busy / bytes\nSource: node-exporter\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Empty if node-exporter is down.",
+      "gridPos": {
+        "x": 0,
+        "y": 48,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "rate(node_disk_io_time_seconds_total[30s])",
+          "legendFormat": "io busy {{device}}",
+          "refId": "A",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "node_filesystem_avail_bytes{mountpoint=\"/\",fstype!~\"tmpfs|overlay\"}",
+          "legendFormat": "free bytes /",
+          "refId": "B",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    },
+    {
+      "id": 14,
+      "type": "timeseries",
+      "title": "Host network throughput",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Host network throughput\n\nUnit: bytes per second\nSource: node-exporter\nInterval: 5 s scrape / 5 s rule interval\nMissing data: Loopback traffic (load generator) is excluded, so local benchmarks read near 0.",
+      "gridPos": {
+        "x": 12,
+        "y": 48,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "sum(rate(node_network_receive_bytes_total{device!=\"lo\"}[30s]))",
+          "legendFormat": "rx",
+          "refId": "A",
+          "interval": "5s"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "sum(rate(node_network_transmit_bytes_total{device!=\"lo\"}[30s]))",
+          "legendFormat": "tx",
+          "refId": "B",
+          "interval": "5s"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "noValue": "unavailable",
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "options": {}
+    }
+  ],
+  "annotations": {
+    "list": []
+  },
+  "templating": {
+    "list": []
+  }
+}

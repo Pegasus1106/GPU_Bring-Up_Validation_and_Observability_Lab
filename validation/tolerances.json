@@ -1,0 +1,10 @@
+{
+  "status": "frozen",
+  "atol": 0.0001,
+  "rtol": 0.001,
+  "top1_policy": "Every top-1 disagreement must have a CPU-reference top-1 margin <= 2*(atol + rtol*|top1 logit|); any other disagreement fails.",
+  "notes": "Candidate values from the specification. Run `python -m validation.correctness --calibrate` on the target host, review, then `--freeze`. Do not loosen after seeing final-evaluation failures; investigate instead.",
+  "frozen_utc": "2026-11-11T00:32:45.633Z",
+  "frozen_commit": "unknown",
+  "calibration_ids": "img_000..img_063"
+}

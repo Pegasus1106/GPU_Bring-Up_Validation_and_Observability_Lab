@@ -1,0 +1,99 @@
+{
+  "scenario": "F04",
+  "scenario_name": "latency regression",
+  "trial": 2,
+  "run_id": "F04-t2-20261111T035727Z",
+  "commit": "unknown",
+  "profile": "gpu",
+  "fault_class": "injected_latency",
+  "expected_symptoms": "p95 > 2x frozen baseline; queue depth up but bounded; no restart",
+  "expected_alert": "LatencyRegression",
+  "action_owner": "fault harness removes the injected cause; controller restarts only if unhealthy (it is not)",
+  "evidence_dir": "artifacts/faults/F04/trial-2--20261111T035727Z",
+  "load": {
+    "batch_size": 8,
+    "concurrency": 4
+  },
+  "final_status": "RECOVERED_VALIDATED",
+  "errors": [],
+  "inject_detail": {
+    "delay_ms": 100,
+    "baseline_p95_ms": 30.29606666666666,
+    "file": "/home/tuttare/P_3/artifacts/faults/inject/gpu/delay_ms"
+  },
+  "stop_detail": {
+    "removed": "/home/tuttare/P_3/artifacts/faults/inject/gpu/delay_ms"
+  },
+  "validation": {
+    "passed": true,
+    "reason": "",
+    "n": 16,
+    "backend": "cuda",
+    "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+    "seconds": 0.1020160922780633
+  },
+  "first_observation_sources": {
+    "poll": "2026-11-11T03:57:47.521Z",
+    "loadgen": "2026-11-11T03:57:47.619Z"
+  },
+  "requests_during_fault": {
+    "attempts": 457,
+    "outcomes": {
+      "success": 457
+    },
+    "success_fraction": 1.0
+  },
+  "queue": {
+    "max_depth": 3.0,
+    "capacity": 32.0,
+    "bounded": true
+  },
+  "restart_count": {
+    "inference-gpu": {
+      "restarts_observed": 0,
+      "controller_restart_actions": 0
+    },
+    "inference-fault": {
+      "restarts_observed": 0,
+      "controller_restart_actions": 0
+    },
+    "inference-cpu": {
+      "restarts_observed": 0,
+      "controller_restart_actions": 0
+    }
+  },
+  "controller_restart_check": {
+    "workload": "inference-gpu",
+    "controller_restart_actions": 0,
+    "pass": true
+  },
+  "extra": {},
+  "controller_event_kinds": [],
+  "recovered": true,
+  "symptom_observed": true,
+  "cleanup": {
+    "ok": true,
+    "detail": ""
+  },
+  "times": {
+    "injected_utc": "2026-11-11T03:57:47.504Z",
+    "corrective_action_utc": "2026-11-11T03:58:34.625Z",
+    "first_ready_utc": "2026-11-11T03:58:34.628Z",
+    "validation_complete_utc": "2026-11-11T03:58:34.730Z",
+    "notification_received_utc": "2026-11-11T03:58:34.495Z",
+    "alert_firing_utc": "2026-11-11T03:58:29.487Z",
+    "alert_resolved_utc": "2026-11-11T03:59:14.523Z",
+    "alert_pending_utc": "2026-11-11T03:58:14.911Z",
+    "first_observation_utc": "2026-11-11T03:57:47.521Z"
+  },
+  "metrics": {
+    "fault_to_first_observation_s": 0.017,
+    "fault_to_alert_pending_s": 27.407,
+    "fault_to_alert_firing_s": 41.983,
+    "fault_to_notification_s": 46.991,
+    "fault_to_recovery_s": 47.226,
+    "correction_to_recovery_s": 0.105
+  },
+  "ac07_recovery_s": 0.105,
+  "ac07_within_60s": true
+}

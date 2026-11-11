@@ -1,0 +1,504 @@
+{
+  "run_id": "soak-cuda-20261111T020643Z",
+  "commit": "unknown",
+  "created_utc": "2026-11-11T02:36:45.080Z",
+  "start_utc": "2026-11-11T02:06:43.061Z",
+  "end_utc": "2026-11-11T02:36:43.249Z",
+  "config": {
+    "backend": "cuda",
+    "batch_size": 8,
+    "concurrency": 4,
+    "duration_s": 1800.0
+  },
+  "complete": true,
+  "aggregate": {
+    "attempts": 286497,
+    "successes": 286497,
+    "outcomes": {
+      "success": 286497
+    },
+    "measure_seconds": 1800.023411666043,
+    "requests_per_s": 159.1629298503555,
+    "images_per_s": 1273.303438802844,
+    "success_rate": 1.0,
+    "error_rate": 0.0,
+    "timeout_rate": 0.0,
+    "rejection_rate": 0.0,
+    "e2e_ms": {
+      "p50": 23.013,
+      "p95": 35.698,
+      "p99": 89.5721599999973,
+      "mean": 25.08884271039487
+    },
+    "model_ms": {
+      "p50": 2.755,
+      "p95": 2.786
+    },
+    "queue_ms": {
+      "p50": 4.655,
+      "p95": 16.152
+    },
+    "p99_weak_evidence": false,
+    "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+  },
+  "windows_60s": [
+    {
+      "window": 0,
+      "start_offset_s": 0.0,
+      "attempts": 10226,
+      "successes": 10226,
+      "images_per_s": 1363.4666666666667,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 33.9695,
+      "p50_ms": 21.366
+    },
+    {
+      "window": 1,
+      "start_offset_s": 60.0,
+      "attempts": 10099,
+      "successes": 10099,
+      "images_per_s": 1346.5333333333333,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 34.6387,
+      "p50_ms": 21.653
+    },
+    {
+      "window": 2,
+      "start_offset_s": 120.0,
+      "attempts": 9889,
+      "successes": 9889,
+      "images_per_s": 1318.5333333333333,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 34.946200000000005,
+      "p50_ms": 21.973
+    },
+    {
+      "window": 3,
+      "start_offset_s": 180.0,
+      "attempts": 10602,
+      "successes": 10602,
+      "images_per_s": 1413.6,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 33.177949999999996,
+      "p50_ms": 21.066000000000003
+    },
+    {
+      "window": 4,
+      "start_offset_s": 240.0,
+      "attempts": 10280,
+      "successes": 10280,
+      "images_per_s": 1370.6666666666667,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 34.32759999999999,
+      "p50_ms": 21.969
+    },
+    {
+      "window": 5,
+      "start_offset_s": 300.0,
+      "attempts": 11041,
+      "successes": 11041,
+      "images_per_s": 1472.1333333333334,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 32.979,
+      "p50_ms": 20.935
+    },
+    {
+      "window": 6,
+      "start_offset_s": 360.0,
+      "attempts": 10205,
+      "successes": 10205,
+      "images_per_s": 1360.6666666666667,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 34.22399999999999,
+      "p50_ms": 21.951
+    },
+    {
+      "window": 7,
+      "start_offset_s": 420.0,
+      "attempts": 10324,
+      "successes": 10324,
+      "images_per_s": 1376.5333333333333,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 33.5054,
+      "p50_ms": 21.0235
+    },
+    {
+      "window": 8,
+      "start_offset_s": 480.0,
+      "attempts": 10062,
+      "successes": 10062,
+      "images_per_s": 1341.6,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 34.149,
+      "p50_ms": 21.5
+    },
+    {
+      "window": 9,
+      "start_offset_s": 540.0,
+      "attempts": 10044,
+      "successes": 10044,
+      "images_per_s": 1339.2,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 33.63450000000002,
+      "p50_ms": 20.94
+    },
+    {
+      "window": 10,
+      "start_offset_s": 600.0,
+      "attempts": 10360,
+      "successes": 10360,
+      "images_per_s": 1381.3333333333333,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 33.849199999999996,
+      "p50_ms": 21.714
+    },
+    {
+      "window": 11,
+      "start_offset_s": 660.0,
+      "attempts": 9866,
+      "successes": 9866,
+      "images_per_s": 1315.4666666666667,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 34.6785,
+      "p50_ms": 21.221
+    },
+    {
+      "window": 12,
+      "start_offset_s": 720.0,
+      "attempts": 9269,
+      "successes": 9269,
+      "images_per_s": 1235.8666666666666,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 36.9102,
+      "p50_ms": 23.948
+    },
+    {
+      "window": 13,
+      "start_offset_s": 780.0,
+      "attempts": 9291,
+      "successes": 9291,
+      "images_per_s": 1238.8,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 36.3245,
+      "p50_ms": 24.741
+    },
+    {
+      "window": 14,
+      "start_offset_s": 840.0,
+      "attempts": 9084,
+      "successes": 9084,
+      "images_per_s": 1211.2,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 36.964,
+      "p50_ms": 24.17
+    },
+    {
+      "window": 15,
+      "start_offset_s": 900.0,
+      "attempts": 8789,
+      "successes": 8789,
+      "images_per_s": 1171.8666666666666,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 37.7276,
+      "p50_ms": 24.684
+    },
+    {
+      "window": 16,
+      "start_offset_s": 960.0,
+      "attempts": 8702,
+      "successes": 8702,
+      "images_per_s": 1160.2666666666667,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 37.25794999999998,
+      "p50_ms": 24.2295
+    },
+    {
+      "window": 17,
+      "start_offset_s": 1020.0,
+      "attempts": 8873,
+      "successes": 8873,
+      "images_per_s": 1183.0666666666666,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 36.93939999999999,
+      "p50_ms": 23.97
+    },
+    {
+      "window": 18,
+      "start_offset_s": 1080.0,
+      "attempts": 9318,
+      "successes": 9318,
+      "images_per_s": 1242.4,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 36.474599999999995,
+      "p50_ms": 24.4315
+    },
+    {
+      "window": 19,
+      "start_offset_s": 1140.0,
+      "attempts": 9809,
+      "successes": 9809,
+      "images_per_s": 1307.8666666666666,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 35.327200000000005,
+      "p50_ms": 23.742
+    },
+    {
+      "window": 20,
+      "start_offset_s": 1200.0,
+      "attempts": 9125,
+      "successes": 9125,
+      "images_per_s": 1216.6666666666667,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 36.25939999999999,
+      "p50_ms": 23.831
+    },
+    {
+      "window": 21,
+      "start_offset_s": 1260.0,
+      "attempts": 8948,
+      "successes": 8948,
+      "images_per_s": 1193.0666666666666,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 36.43909999999999,
+      "p50_ms": 24.1515
+    },
+    {
+      "window": 22,
+      "start_offset_s": 1320.0,
+      "attempts": 8102,
+      "successes": 8102,
+      "images_per_s": 1080.2666666666667,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 39.605850000000004,
+      "p50_ms": 24.333
+    },
+    {
+      "window": 23,
+      "start_offset_s": 1380.0,
+      "attempts": 9068,
+      "successes": 9068,
+      "images_per_s": 1209.0666666666666,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 36.0151,
+      "p50_ms": 24.049999999999997
+    },
+    {
+      "window": 24,
+      "start_offset_s": 1440.0,
+      "attempts": 8617,
+      "successes": 8617,
+      "images_per_s": 1148.9333333333334,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 37.8914,
+      "p50_ms": 24.656
+    },
+    {
+      "window": 25,
+      "start_offset_s": 1500.0,
+      "attempts": 9249,
+      "successes": 9249,
+      "images_per_s": 1233.2,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 36.56800000000001,
+      "p50_ms": 24.611
+    },
+    {
+      "window": 26,
+      "start_offset_s": 1560.0,
+      "attempts": 9242,
+      "successes": 9242,
+      "images_per_s": 1232.2666666666667,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 35.62495,
+      "p50_ms": 23.961
+    },
+    {
+      "window": 27,
+      "start_offset_s": 1620.0,
+      "attempts": 9436,
+      "successes": 9436,
+      "images_per_s": 1258.1333333333334,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 35.982,
+      "p50_ms": 24.0085
+    },
+    {
+      "window": 28,
+      "start_offset_s": 1680.0,
+      "attempts": 9032,
+      "successes": 9032,
+      "images_per_s": 1204.2666666666667,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 36.863099999999974,
+      "p50_ms": 24.2185
+    },
+    {
+      "window": 29,
+      "start_offset_s": 1740.0,
+      "attempts": 9545,
+      "successes": 9545,
+      "images_per_s": 1272.6666666666667,
+      "error_rate": 0.0,
+      "timeout_rate": 0.0,
+      "rejection_rate": 0.0,
+      "p95_ms": 34.5896,
+      "p50_ms": 23.564
+    }
+  ],
+  "drift": {
+    "status": "ok",
+    "images_per_s": {
+      "first_quarter": 1377.9428571428573,
+      "last_quarter": 1195.1619047619047,
+      "change_pct": -13.264770119709175
+    },
+    "p95_ms": {
+      "first_quarter": 34.03756428571428,
+      "last_quarter": 36.93577142857142,
+      "change_pct": 8.514731308413655
+    }
+  },
+  "rss_bytes": {
+    "first": 1463148544.0,
+    "last": 1483345920.0,
+    "max": 1483345920.0
+  },
+  "telemetry": {
+    "prometheus": "http://127.0.0.1:9090",
+    "window": {
+      "start": 1794362803.0610673,
+      "end": 1794364603.2496781,
+      "step_s": 15
+    },
+    "fields": {
+      "host_cpu_busy_percent": {
+        "unit": "%",
+        "source": "node-exporter",
+        "query": "100 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[15s])) * 100",
+        "available": true,
+        "samples": 120,
+        "mean": 24.6807977912145,
+        "max": 35.165517126418735,
+        "min": 18.663898061803934
+      },
+      "host_mem_available_bytes": {
+        "unit": "bytes",
+        "source": "node-exporter",
+        "query": "node_memory_MemAvailable_bytes",
+        "available": true,
+        "samples": 121,
+        "mean": 426050351814.87604,
+        "max": 434826059776.0,
+        "min": 419684024320.0
+      },
+      "service_rss_bytes": {
+        "unit": "bytes",
+        "source": "inference service",
+        "query": "process_resident_memory_bytes{job=\"inference\"}",
+        "available": true,
+        "samples": 121,
+        "mean": 1481161025.586777,
+        "max": 1483345920.0,
+        "min": 1462546432.0
+      },
+      "gpu_utilization_percent": {
+        "unit": "%",
+        "source": "dcgm-exporter",
+        "query": "avg(DCGM_FI_DEV_GPU_UTIL)",
+        "available": true,
+        "samples": 120,
+        "mean": 63.65833333333333,
+        "max": 75.0,
+        "min": 7.0
+      },
+      "gpu_memory_used_mib": {
+        "unit": "MiB",
+        "source": "dcgm-exporter",
+        "query": "sum(DCGM_FI_DEV_FB_USED)",
+        "available": true,
+        "samples": 120,
+        "mean": 637.0,
+        "max": 637.0,
+        "min": 637.0
+      },
+      "gpu_power_watts": {
+        "unit": "W",
+        "source": "dcgm-exporter",
+        "query": "sum(DCGM_FI_DEV_POWER_USAGE)",
+        "available": true,
+        "samples": 120,
+        "mean": 184.19658333333334,
+        "max": 213.97,
+        "min": 119.28
+      },
+      "gpu_temperature_celsius": {
+        "unit": "C",
+        "source": "dcgm-exporter",
+        "query": "max(DCGM_FI_DEV_GPU_TEMP)",
+        "available": true,
+        "samples": 120,
+        "mean": 46.88333333333333,
+        "max": 49.0,
+        "min": 43.0
+      }
+    }
+  }
+}

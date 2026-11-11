@@ -1,0 +1,385 @@
+{
+  "seed": 20261110,
+  "order": [
+    {
+      "backend": "cpu",
+      "batch_size": 1,
+      "concurrency": 4,
+      "trial": 1,
+      "order_index": 0
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 1,
+      "concurrency": 1,
+      "trial": 1,
+      "order_index": 1
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 32,
+      "concurrency": 8,
+      "trial": 1,
+      "order_index": 2
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 32,
+      "concurrency": 4,
+      "trial": 1,
+      "order_index": 3
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 8,
+      "concurrency": 4,
+      "trial": 1,
+      "order_index": 4
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 8,
+      "concurrency": 4,
+      "trial": 1,
+      "order_index": 5
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 32,
+      "concurrency": 1,
+      "trial": 1,
+      "order_index": 6
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 8,
+      "concurrency": 1,
+      "trial": 1,
+      "order_index": 7
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 8,
+      "concurrency": 8,
+      "trial": 1,
+      "order_index": 8
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 32,
+      "concurrency": 8,
+      "trial": 1,
+      "order_index": 9
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 1,
+      "concurrency": 8,
+      "trial": 1,
+      "order_index": 10
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 8,
+      "concurrency": 1,
+      "trial": 1,
+      "order_index": 11
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 32,
+      "concurrency": 4,
+      "trial": 1,
+      "order_index": 12
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 1,
+      "concurrency": 4,
+      "trial": 1,
+      "order_index": 13
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 1,
+      "concurrency": 8,
+      "trial": 1,
+      "order_index": 14
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 32,
+      "concurrency": 1,
+      "trial": 1,
+      "order_index": 15
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 8,
+      "concurrency": 8,
+      "trial": 1,
+      "order_index": 16
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 1,
+      "concurrency": 1,
+      "trial": 1,
+      "order_index": 17
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 8,
+      "concurrency": 4,
+      "trial": 2,
+      "order_index": 18
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 1,
+      "concurrency": 1,
+      "trial": 2,
+      "order_index": 19
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 1,
+      "concurrency": 4,
+      "trial": 2,
+      "order_index": 20
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 32,
+      "concurrency": 4,
+      "trial": 2,
+      "order_index": 21
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 8,
+      "concurrency": 8,
+      "trial": 2,
+      "order_index": 22
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 32,
+      "concurrency": 1,
+      "trial": 2,
+      "order_index": 23
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 1,
+      "concurrency": 4,
+      "trial": 2,
+      "order_index": 24
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 32,
+      "concurrency": 1,
+      "trial": 2,
+      "order_index": 25
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 32,
+      "concurrency": 8,
+      "trial": 2,
+      "order_index": 26
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 32,
+      "concurrency": 4,
+      "trial": 2,
+      "order_index": 27
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 1,
+      "concurrency": 1,
+      "trial": 2,
+      "order_index": 28
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 1,
+      "concurrency": 8,
+      "trial": 2,
+      "order_index": 29
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 8,
+      "concurrency": 1,
+      "trial": 2,
+      "order_index": 30
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 32,
+      "concurrency": 8,
+      "trial": 2,
+      "order_index": 31
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 8,
+      "concurrency": 4,
+      "trial": 2,
+      "order_index": 32
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 8,
+      "concurrency": 1,
+      "trial": 2,
+      "order_index": 33
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 8,
+      "concurrency": 8,
+      "trial": 2,
+      "order_index": 34
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 1,
+      "concurrency": 8,
+      "trial": 2,
+      "order_index": 35
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 32,
+      "concurrency": 8,
+      "trial": 3,
+      "order_index": 36
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 1,
+      "concurrency": 4,
+      "trial": 3,
+      "order_index": 37
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 8,
+      "concurrency": 8,
+      "trial": 3,
+      "order_index": 38
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 32,
+      "concurrency": 4,
+      "trial": 3,
+      "order_index": 39
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 8,
+      "concurrency": 4,
+      "trial": 3,
+      "order_index": 40
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 8,
+      "concurrency": 4,
+      "trial": 3,
+      "order_index": 41
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 8,
+      "concurrency": 8,
+      "trial": 3,
+      "order_index": 42
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 8,
+      "concurrency": 1,
+      "trial": 3,
+      "order_index": 43
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 32,
+      "concurrency": 4,
+      "trial": 3,
+      "order_index": 44
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 8,
+      "concurrency": 1,
+      "trial": 3,
+      "order_index": 45
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 32,
+      "concurrency": 1,
+      "trial": 3,
+      "order_index": 46
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 1,
+      "concurrency": 8,
+      "trial": 3,
+      "order_index": 47
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 32,
+      "concurrency": 8,
+      "trial": 3,
+      "order_index": 48
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 1,
+      "concurrency": 4,
+      "trial": 3,
+      "order_index": 49
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 1,
+      "concurrency": 1,
+      "trial": 3,
+      "order_index": 50
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 32,
+      "concurrency": 1,
+      "trial": 3,
+      "order_index": 51
+    },
+    {
+      "backend": "gpu",
+      "batch_size": 1,
+      "concurrency": 1,
+      "trial": 3,
+      "order_index": 52
+    },
+    {
+      "backend": "cpu",
+      "batch_size": 1,
+      "concurrency": 8,
+      "trial": 3,
+      "order_index": 53
+    }
+  ],
+  "commit": "unknown",
+  "created_utc": "2026-11-11T00:34:59.004Z"
+}

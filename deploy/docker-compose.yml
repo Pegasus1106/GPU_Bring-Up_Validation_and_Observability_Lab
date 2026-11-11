@@ -1,0 +1,231 @@
+# GPU Workload Lab - single-node Docker Compose deployment.
+#
+# Always use the Makefile (it passes the env files and project directory):
+#   make up-gpu | make up-cpu | make up-both | make down
+#
+# Separation of failure domains (spec):
+#   request path : inference-gpu / inference-cpu       (+ loadgen on the host)
+#   monitoring   : prometheus, alertmanager, grafana, node-exporter, dcgm-exporter, alert-receiver
+#   recovery     : ops/controller.py on the HOST (needs the Docker socket; never exposed to a container or the network)
+# Monitoring services have no profile, so they survive workload restarts and
+# `docker compose --profile gpu down` of the workload. Data lives in named volumes / ./artifacts.
+#
+# Everything binds to loopback. Prometheus/Alertmanager/Grafana/node-exporter use host
+# networking (Linux) so their listen addresses are explicitly 127.0.0.1.
+name: gpu-lab
+
+x-user: &lab-user "${LAB_UID:-1000}:${LAB_GID:-1000}"
+
+x-inference-env: &inference-env
+  LAB_HOST: "0.0.0.0"            # inside the container; the published port is loopback-only
+  LAB_PORT: "8000"
+  LAB_WORKLOAD: resnet18
+  LAB_PRECISION: fp32
+  LAB_MODEL_PATH: /opt/lab/manifests/weights/resnet18-f37072fd.pth
+  LAB_MODEL_MANIFEST: /opt/lab/manifests/model.json
+  LAB_INPUT_DIR: /opt/lab/manifests/inputs
+  LAB_INPUT_MANIFEST: /opt/lab/manifests/inputs.json
+  LAB_MAX_PENDING: "32"
+  LAB_REQUEST_DEADLINE_S: "10"
+  LAB_CPU_THREADS: "${LAB_CPU_THREADS:-0}"
+  LAB_CHANNELS_LAST: "${LAB_CHANNELS_LAST:-0}"   # controlled optimisation knob; 0 in the baseline
+  LAB_ENABLE_FAULT_INJECTION: "1"                 # lab-only: file-based delay (no network admin surface)
+  LAB_FAULT_DIR: /faults
+  HOME: /tmp                      # arbitrary --user uid has no home directory
+  TORCH_HOME: /tmp/torch
+
+x-app-build: &app-build
+  context: ..
+  dockerfile: deploy/Dockerfile
+  args:
+    BASE_IMAGE: "${BASE_IMAGE}"
+
+x-gpu-devices: &gpu-devices
+  resources:
+    reservations:
+      devices:
+        - driver: nvidia
+          count: 1
+          capabilities: [gpu]
+
+x-healthcheck: &health   # informational only: the project recovery workflow is the host controller
+  test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://127.0.0.1:8000/livez', timeout=2)"]
+  interval: 10s
+  timeout: 3s
+  retries: 3
+  start_period: 60s
+
+services:
+  # ------------------------------------------------------------------ request path
+  inference-gpu:
+    profiles: [gpu]
+    image: gpu-lab/app:${APP_TAG:-local}
+    build: *app-build
+    container_name: lab-inference-gpu
+    user: *lab-user
+    restart: "on-failure:3"        # Docker owns exited processes: at most 3 retries (F01)
+    ports: ["127.0.0.1:8000:8000"]
+    environment:
+      <<: *inference-env
+      LAB_BACKEND: cuda            # never falls back to CPU
+      LAB_LOG_FILE: /artifacts/logs/inference-gpu.jsonl
+    deploy: *gpu-devices
+    volumes:
+      - ../manifests:/opt/lab/manifests:ro
+      - ../artifacts/logs:/artifacts/logs
+      - ../artifacts/faults/inject/gpu:/faults:ro
+    healthcheck: *health
+
+  inference-cpu:
+    profiles: [cpu]
+    image: gpu-lab/app:${APP_TAG:-local}
+    build: *app-build
+    container_name: lab-inference-cpu
+    user: *lab-user
+    restart: "on-failure:3"
+    ports: ["127.0.0.1:8001:8000"]
+    environment:
+      <<: *inference-env
+      LAB_BACKEND: cpu
+      LAB_LOG_FILE: /artifacts/logs/inference-cpu.jsonl
+    volumes:
+      - ../manifests:/opt/lab/manifests:ro
+      - ../artifacts/logs:/artifacts/logs
+      - ../artifacts/faults/inject/cpu:/faults:ro
+    healthcheck: *health
+
+  # Separate fault case for F03 (missing weights) and F05 (GPU inaccessible).
+  # No GPU device reservation on purpose; faults/overrides/gpu-device.yml adds it for the F05 correction.
+  inference-fault:
+    profiles: [fault]
+    image: gpu-lab/app:${APP_TAG:-local}
+    build: *app-build
+    container_name: lab-inference-fault
+    user: *lab-user
+    restart: "no"
+    ports: ["127.0.0.1:8010:8000"]
+    environment:
+      <<: *inference-env
+      LAB_BACKEND: "${FAULT_BACKEND:-cpu}"
+      LAB_MODEL_PATH: "${FAULT_MODEL_PATH:-/opt/lab/manifests/weights/resnet18-f37072fd.pth}"
+      LAB_LOG_FILE: /artifacts/logs/inference-fault.jsonl
+    volumes:
+      - ../manifests:/opt/lab/manifests:ro
+      - ../artifacts/logs:/artifacts/logs
+      - ../artifacts/faults/inject/fault:/faults:ro
+
+  # One-shot tools (preflight inside the container, validation, reference generation).
+  tools-gpu:
+    profiles: [tools-gpu]
+    image: gpu-lab/app:${APP_TAG:-local}
+    build: *app-build
+    user: *lab-user
+    environment:
+      <<: *inference-env
+      LAB_BACKEND: cuda
+    deploy: *gpu-devices
+    volumes: &tool-volumes
+      - ../manifests:/opt/lab/manifests
+      - ../artifacts:/opt/lab/artifacts
+      - ../validation/tolerances.json:/opt/lab/validation/tolerances.json
+    working_dir: /opt/lab
+
+  tools-cpu:
+    profiles: [tools-cpu]
+    image: gpu-lab/app:${APP_TAG:-local}
+    build: *app-build
+    user: *lab-user
+    environment:
+      <<: *inference-env
+      LAB_BACKEND: cpu
+    volumes: *tool-volumes
+    working_dir: /opt/lab
+
+  # ------------------------------------------------------------------ monitoring path (no profile: always on)
+  prometheus:
+    image: ${PROMETHEUS_IMAGE}
+    container_name: lab-prometheus
+    network_mode: host
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=30d
+      - --web.listen-address=127.0.0.1:9090
+      - --web.enable-lifecycle
+    volumes:
+      - ../monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ../monitoring/rules:/etc/prometheus/rules:ro
+      - ../monitoring/targets:/etc/prometheus/targets:ro
+      - prometheus-data:/prometheus
+
+  alertmanager:
+    image: ${ALERTMANAGER_IMAGE}
+    container_name: lab-alertmanager
+    network_mode: host
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+      - --storage.path=/alertmanager
+      - --web.listen-address=127.0.0.1:9093
+      - --cluster.listen-address=      # single node: no gossip port
+    volumes:
+      - ../monitoring/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager-data:/alertmanager
+
+  alert-receiver:
+    image: gpu-lab/app:${APP_TAG:-local}
+    build: *app-build
+    container_name: lab-alert-receiver
+    network_mode: host
+    user: *lab-user
+    restart: unless-stopped
+    command: ["python", "-m", "ops.alert_receiver", "--addr", "127.0.0.1", "--port", "9094", "--out", "/artifacts/alerts/alerts.jsonl"]
+    volumes:
+      - ../artifacts/alerts:/artifacts/alerts
+
+  grafana:
+    image: ${GRAFANA_IMAGE}
+    container_name: lab-grafana
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      GF_SERVER_HTTP_ADDR: 127.0.0.1
+      GF_SERVER_HTTP_PORT: "3000"
+      GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_ADMIN_PASSWORD:?run `make init-env` to create .env}"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+    volumes:
+      - ../monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ../monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+
+  node-exporter:
+    image: ${NODE_EXPORTER_IMAGE}
+    container_name: lab-node-exporter
+    network_mode: host
+    pid: host
+    restart: unless-stopped
+    command:
+      - --path.rootfs=/host
+      - --web.listen-address=127.0.0.1:9100
+    volumes:
+      - /:/host:ro,rslave
+
+  dcgm-exporter:
+    profiles: [gpu]
+    image: ${DCGM_EXPORTER_IMAGE}
+    container_name: lab-dcgm-exporter
+    restart: unless-stopped
+    cap_add: [SYS_ADMIN]
+    ports: ["127.0.0.1:9400:9400"]
+    command: ["-f", "/etc/dcgm-exporter/counters.csv", "-c", "5000"]   # collect every 5 s
+    deploy: *gpu-devices
+    volumes:
+      - ../monitoring/dcgm/counters.csv:/etc/dcgm-exporter/counters.csv:ro
+
+volumes:
+  prometheus-data:
+  alertmanager-data:
+  grafana-data:

@@ -1,0 +1,12 @@
+# native deploy log 2026-11-11T00:34:58.594Z
+commit: unknown
+host: sg021
+slurm: job=977121 partition=public gpus=2
+python: /home/tuttare/.conda/envs/gpulab/bin/python
+env-lock-sha256: dfaa2e2267ba4585934bafc73d559f396944df03dfd3cc54d30497026826d173
+tools: {"prometheus": "/home/tuttare/P_3/.tools/linux-amd64/prometheus", "alertmanager": "/home/tuttare/P_3/.tools/linux-amd64/alertmanager", "node_exporter": "/home/tuttare/P_3/.tools/linux-amd64/node_exporter", "grafana": "None"}
+tool-versions: {"prometheus": "3.16.0", "alertmanager": "0.28.1", "node_exporter": "1.9.1", "grafana": "11.6.0"}
+profiles: ['gpu', 'cpu']
+ports: {"gpu": 8000, "cpu": 8001, "fault": 8010, "prometheus": 9090, "alertmanager": 9093, "receiver": 9094, "node_exporter": 33623, "controller": 9105, "gpu_exporter": 58659, "grafana": 3000}
+gpu: GPU 0: NVIDIA A100-SXM4-80GB (UUID: GPU-6b419034-6a17-774d-dfcd-6e0ef98903ff)
+result: ready

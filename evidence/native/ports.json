@@ -1,0 +1,12 @@
+{
+  "gpu": 8000,
+  "cpu": 8001,
+  "fault": 8010,
+  "prometheus": 9090,
+  "alertmanager": 9093,
+  "receiver": 9094,
+  "node_exporter": 43055,
+  "controller": 9105,
+  "gpu_exporter": 52373,
+  "grafana": 3000
+}

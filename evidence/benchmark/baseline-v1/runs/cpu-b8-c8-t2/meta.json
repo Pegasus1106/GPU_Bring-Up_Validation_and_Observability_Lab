@@ -1,0 +1,87 @@
+{
+  "run_id": "cpu-b8-c8-t2",
+  "cell": "cpu-b8-c8",
+  "backend": "cpu",
+  "batch_size": 8,
+  "concurrency": 8,
+  "trial": 2,
+  "order_index": 22,
+  "start_utc": "2026-11-11T00:59:42.048Z",
+  "end_utc": "2026-11-11T01:00:43.329Z",
+  "controls": {
+    "loadavg_1_5_15": [
+      9.78,
+      10.54,
+      10.13
+    ],
+    "platform": "Linux-4.18.0-553.172.1.el8_10.x86_64-x86_64-with-glibc2.28",
+    "cpu_count_logical": 48,
+    "mem_total_bytes": 540626964480,
+    "mem_available_bytes": 508494356480,
+    "cpu_percent_1s": 2.6
+  },
+  "service_info": {
+    "ready": true,
+    "state": "ready",
+    "startup_s": 34.93175586499274,
+    "model": "resnet18",
+    "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+    "weights_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+    "backend": "cpu",
+    "precision": "fp32",
+    "input_count": 256,
+    "inputs_synthetic": true,
+    "channels_last": false,
+    "torch_version": "2.11.0+cu128",
+    "tf32_matmul": false,
+    "tf32_cudnn": false,
+    "cpu_threads": 8
+  },
+  "load_config": {
+    "batch_size": 8,
+    "concurrency": 8,
+    "warmup_requests": 20,
+    "duration_s": 60,
+    "client_timeout_s": 12.0
+  },
+  "loadgen_placement": "same host, separate process (loopback)",
+  "aggregate": {
+    "attempts": 991,
+    "successes": 991,
+    "outcomes": {
+      "success": 991
+    },
+    "measure_seconds": 60.45888558198931,
+    "requests_per_s": 16.391304445333983,
+    "images_per_s": 131.13043556267186,
+    "success_rate": 1.0,
+    "error_rate": 0.0,
+    "timeout_rate": 0.0,
+    "rejection_rate": 0.0,
+    "e2e_ms": {
+      "p50": 462.902,
+      "p95": 610.143,
+      "p99": 841.4413000000002,
+      "mean": 484.65488799192735
+    },
+    "model_ms": {
+      "p50": 56.354,
+      "p95": 64.0775
+    },
+    "queue_ms": {
+      "p50": 396.441,
+      "p95": 491.1465
+    },
+    "p99_weak_evidence": true,
+    "percentile_method": "linear interpolation between closest ranks (numpy.percentile, method='linear')"
+  },
+  "telemetry_available": {
+    "host_cpu_busy_percent": true,
+    "host_mem_available_bytes": true,
+    "service_rss_bytes": true,
+    "gpu_utilization_percent": true,
+    "gpu_memory_used_mib": true,
+    "gpu_power_watts": true,
+    "gpu_temperature_celsius": true
+  }
+}

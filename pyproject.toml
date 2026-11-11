@@ -1,0 +1,14 @@
+[project]
+name = "gpu-workload-lab"
+version = "1.0.0"
+description = "GPU workload bring-up, validation and observability lab (single node)"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+markers = [
+    "gpu: requires a real NVIDIA GPU and CUDA (hardware acceptance evidence)",
+    "integration: requires a running container stack",
+]
+addopts = "-q"

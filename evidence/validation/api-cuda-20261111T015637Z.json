@@ -1,0 +1,78 @@
+{
+  "run_id": "api-cuda-20261111T015637Z",
+  "created_utc": "2026-11-11T01:56:37.074Z",
+  "commit": "unknown",
+  "url": "http://127.0.0.1:8000",
+  "expect_backend": "cuda",
+  "contract_checks": [
+    {
+      "id": "A01",
+      "name": "GET /livez is 200",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A02",
+      "name": "GET /readyz is 200",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A03",
+      "name": "valid request returns real backend, model version, request id",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A04",
+      "name": "unknown id -> 422",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A05",
+      "name": "path-traversal id -> 422",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A06",
+      "name": "empty list -> 422",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A07",
+      "name": "33 ids -> 422",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A08",
+      "name": "malformed body -> 422",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A09",
+      "name": "batch and individual top-1 agree",
+      "status": "PASS",
+      "reason": ""
+    },
+    {
+      "id": "A10",
+      "name": "metrics expose no request/run id labels",
+      "status": "PASS",
+      "reason": ""
+    }
+  ],
+  "quick_validate": {
+    "passed": true,
+    "reason": "",
+    "n": 16,
+    "backend": "cuda",
+    "model_version": "resnet18-IMAGENET1K_V1-f37072fd47e8",
+    "seconds": 0.04495680844411254
+  },
+  "passed": true
+}
